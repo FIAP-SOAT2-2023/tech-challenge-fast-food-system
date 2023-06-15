@@ -1,6 +1,6 @@
 
 const { DataTypes } = require('sequelize');
-const sequelize = require('./database/connection');
+const sequelize = require('../database/connection');
 
 // Definindo o modelo para a tabela "Usuário"
 const User = sequelize.define('User', {
