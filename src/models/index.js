@@ -1,8 +1,8 @@
 // index.js
 const sequelize = require('../database/connection');
-const Basket = require('./basketModel');
-const Item = require('./basketModel');
-const Product = require('./productModel');
+const Basket = require('./basketsModel');
+const Item = require('./itensModel');
+const Product = require('./productsModel');
 
 // Relacionamento entre as models
 Basket.hasMany(Item, { as: 'items', onDelete: 'cascade' });
