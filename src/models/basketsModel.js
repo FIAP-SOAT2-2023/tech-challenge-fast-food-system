@@ -1,33 +1,30 @@
-// Basket.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('./database/connection');
+import Sequelize from 'sequelize';
+import db from '../database/connection.js'
 
-const Basket = sequelize.define('Basket', {
+export default db.define("Basket", {
   basketId: {
-    type: DataTypes.UUID,
+    type: Sequelize.UUID,
     primaryKey: true,
     allowNull: false,
   },
   qrCode: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   NSU: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   status: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   paidAt: {
-    type: DataTypes.DATE,
+    type: Sequelize.DATE,
     allowNull: true,
   },
   totalPrice: {
-    type: DataTypes.FLOAT,
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
 });
-
-module.exports = Basket;

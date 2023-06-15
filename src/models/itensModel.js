@@ -1,20 +1,17 @@
-// Item.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('./database/connection');
+import Sequelize from 'sequelize';
+import db from '../database/connection.js'
 
-const Item = sequelize.define('Item', {
+export default db.define("Item", {
   quantity: {
-    type: DataTypes.INTEGER,
+    type: Sequelize.INTEGER,
     allowNull: false,
   },
   unitPrice: {
-    type: DataTypes.FLOAT,
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
   observations: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
 });
-
-module.exports = Item;

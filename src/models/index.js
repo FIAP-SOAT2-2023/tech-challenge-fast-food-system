@@ -1,5 +1,5 @@
 // index.js
-const sequelize = require('./database/connection');
+const sequelize = require('../database/connection');
 const Basket = require('./basketModel');
 const Item = require('./basketModel');
 const Product = require('./productModel');
