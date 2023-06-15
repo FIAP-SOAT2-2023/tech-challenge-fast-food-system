@@ -1,28 +1,30 @@
-// Product.js
-const { DataTypes } = require('sequelize');
-const sequelize = require('./database/connection');
+import Sequelize from 'sequelize';
+import db from '../database/connection.js'
 
-const Product = sequelize.define('Product', {
+export default db.define("Product", {
+  id: {
+    type: Sequelize.UUID,
+    defaultValue: Sequelize.UUIDV4,
+    primaryKey: true
+  },
   name: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: false,
   },
   description: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   image: {
-    type: DataTypes.STRING,
+    type: Sequelize.STRING,
     allowNull: true,
   },
   unitPrice: {
-    type: DataTypes.FLOAT,
+    type: Sequelize.FLOAT,
     allowNull: false,
   },
   category: {
-    type: DataTypes.STRING,
+    type: Sequelize.ENUM('Lanche', 'Acompanhamento', 'Bebida', 'Sobremesa'),
     allowNull: true,
   },
 });
-
-module.exports = Product;
