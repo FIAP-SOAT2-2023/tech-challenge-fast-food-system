@@ -1,6 +1,6 @@
 import express, { Request, Response } from 'express';
 import sequelize from './src/infra/database/connection';
-import mysqlConfig from './src/infra/config/mysqlConfig';
+import './src/infra/config/mysqlConfig';
 import swaggerConfig from './src/infra/docs/swagger';
 import swaggerUiExpress from "swagger-ui-express";
 
