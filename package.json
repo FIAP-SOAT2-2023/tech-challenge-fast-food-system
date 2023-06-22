@@ -4,7 +4,8 @@
     "description": "Descrição do projeto",
     "main": "index.js",
     "scripts": {
-        "start": "ts-node program.ts"
+        "start": "NODE_ENV=local ts-node program.ts",
+        "dev": "ts-node -r dotenv/config program.ts dotenv_config_path=.env.local"
     },
     "keywords": [],
     "author": "",
@@ -19,9 +20,19 @@
         "@types/qs": "6.9.7",
         "@types/range-parser": "1.2.4",
         "@types/serve-static": "1.15.1",
-        "express": "^4.18.2"
+        "body-parser": "^1.18.3",
+        "dotenv": "^16.1.4",
+        "express": "^4.18.2",
+        "mysql": "^2.18.1",
+        "mysql2": "^3.3.3",
+        "mysql8": "^2.17.3",
+        "sequelize": "^6.32.0",
+        "swagger-jsdoc": "^6.2.8",
+        "swagger-ui-express": "^4.6.3"
     },
     "devDependencies": {
+        "@types/swagger-jsdoc": "^6.0.1",
+        "@types/swagger-ui-express": "^4.1.3",
         "ts-node": "^10.9.1"
     },
     "engines": {
