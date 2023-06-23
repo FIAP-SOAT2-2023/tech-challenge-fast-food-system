@@ -1,13 +1,13 @@
-import { DataTypes, Model, Sequelize } from "sequelize";
+import { DataTypes, Model, Sequelize, Validator } from "sequelize";
 import db from "../database/connection";
 
 interface ProductAttributes {
-  uuid: string;
+  uuid?: string;
   name: string;
   description: string | null;
   image: string | null;
   unitPrice: number;
-  category: "Lanche" | "Acompanhamento" | "Bebida" | "Sobremesa" | null;
+  category: string;
 }
 
 class Product extends Model<ProductAttributes> implements ProductAttributes {
@@ -16,7 +16,7 @@ class Product extends Model<ProductAttributes> implements ProductAttributes {
   public description!: string | null;
   public image!: string | null;
   public unitPrice!: number;
-  public category!: "Lanche" | "Acompanhamento" | "Bebida" | "Sobremesa" | null;
+  public category!: string;
 }
 
 Product.init(
@@ -42,8 +42,14 @@ Product.init(
       allowNull: false,
     },
     category: {
-      type: DataTypes.ENUM("Lanche", "Acompanhamento", "Bebida", "Sobremesa"),
+      type: DataTypes.STRING,
       allowNull: true,
+      validate: {
+        isIn: {
+          args: [["Lanche", "Acompanhamento", "Bebida", "Sobremesa"]],
+          msg: "Categoria inválida",
+        },
+      },
     },
   },
   {

@@ -1,8 +1,8 @@
 // index.js
 import sequelize from '../database/connection';
 import basketsModel from './basketsModel';
-import itensModel from './itensModel';
-import productsModel from './productsModel';
+import itensModel from './itemModel';
+import productsModel from './productModel';
 
 // Relacionamento entre as models
 basketsModel.hasMany(itensModel, { as: 'items', onDelete: 'cascade' });
