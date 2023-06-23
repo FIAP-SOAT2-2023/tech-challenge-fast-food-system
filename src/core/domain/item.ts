@@ -1,4 +1,4 @@
-export interface Itens {
+export interface Item {
   quantity: number;
   unitPrice: Number;
   observations: string;
