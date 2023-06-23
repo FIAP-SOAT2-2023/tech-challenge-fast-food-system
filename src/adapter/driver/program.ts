@@ -1,10 +1,20 @@
 import express from "express";
-import { UserController } from "./userController";
+//import { UserController } from "./customerController";
+import { CustomerService } from "../../core/applications/services/customerService";
+import { CustomerController } from "./customerController";
+import { CustomerRepository } from "../driven/infra/customerRepository";
 
-const userRepository = new InMemoryUserRepository();
-const userService = new UserService(userRepository);
-const userController = new UserController(userService);
+//const userService = new CustomerService(userRepository);
+//const userController = new UserController(userService);
+
+const customerRepository = new CustomerRepository();
+
+const customerService = new CustomerService(customerRepository);
+const customerController = new CustomerController(customerService);
 
 const app = express();
-app.get('/users/:id', userController.getUserById.bind(userController));
-app.listen(3000, () => console.log('Server is listening on port 3000'));
+//customerController.addCustomer.bind(customerController)
+app.post("/add", (req, resp) => {
+  customerController.addCustomer(req, resp);
+});
+app.listen(3000, () => console.log("Server is listening on port 3000"));
