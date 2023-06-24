@@ -8,6 +8,9 @@ import { CustomerController } from "./src/adapter/driver/customerController";
 import { ProductRepository } from "./src/adapter/driven/infra/productRepository";
 import { ProductService } from "./src/core/applications/services/productService";
 import { ProductController } from "./src/adapter/driver/productController";
+import { AddressRepository } from "./src/adapter/driven/infra/addressRepository";
+import { AddressService } from "./src/core/applications/services/addressService";
+import { AddressController } from "./src/adapter/driver/addressController";
 
 const app = express();
 
@@ -19,16 +22,25 @@ const customerRepository = new CustomerRepository();
 const customerService = new CustomerService(customerRepository);
 const customerController = new CustomerController(customerService);
 
+const addressRepository = new AddressRepository();
+const addressService = new AddressService(addressRepository);
+const addressController = new AddressController(addressService);
+
 const productRepository = new ProductRepository();
 const productService = new ProductService(productRepository);
 const productController = new ProductController(productService);
 
-// Rotas do Consumer
+// Customers routes
 app.post("/consumers", (req, resp) => {
   customerController.addCustomer(req, resp);
 });
 
-// Rotas do Produto
+// Address routes
+app.post("/address", (req, resp) => {
+  addressController.addAddress(req, resp);
+});
+
+// Product routes
 app.post("/products", (req, resp) => {
   productController.addProduct(req, resp);
 });

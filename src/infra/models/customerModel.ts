@@ -2,7 +2,7 @@ import { DataTypes, Model, Sequelize } from "sequelize";
 import db from "../database/connection";
 
 interface CustomerAttributes {
-  uuid: string;
+  uuid?: string;
   firstName: string;
   lastName: string | null;
   document: string;
