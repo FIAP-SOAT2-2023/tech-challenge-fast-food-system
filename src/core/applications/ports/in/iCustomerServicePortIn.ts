@@ -3,5 +3,5 @@ import { Customer } from "../../../domain/customer";
 
 export interface ICustomerServicePortIn {
   addCustomer(body: Customer): Promise<CustomerModel>;
-  getCustomerById(id: string): Promise<CustomerModel>;
+  getCustomerByDocument(document: string): Promise<CustomerModel>;
 }

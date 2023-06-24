@@ -10,21 +10,21 @@ import { ProductService } from "./src/core/applications/services/productService"
 import { ProductController } from "./src/adapter/driver/productController";
 import { AddressRepository } from "./src/adapter/driven/infra/addressRepository";
 import { AddressService } from "./src/core/applications/services/addressService";
-import { AddressController } from "./src/adapter/driver/addressController";
 
 const app = express();
 
 app.use(express.json());
 
 sequelize.sync();
+const addressRepository = new AddressRepository();
+const addressService = new AddressService(addressRepository);
 
 const customerRepository = new CustomerRepository();
 const customerService = new CustomerService(customerRepository);
-const customerController = new CustomerController(customerService);
-
-const addressRepository = new AddressRepository();
-const addressService = new AddressService(addressRepository);
-const addressController = new AddressController(addressService);
+const customerController = new CustomerController(
+  customerService,
+  addressService
+);
 
 const productRepository = new ProductRepository();
 const productService = new ProductService(productRepository);
@@ -35,9 +35,8 @@ app.post("/consumers", (req, resp) => {
   customerController.addCustomer(req, resp);
 });
 
-// Address routes
-app.post("/address", (req, resp) => {
-  addressController.addAddress(req, resp);
+app.get("/consumers/:document", (req, resp) => {
+  customerController.getCustomerByDocument(req, resp);
 });
 
 // Product routes

@@ -1,11 +1,10 @@
 import { injectable } from "tsyringe";
 import ProductModel from "../../../infra/models/productModel";
 import { IProductRepository } from "../../../core/applications/ports/out/productRepository";
-import { Product } from "../../../core/domain/product";
+import { Product } from "../../../core/domain/Product";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
-
   async addProduct(body: Product): Promise<ProductModel> {
     const result = await ProductModel.create({
       name: body.name,
@@ -14,7 +13,7 @@ export class ProductRepository implements IProductRepository {
       unitPrice: body.unitPrice,
       category: body.category,
     });
-  
+
     return result;
   }
 
@@ -35,7 +34,6 @@ export class ProductRepository implements IProductRepository {
 
     return product!;
   }
-
 
   async getAllProduct(filters: Record<string, any>): Promise<ProductModel[]> {
     const { category } = filters;
@@ -69,21 +67,19 @@ export class ProductRepository implements IProductRepository {
       },
       {
         where: { uuid: id },
-      },
+      }
     );
 
     if (rowsUpdated !== 1) {
       throw new Error("Produto não encontrado");
     }
 
-    const updatedProduct = await ProductModel.findOne(
-      {
-        where: { uuid: id }, attributes: {
-          exclude: ["id"],
-        },
+    const updatedProduct = await ProductModel.findOne({
+      where: { uuid: id },
+      attributes: {
+        exclude: ["id"],
       },
-
-    );
+    });
 
     if (!updatedProduct) {
       throw new Error("Erro ao recuperar o produto atualizado");

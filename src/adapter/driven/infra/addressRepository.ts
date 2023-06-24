@@ -7,7 +7,7 @@ import AddressModel from "../../../infra/models/addressModel";
 export class AddressRepository implements IAddressRepository {
   async addAddress(body: Address): Promise<AddressModel> {
     const result = await AddressModel.create({
-      ...body
+      ...body,
     });
     return result;
   }

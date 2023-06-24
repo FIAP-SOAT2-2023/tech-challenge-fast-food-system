@@ -5,19 +5,24 @@ import CustomerModel from "../../../infra/models/customerModel";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {
-  getCustomerById(id: string): Promise<CustomerModel> {
-    throw new Error("Method not implemented.");
+  async getCustomerByDocument(document: string): Promise<CustomerModel> {
+    const customer = await CustomerModel.findOne({
+      where: {
+        document: document,
+      },
+    });
+
+    if (!customer) {
+      throw new Error("Cliente não encontrado");
+    }
+
+    return customer!;
   }
   async addCustomer(body: Customer): Promise<CustomerModel> {
-    // 1 - Mapear modelo CustomerModel com o Address
-    // 2 - Cria o usuario, recupera o id e cria o endereco com o id do customers
-    const result = await CustomerModel.create({
-      firstName: body.firstName,
-      lastName: body.lastName,
-      document: body.document,
-      cellphone: body.cellphone,
-      email: body.email,
+    let result = await CustomerModel.create({
+      ...body,
     });
+
     return result;
   }
 }
