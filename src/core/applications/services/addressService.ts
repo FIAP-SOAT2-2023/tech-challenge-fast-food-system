@@ -1,8 +1,8 @@
+import { IAddressServicePortIn } from 'core/applications/ports/in/iAddressServicePortIn';
+import { IAddressRepository } from 'core/applications/ports/out/addressRepository';
 import { injectable, inject } from "tsyringe";
-import { Address } from "../../domain/address";
-import AddressModel from "../../../infra/models/addressModel";
-import { IAddressRepository } from "../ports/out/addressRepository";
-import { IAddressServicePortIn } from "../ports/in/iAddressServicePortIn";
+import { Address } from 'core/domain/address';
+import AddressModel from "infra/models/addressModel";
 
 @injectable()
 export class AddressService implements IAddressServicePortIn {

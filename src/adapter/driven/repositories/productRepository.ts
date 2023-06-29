@@ -1,7 +1,7 @@
-import { injectable } from "tsyringe";
-import ProductModel from "../../../infra/models/productModel";
-import { IProductRepository } from "../../../core/applications/ports/out/productRepository";
-import { Product } from "../../../core/domain/Product";
+import { injectable } from 'tsyringe';
+import ProductModel from 'infra/models/productModel';
+import { IProductRepository } from 'core/applications/ports/out/productRepository';
+import { Product } from 'core/domain/product';
 
 @injectable()
 export class ProductRepository implements IProductRepository {
@@ -11,7 +11,7 @@ export class ProductRepository implements IProductRepository {
       description: body.description,
       image: body.image,
       unitPrice: body.unitPrice,
-      category: body.category,
+      category: body.category
     });
 
     return result;
@@ -20,23 +20,23 @@ export class ProductRepository implements IProductRepository {
   async getProductById(id: string): Promise<ProductModel> {
     const product = await ProductModel.findOne({
       where: {
-        uuid: id,
+        uuid: id
       },
       attributes: {
-        exclude: ["id"],
-      },
+        exclude: ['id']
+      }
     });
 
     // TODO Ajustar retorno para produto não encontrado no banco de dados - status code 404
     if (!product) {
-      throw new Error("Produto não encontrado");
+      throw new Error('Produto não encontrado');
     }
 
     return product!;
   }
 
   async getAllProduct(filters: Record<string, any>): Promise<ProductModel[]> {
-    const { category } = filters;
+    const {category} = filters;
 
     const whereOptions: any = {};
 
@@ -47,15 +47,15 @@ export class ProductRepository implements IProductRepository {
     const products = await ProductModel.findAll({
       where: whereOptions,
       attributes: {
-        exclude: ["id"],
-      },
+        exclude: ['id']
+      }
     });
 
     return products;
   }
 
   async putProductById(id: string, body: Product): Promise<ProductModel> {
-    const { name, description, image, unitPrice, category } = body;
+    const {name, description, image, unitPrice, category} = body;
 
     const [rowsUpdated] = await ProductModel.update(
       {
@@ -63,26 +63,26 @@ export class ProductRepository implements IProductRepository {
         description,
         image,
         unitPrice,
-        category,
+        category
       },
       {
-        where: { uuid: id },
+        where: {uuid: id}
       }
     );
 
     if (rowsUpdated !== 1) {
-      throw new Error("Produto não encontrado");
+      throw new Error('Produto não encontrado');
     }
 
     const updatedProduct = await ProductModel.findOne({
-      where: { uuid: id },
+      where: {uuid: id},
       attributes: {
-        exclude: ["id"],
-      },
+        exclude: ['id']
+      }
     });
 
     if (!updatedProduct) {
-      throw new Error("Erro ao recuperar o produto atualizado");
+      throw new Error('Erro ao recuperar o produto atualizado');
     }
 
     return updatedProduct;
@@ -90,7 +90,7 @@ export class ProductRepository implements IProductRepository {
 
   async deleteProductById(id: string): Promise<void> {
     const rowsDeleted = await ProductModel.destroy({
-      where: { uuid: id },
+      where: {uuid: id}
     });
   }
 }
