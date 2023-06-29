@@ -5,6 +5,7 @@ import AddressModel from "../../../infra/models/addressModel";
 
 @injectable()
 export class AddressRepository implements IAddressRepository {
+  
   async addAddress(body: Address): Promise<AddressModel> {
     const result = await AddressModel.create({
       ...body,

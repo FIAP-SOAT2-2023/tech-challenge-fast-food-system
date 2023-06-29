@@ -7,8 +7,10 @@ services:
     env_file:
       - .env
     environment:
-      - MYSQL_ROOT_PASSWORD=${DB_PASS}
-      - MYSQL_DATABASE=${DB_NAME}
+      - MYSQL_ROOT_PASSWORD=@SOAT47fastfood
+      - MYSQL_DATABASE=fastfood-db
+      - MYSQL_USER=adminfastfood
+      - MYSQL_PASSWORD=@SOAT47fastfood
     ports:
       - 3306:3306
     volumes:
@@ -21,8 +23,8 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=${DB_HOST}
-      - DB_USER=${DB_USER}
-      - DB_PASSWORD=${DB_PASS}
-      - DB_NAME=${DB_NAME}
-      - DB_PORT=${DB_PORT}
+      - DB_HOST=mysqldb
+      - DB_USER=adminfastfood
+      - DB_PASSWORD=@SOAT47fastfood
+      - DB_NAME=fastfood-db
+      - DB_PORT=3306

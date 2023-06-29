@@ -1,8 +1,11 @@
+import { Customer } from "./customer";
+import { Item } from "./item";
+
 export interface Basket {
-  id: string;
-  qrCode: string;
-  NSU: string;
-  status: string;
-  paidAt: Date;
-  totalPrice: number;
+    customer?: Customer;
+    totalPrice?: number;
+    isTakeOut?: boolean;
+    createdAt?: Date;
+    items?: Item[];
+    uuid?: string
 }

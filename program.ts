@@ -1,7 +1,6 @@
 import "reflect-metadata";
 import express from "express";
 import sequelize from "./src/infra/database/connection";
-import "./src/infra/config/mysqlConfig";
 import { CustomerService } from "./src/core/applications/services/customerService";
 import { CustomerRepository } from "./src/adapter/driven/infra/customerRepository";
 import { CustomerController } from "./src/adapter/driver/customerController";
@@ -16,6 +15,13 @@ const app = express();
 app.use(express.json());
 
 sequelize.sync();
+
+// Models
+import "./src/infra/config/mysqlConfig";
+import { BasketRepository } from "./src/adapter/driven/infra/BasketRepository";
+import { BasketService } from "./src/core/applications/services/BasketService";
+import { BasketController } from "./src/adapter/driver/basketController";
+
 const addressRepository = new AddressRepository();
 const addressService = new AddressService(addressRepository);
 
@@ -29,6 +35,10 @@ const customerController = new CustomerController(
 const productRepository = new ProductRepository();
 const productService = new ProductService(productRepository);
 const productController = new ProductController(productService);
+
+const basketRepository: BasketRepository = new BasketRepository()
+const basketService = new BasketService(basketRepository);
+const basketController = new BasketController(basketService);
 
 // Customers routes
 app.post("/consumers", (req, resp) => {
@@ -55,5 +65,7 @@ app.put("/products/:id", (req, resp) => {
 app.delete("/products/:id", (req, resp) => {
   productController.deleteProductById(req, resp);
 });
+
+app.post("/checkout", (req, resp) => basketController.create(req, resp))
 
 app.listen(3000, () => console.log("Server is listening on port 3000"));

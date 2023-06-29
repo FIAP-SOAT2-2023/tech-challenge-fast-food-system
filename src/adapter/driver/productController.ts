@@ -1,4 +1,5 @@
 import express, { Request, Response } from "express";
+
 import { ProductService } from "../../core/applications/services/productService";
 import { Product } from "../../core/domain/product";
 

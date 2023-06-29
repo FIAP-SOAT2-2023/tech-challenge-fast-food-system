@@ -5,7 +5,7 @@
     "main": "index.js",
     "scripts": {
         "start": "nodemon dotenv/config program.ts dotenv_config_path=.env",
-        "dev": "ts-node -r dotenv/config program.ts dotenv_config_path=.env"
+        "dev": "nodemon ts-node -r dotenv/config program.ts dotenv_config_path=.env.local"
     },
     "keywords": [],
     "author": "",
