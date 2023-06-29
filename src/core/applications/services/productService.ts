@@ -1,8 +1,8 @@
 import { injectable, inject } from "tsyringe";
-import { Product } from "../../domain/product";
 import { IProductRepository } from "../ports/out/productRepository";
 import { IProductServicePortIn } from "../ports/in/iProductServicePortIn";
 import ProductModel from "../../../infra/models/productModel";
+import { Product } from "../../domain/product";
 
 @injectable()
 export class ProductService implements IProductServicePortIn {
