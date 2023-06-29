@@ -1,7 +1,7 @@
 import { IProductServicePortIn } from 'core/applications/ports/in/iProductServicePortIn';
 import { IProductRepository } from 'core/applications/ports/out/productRepository';
 import { injectable, inject } from "tsyringe";
-import { Product } from 'core/domain/product';
+import { Product } from "core/domain/product";
 import ProductModel from "infra/models/productModel";
 
 @injectable()
