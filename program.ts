@@ -1,14 +1,16 @@
 import "reflect-metadata";
+import { CustomerService } from 'core/applications/services/customerService';
 import express from "express";
-import sequelize from "./src/infra/database/connection";
-import { CustomerService } from "./src/core/applications/services/customerService";
-import { CustomerRepository } from "./src/adapter/driven/infra/customerRepository";
-import { CustomerController } from "./src/adapter/driver/customerController";
-import { ProductRepository } from "./src/adapter/driven/infra/productRepository";
-import { ProductService } from "./src/core/applications/services/productService";
-import { ProductController } from "./src/adapter/driver/productController";
-import { AddressRepository } from "./src/adapter/driven/infra/addressRepository";
-import { AddressService } from "./src/core/applications/services/addressService";
+import sequelize from "infra/database/connection";
+import "infra/config/mysqlConfig";
+
+import { CustomerRepository } from 'adapter/driven/repositories/customerRepository';
+import { CustomerController } from 'adapter/driver/customerController';
+import { ProductRepository } from 'adapter/driven/repositories/productRepository';
+import { ProductService } from 'core/applications/services/productService';
+import { ProductController } from 'adapter/driver/productController';
+import { AddressRepository } from 'adapter/driven/repositories/addressRepository';
+import { AddressService } from 'core/applications/services/addressService';
 
 const app = express();
 
@@ -18,19 +20,16 @@ sequelize.sync();
 
 // Models
 import "./src/infra/config/mysqlConfig";
-import { BasketRepository } from "./src/adapter/driven/infra/BasketRepository";
-import { BasketService } from "./src/core/applications/services/BasketService";
-import { BasketController } from "./src/adapter/driver/basketController";
+import { BasketRepository } from "adapter/driven/BasketRepository";
+import { BasketService } from "core/applications/services/BasketService";
+import { BasketController } from "adapter/driver/basketController";
 
 const addressRepository = new AddressRepository();
 const addressService = new AddressService(addressRepository);
 
 const customerRepository = new CustomerRepository();
 const customerService = new CustomerService(customerRepository);
-const customerController = new CustomerController(
-  customerService,
-  addressService
-);
+const customerController = new CustomerController(customerService,addressService);
 
 const productRepository = new ProductRepository();
 const productService = new ProductService(productRepository);
@@ -41,29 +40,29 @@ const basketService = new BasketService(basketRepository);
 const basketController = new BasketController(basketService);
 
 // Customers routes
-app.post("/consumers", (req, resp) => {
-  customerController.addCustomer(req, resp);
+app.post("/consumers", async (req, resp) => {
+  await customerController.addCustomer(req, resp);
 });
 
-app.get("/consumers/:document", (req, resp) => {
-  customerController.getCustomerByDocument(req, resp);
+app.get("/consumers/:document", async (req, resp) => {
+  await customerController.getCustomerByDocument(req, resp);
 });
 
 // Product routes
-app.post("/products", (req, resp) => {
-  productController.addProduct(req, resp);
+app.post("/products", async (req, resp) => {
+  await productController.addProduct(req, resp);
 });
-app.get("/products/:id", (req, resp) => {
-  productController.getProductById(req, resp);
+app.get("/products/:id", async (req, resp) => {
+  await productController.getProductById(req, resp);
 });
-app.get("/products", (req, resp) => {
-  productController.getAllProduct(req, resp);
+app.get("/products", async (req, resp) => {
+  await productController.getAllProduct(req, resp);
 });
-app.put("/products/:id", (req, resp) => {
-  productController.putProductById(req, resp);
+app.put("/products/:id", async (req, resp) => {
+  await productController.putProductById(req, resp);
 });
-app.delete("/products/:id", (req, resp) => {
-  productController.deleteProductById(req, resp);
+app.delete("/products/:id", async (req, resp) => {
+  await productController.deleteProductById(req, resp);
 });
 
 app.post("/checkout", (req, resp) => basketController.create(req, resp))

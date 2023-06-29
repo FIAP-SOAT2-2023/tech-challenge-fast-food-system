@@ -1,7 +1,7 @@
-import { injectable } from "tsyringe";
-import { ICustomerRepository } from "../../../core/applications/ports/out/customerRepository";
-import { Customer } from "../../../core/domain/customer";
-import CustomerModel from "../../../infra/models/customerModel";
+import CustomerModel from 'infra/models/customerModel';
+import { injectable } from 'tsyringe';
+import { ICustomerRepository } from 'core/applications/ports/out/customerRepository';
+import { Customer } from 'core/domain/customer';
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {

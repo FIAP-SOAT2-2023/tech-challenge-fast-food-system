@@ -1,8 +1,8 @@
 import express, { Request, Response } from "express";
-import { Customer } from "../../core/domain/customer";
-import { CustomerService } from "../../core/applications/services/customerService";
-import { Address } from "../../core/domain/address";
-import { AddressService } from "../../core/applications/services/addressService";
+import { Customer } from 'core/domain/customer';
+import { CustomerService } from 'core/applications/services/customerService';
+import { Address } from 'core/domain/address';
+import { AddressService } from 'core/applications/services/addressService';
 
 export class CustomerController {
   constructor(

@@ -1,4 +1,4 @@
-import { Address } from "./address";
+import { Address } from 'core/domain/address';
 
 export interface Customer {
   id: string;
