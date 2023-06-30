@@ -1,7 +1,8 @@
 import CustomerModel from './customerModel';
 import db from "../database/connection";
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, Association, DataTypes, UUIDV4, UUID } from 'sequelize';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, Association, DataTypes, UUIDV4, UUID, HasManyGetAssociationsMixin, HasManyAddAssociationsMixin, HasManyAddAssociationMixin, ForeignKey } from 'sequelize';
 import { Item } from '../../core/domain/item';
+import ItemModel from './itemModel';
 
 
 class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttributes<BasketModel>>{
@@ -11,18 +12,36 @@ class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttri
   declare isTakeOut: CreationOptional<boolean>
   declare totalPrice: CreationOptional<number>
 
-  declare customer: NonAttribute<CustomerModel>
-  //declare items: NonAttribute<Item[]>
+
+  declare customerId?: ForeignKey<CustomerModel['uuid']>
+
+  declare customer?: NonAttribute<CustomerModel>
+
+  declare items: NonAttribute<Item[]>
 
   declare public static associations: { 
-    customer: Association<BasketModel, CustomerModel>,
+    //customerId: Association<BasketModel, CustomerModel>,
     //items: Association<BasketModel, Item>
+    customer: Association<BasketModel, CustomerModel>
   };
+
+  declare getItems: HasManyGetAssociationsMixin<ItemModel>
+  declare addItems: HasManyAddAssociationsMixin<ItemModel, number>
+
+  declare addItem: HasManyAddAssociationMixin<ItemModel, 'basketId'>
+
+
+  declare addCustomer: HasManyAddAssociationMixin<CustomerModel, number>
+
+
+  //declare getCustomer: HasManyGetAssociationsMixin
 
   
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 }
+
+
 
 BasketModel.init(
   {
@@ -53,44 +72,16 @@ BasketModel.init(
   modelName: "Basket",
 })
 
-//Bas
-
-
-/*
-interface BasketAttributes {
-  uuid?: string;
-  customer: CustomerModel,
-  isTakeOut: boolean,
-  totalPrice: number
-}
-
-class BasketModel extends Model<BasketAttributes> implements BasketAttributes {
-  public uuid?: string | undefined;
-  public customer!: CustomerModel;
-  public isTakeOut!: boolean;
-  public totalPrice!: number;
-
-}
-
-BasketModel.init(
-  {
-  uuid: {
-    type: Sequelize.UUID,
-    primaryKey: true,
-    allowNull: false,
-  },
-  customer: {
-    type: CustomerModel,
-    allowNull: false,
-  }
-  totalPrice: {
-    type: Sequelize.FLOAT,
-    allowNull: false,
-  },
-},
-{
-  sequelize: db,
-  modelName: "Customer",
+BasketModel.hasMany(ItemModel, {
+  sourceKey: 'id',
+  foreignKey: 'basketId',
+  as: 'items'
 })
-*/
+
+CustomerModel.hasMany(BasketModel, {
+  sourceKey: 'id',
+  foreignKey: 'customerId',
+  as: 'customer'
+})
+
 export default BasketModel;

@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
 import { Basket } from "../../domain/basket";
 import { IBasketServicePortIn } from "../ports/in/IBasketServicePortIn";
-import { BasketRepository } from "../../../adapter/driven/infra/BasketRepository";
+import { BasketRepository } from "adapter/driven/repositories/BasketRepository";
 
 @injectable()
 export class BasketService implements IBasketServicePortIn {

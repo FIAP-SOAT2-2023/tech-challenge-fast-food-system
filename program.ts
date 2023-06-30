@@ -20,9 +20,11 @@ sequelize.sync();
 
 // Models
 import "./src/infra/config/mysqlConfig";
-import { BasketRepository } from "adapter/driven/BasketRepository";
+
+import { BasketRepository } from "adapter/driven/repositories/BasketRepository";
 import { BasketService } from "core/applications/services/BasketService";
 import { BasketController } from "adapter/driver/basketController";
+
 
 const addressRepository = new AddressRepository();
 const addressService = new AddressService(addressRepository);
@@ -35,9 +37,11 @@ const productRepository = new ProductRepository();
 const productService = new ProductService(productRepository);
 const productController = new ProductController(productService);
 
+
 const basketRepository: BasketRepository = new BasketRepository()
 const basketService = new BasketService(basketRepository);
 const basketController = new BasketController(basketService);
+/**/
 
 // Customers routes
 app.post("/consumers", async (req, resp) => {

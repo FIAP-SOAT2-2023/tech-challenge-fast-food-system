@@ -11,7 +11,7 @@ export class BasketController {
         let basket: Basket = {
             ...req.body
         };
-
+        
         this.basketService
         .createBasket(basket)
         .then((basketCreated) => res.status(200).json(basketCreated))

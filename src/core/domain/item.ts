@@ -1,5 +1,5 @@
 export interface Item {
   quantity: number;
-  unitPrice: Number;
+  unitPrice: number;
   observations: string;
 }
