@@ -5,7 +5,7 @@ const swaggerConfig = {
             name: 'Products',
         },
         {
-            name: 'Users',
+            name: 'Customers',
         },
     ],
     paths: {
@@ -170,16 +170,16 @@ const swaggerConfig = {
                 },
             },
         },
-        '/users': {
+        '/customers': {
             post: {
-                summary: 'Cria um novo usuário',
-                tags: ['Users'],
+                summary: 'Cria um novo cliente',
+                tags: ['Customers'],
                 requestBody: {
                     required: true,
                     content: {
                         'application/json': {
                             schema: {
-                                $ref: '#/components/schemas/User',
+                                $ref: '#/components/schemas/Customer',
                             },
                         },
                     },
@@ -190,10 +190,45 @@ const swaggerConfig = {
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: '#/components/schemas/User',
+                                    $ref: '#/components/schemas/Customer',
                                 },
                             },
                         },
+                    },
+                    500: {
+                        description: 'Erro interno do servidor',
+                    },
+                },
+            },
+        },
+        '/customers/{document}': {
+            get: {
+                summary: 'Retorna um cliente pelo Documento',
+                tags: ['Customers'],
+                parameters: [
+                    {
+                        in: 'path',
+                        name: 'document',
+                        required: true,
+                        schema: {
+                            type: 'string',
+                        },
+                        description: 'Documento do cliente a ser recuperado',
+                    },
+                ],
+                responses: {
+                    200: {
+                        description: 'cliente retornado com sucesso',
+                        content: {
+                            'application/json': {
+                                schema: {
+                                    $ref: '#/components/schemas/Customer',
+                                },
+                            },
+                        },
+                    },
+                    404: {
+                        description: 'cliente não encontrado',
                     },
                     500: {
                         description: 'Erro interno do servidor',
@@ -207,10 +242,6 @@ const swaggerConfig = {
             Product: {
                 type: 'object',
                 properties: {
-                    id: {
-                        type: 'string',
-                        format: 'uuid',
-                    },
                     name: {
                         type: 'string',
                     },
@@ -229,22 +260,28 @@ const swaggerConfig = {
                         enum: ['Lanche', 'Acompanhamento', 'Bebida', 'Sobremesa'],
                     },
                 },
-                required: ['name', 'unitPrice'],
+                required: ['name', 'description', 'image', 'unitPrice', 'category'],
             },
-            User: {
+            Customer: {
                 type: 'object',
                 properties: {
-                    name: {
+                    firstName: {
                         type: 'string',
                     },
-                    cpf: {
+                    lastName: {
+                        type: 'string',
+                    },
+                    document: {
                         type: 'string',
                     },
                     email: {
                         type: 'string',
                     },
+                    cellphone: {
+                        type: 'string',
+                    },
                 },
-                required: ['name', 'cpf', 'email'],
+                required: ['firstName', 'lastName', 'document', 'email', 'cellphone'],
             },
         }
     },
