@@ -51,7 +51,7 @@ PaymentModel.init({
         type: DataTypes.STRING,
         allowNull: true
       },
-      paidAt: { type: DataTypes.DATE, defaultValue: Date.now()},
+      paidAt: { type: DataTypes.DATE},
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
 },

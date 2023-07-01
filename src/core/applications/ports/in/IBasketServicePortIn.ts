@@ -1,6 +1,7 @@
+import { Payment } from "core/domain/payment";
 import { Basket } from "../../../domain/basket";
 
 export interface IBasketServicePortIn {
-    createBasket(basket: Basket): Promise<Basket>;
+    createBasket(customerId: string, basket: Basket, paymentNew: Payment): Promise<Basket>;
   }
   

@@ -4,51 +4,37 @@ import { Basket } from "../../../core/domain/basket";
 import BasketModel from "../../../infra/models/basketsModel";
 import {v4 as uuidv4} from 'uuid';
 import Product from "infra/models/productModel";
-import PaymentModel from "infra/models/paymentModel";
-import { Payment } from "core/domain/payment";
 import CustomerModel from "infra/models/customerModel";
+import { where } from "sequelize";
 
 export class BasketRepository implements IBasketRepository {
     
-    addBasket(body: Basket): Promise<Basket> {
+    createBasket(basketNew: Basket): Promise<Basket> {
       
         return  new Promise<Basket>( async (resolve, reject ) =>  {
 
+            const {customer, isTakeOut, totalPrice } = basketNew;
 
-            const customer = await CustomerModel.findOne({
+            const customerModel = await CustomerModel.findOne({
                 where: {
-                    uuid: body.customerId
-                }
-            })
+                  uuid: customer?.uuid,
+                },
+              });
 
-            if (customer == null) {
-
-                reject(new Error("Usuario não cadastrado"))
-
-                return
-            }
-
-            const {customerId, ...basketValuePending} = body;
-
-             // Payment
-
-             let paymentCreated: PaymentModel = await PaymentModel.create(body.payment);
-
-
+    
             // BASKET
-            let basketModel = await BasketModel.create({
-                ...basketValuePending,
+            let basketCreated = await BasketModel.create({
+                isTakeOut, totalPrice,
                 uuid: uuidv4(),
-                customerId: customer.id,
-                paymentId: paymentCreated.id
+                customerId: customerModel?.id
             })
 
-           // basketModel.addCustomer(customer)
+        
 
             // ITEMS
-            const { items } = body
+            const { items } = basketNew
 
-            body.items?.forEach(async (itemRequest) => {
+            items?.forEach(async (itemRequest) => {
 
               
                 const product = await Product.findOne({
@@ -66,30 +52,20 @@ export class BasketRepository implements IBasketRepository {
 
                 let itemModel = await ItemModel.create({...itemRequest, productId: product.id});
 
-                basketModel.addItem(itemModel)
+                basketCreated.addItem(itemModel)
               
             })
 
+            const {id, ...basketValues } = basketCreated.dataValues
 
-           
-
-          //  basketModel.createPayment(paymentCreated);
-
-
-            const {id, ...basketValues } = basketModel.dataValues
-
-            const {id:idPayment, createdAt, updatedAt, ...paymentValues} =  paymentCreated.dataValues
+            const {id:idPayment, createdAt, updatedAt, ...paymentValues} =  basketCreated.dataValues
 
             let basketResult: Basket = {
                 ...basketValues,
-                customerId: body.customerId,
-                items,
-                payment: {
-                   ...paymentValues
-                    
+                items
                 }
                 
-            }
+            
 
 
             resolve(basketResult)
