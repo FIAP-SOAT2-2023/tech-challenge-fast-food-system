@@ -27,4 +27,8 @@ export class CustomerMap {
     }
     return partialCustomer;
   }
+
+  static ConvertSimple(customer?: CustomerModel): Partial<Customer> {
+    return this.Convert("", customer)
+  }
 }

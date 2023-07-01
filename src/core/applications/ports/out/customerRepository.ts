@@ -4,7 +4,7 @@ import { Customer } from "core/domain/customer";
 export interface ICustomerRepository {
   getCustomerByDocument(document: string): Promise<Customer>;
 
-  addCustomer(body: Customer): Promise<CustomerModel>;
+  addCustomer(body: Customer): Promise<Customer>;
 
   findByUUID(customerId: string): Promise<Customer>
 }

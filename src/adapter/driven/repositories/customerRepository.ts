@@ -26,15 +26,17 @@ export class CustomerRepository implements ICustomerRepository {
 
     return partialCustomer as Customer;
   }
-  async addCustomer(body: Customer): Promise<CustomerModel> {
+
+  async addCustomer(body: Customer): Promise<Customer> {
     if (!isValidCPF(body.document)) {
       throw new Error("Documento inválido!");
     }
-    let result = await CustomerModel.create({
+    let customer = await CustomerModel.create({
       ...body,
     });
 
-    return result;
+    return CustomerMap.ConvertSimple(customer) as Customer;
+
   }
 
   async findByUUID(customerId: string): Promise<Customer> {

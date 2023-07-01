@@ -11,7 +11,7 @@ export class CustomerService implements ICustomerServicePortIn {
     return this.customerRepository.getCustomerByDocument(document);
   }
 
-  addCustomer(body: Customer): Promise<CustomerModel> {
+  addCustomer(body: Customer): Promise<Customer> {
     return this.customerRepository.addCustomer(body);
   }
 }
