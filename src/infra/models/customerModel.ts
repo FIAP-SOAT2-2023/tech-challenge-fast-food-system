@@ -13,6 +13,7 @@ class CustomerModel
   extends Model<CustomerAttributes>
   implements CustomerAttributes
 {
+  public id!: number;
   public uuid!: string;
   public firstName!: string;
   public lastName!: string | null;

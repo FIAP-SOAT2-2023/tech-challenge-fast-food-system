@@ -1,12 +1,14 @@
 import { Customer } from "./customer";
 import { Item } from "./item";
+import { Payment } from "./payment";
 
 export interface Basket {
     uuid?: string;
     customerId: string;
-    totalPrice?: number;
-    isTakeOut?: boolean;
+    totalPrice: number;
+    isTakeOut: boolean;
     createdAt?: Date;
-    items?: Item[];
+    items: Item[];
+    payment: Payment
    
 }

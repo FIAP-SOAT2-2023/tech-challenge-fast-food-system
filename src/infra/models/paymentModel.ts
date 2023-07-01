@@ -40,7 +40,8 @@ PaymentModel.init({
       },
       status: {
         type: DataTypes.STRING,
-        allowNull: true
+        allowNull: true,
+        defaultValue: "PAID"
       },
       nsu: {
         type: DataTypes.STRING,
@@ -50,7 +51,7 @@ PaymentModel.init({
         type: DataTypes.STRING,
         allowNull: true
       },
-      paidAt: DataTypes.DATE,
+      paidAt: { type: DataTypes.DATE, defaultValue: Date.now()},
       createdAt: DataTypes.DATE,
       updatedAt: DataTypes.DATE,
 },
@@ -58,3 +59,5 @@ PaymentModel.init({
   sequelize: db,
   modelName: "Payments",
 })
+
+export default PaymentModel

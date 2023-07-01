@@ -1,6 +1,7 @@
-import Sequelize, { Association, CreationOptional, DataTypes, ForeignKey, InferAttributes, InferCreationAttributes, Model, NonAttribute } from 'sequelize';
+import Sequelize, { Association, CreationOptional, DataTypes, ForeignKey, HasManyAddAssociationMixin, InferAttributes, InferCreationAttributes, Model, NonAttribute } from 'sequelize';
 import BasketModel from './basketsModel';
 import db from "../database/connection";
+import Product from './productModel';
 
 
 class ItemModel extends Model<InferAttributes<ItemModel>, InferCreationAttributes<ItemModel>> {
@@ -15,11 +16,20 @@ class ItemModel extends Model<InferAttributes<ItemModel>, InferCreationAttribute
 
   declare basketId: ForeignKey<BasketModel['id']>
 
+  declare product?: NonAttribute<Product>
+
+  declare productId: ForeignKey<Product['id']>
+
   declare public static associations: { 
 
     basketId: Association<ItemModel, BasketModel>
+    productId: Association<ItemModel, Product>
 
   }
+
+  // declare addItems: HasManyAddAssociationsMixin<ItemModel, number>
+
+  declare addProduct: HasManyAddAssociationMixin<Product, number>
 
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
@@ -51,6 +61,14 @@ ItemModel.init({
   modelName: "Items",
 }
 )
+
+
+
+Product.hasMany(ItemModel, {
+  sourceKey: 'id',
+  foreignKey: 'productId',
+  as: 'product'
+})
 
 
 export default ItemModel

@@ -1,8 +1,10 @@
 import CustomerModel from './customerModel';
 import db from "../database/connection";
-import { Model, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, Association, DataTypes, UUIDV4, UUID, HasManyGetAssociationsMixin, HasManyAddAssociationsMixin, HasManyAddAssociationMixin, ForeignKey } from 'sequelize';
+import { Model, InferAttributes, InferCreationAttributes, CreationOptional, NonAttribute, Association, DataTypes, UUIDV4, UUID, HasManyGetAssociationsMixin, HasManyAddAssociationsMixin, HasManyAddAssociationMixin, ForeignKey, BelongsToCreateAssociationMixin } from 'sequelize';
 import { Item } from '../../core/domain/item';
 import ItemModel from './itemModel';
+import { Payment } from 'core/domain/payment';
+import PaymentModel from './paymentModel';
 
 
 class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttributes<BasketModel>>{
@@ -11,18 +13,23 @@ class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttri
   declare uuid: CreationOptional<string>
   declare isTakeOut: CreationOptional<boolean>
   declare totalPrice: CreationOptional<number>
+  
 
-
-  declare customerId?: ForeignKey<CustomerModel['uuid']>
+  declare customerId?: ForeignKey<CustomerModel['id']>
 
   declare customer?: NonAttribute<CustomerModel>
 
-  declare items: NonAttribute<Item[]>
+  declare payment?: NonAttribute<PaymentModel>
+
+  declare paymentId?: ForeignKey<PaymentModel['id']>
+
+  declare items: NonAttribute<ItemModel[]>
 
   declare public static associations: { 
     //customerId: Association<BasketModel, CustomerModel>,
     //items: Association<BasketModel, Item>
     customer: Association<BasketModel, CustomerModel>
+    payment: Association<BasketModel, PaymentModel>
   };
 
   declare getItems: HasManyGetAssociationsMixin<ItemModel>
@@ -31,11 +38,14 @@ class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttri
   declare addItem: HasManyAddAssociationMixin<ItemModel, 'basketId'>
 
 
-  declare addCustomer: HasManyAddAssociationMixin<CustomerModel, number>
+  declare addCustomer: BelongsToCreateAssociationMixin<CustomerModel>
+
+  declare createPayment: BelongsToCreateAssociationMixin<PaymentModel>
 
 
   //declare getCustomer: HasManyGetAssociationsMixin
 
+ 
   
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
@@ -83,5 +93,10 @@ CustomerModel.hasMany(BasketModel, {
   foreignKey: 'customerId',
   as: 'customer'
 })
+
+
+BasketModel.belongsTo(PaymentModel, { targetKey: 'id' })
+
+BasketModel.belongsTo(CustomerModel, {targetKey: 'id'})
 
 export default BasketModel;

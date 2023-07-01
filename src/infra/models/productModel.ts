@@ -11,6 +11,7 @@ interface ProductAttributes {
 }
 
 class Product extends Model<ProductAttributes> implements ProductAttributes {
+  public id!: number;
   public uuid!: string;
   public name!: string;
   public description!: string | null;
