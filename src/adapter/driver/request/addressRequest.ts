@@ -15,7 +15,6 @@ import {
   IsNotEmpty,
   ValidateIf,
   isValidationOptions,
-  max,
 } from "class-validator";
 export class AddressRequest implements Address {
   declare id: string;
