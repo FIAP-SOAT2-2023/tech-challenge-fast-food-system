@@ -23,8 +23,11 @@ export class ProductRequest implements Product {
     declare name: string;
 
     declare description: string;
+
     declare image: string;
+
     declare unitPrice: number;
+    
     declare category: string;
 
 }
