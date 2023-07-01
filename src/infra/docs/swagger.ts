@@ -5,7 +5,7 @@ const swaggerConfig = {
             name: 'Products',
         },
         {
-            name: 'Consumers',
+            name: 'Customers',
         },
     ],
     paths: {
@@ -170,10 +170,10 @@ const swaggerConfig = {
                 },
             },
         },
-        '/consumers': {
+        '/customers': {
             post: {
-                summary: 'Cria um novo consumidor',
-                tags: ['Consumers'],
+                summary: 'Cria um novo cliente',
+                tags: ['Customers'],
                 requestBody: {
                     required: true,
                     content: {
@@ -201,10 +201,10 @@ const swaggerConfig = {
                 },
             },
         },
-        '/consumers/{document}': {
+        '/customers/{document}': {
             get: {
-                summary: 'Retorna um consumidor pelo Documento',
-                tags: ['Consumers'],
+                summary: 'Retorna um cliente pelo Documento',
+                tags: ['Customers'],
                 parameters: [
                     {
                         in: 'path',
@@ -213,22 +213,22 @@ const swaggerConfig = {
                         schema: {
                             type: 'string',
                         },
-                        description: 'Documento do consumidor a ser recuperado',
+                        description: 'Documento do cliente a ser recuperado',
                     },
                 ],
                 responses: {
                     200: {
-                        description: 'Consumidor retornado com sucesso',
+                        description: 'cliente retornado com sucesso',
                         content: {
                             'application/json': {
                                 schema: {
-                                    $ref: '#/components/schemas/Consumer',
+                                    $ref: '#/components/schemas/Customer',
                                 },
                             },
                         },
                     },
                     404: {
-                        description: 'Consumidor não encontrado',
+                        description: 'cliente não encontrado',
                     },
                     500: {
                         description: 'Erro interno do servidor',

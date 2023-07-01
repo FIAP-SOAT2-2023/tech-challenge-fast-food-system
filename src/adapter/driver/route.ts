@@ -36,11 +36,11 @@ export class Route {
     app.get('/docs', swaggerUi.setup(swaggerDocs));
 
     // Customers routes
-    app.post("/consumers", async (req, resp) => {
+    app.post("/customers", async (req, resp) => {
       await customerController.addCustomer(req, resp);
     });
 
-    app.get("/consumers/:document", async (req, resp) => {
+    app.get("/customers/:document", async (req, resp) => {
       await customerController.getCustomerByDocument(req, resp);
     });
 
