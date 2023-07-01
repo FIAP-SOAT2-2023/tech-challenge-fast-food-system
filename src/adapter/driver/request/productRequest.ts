@@ -1,33 +1,25 @@
 import { Product } from "core/domain/product";
-import {
-    validate,
-    validateOrReject,
-    Contains,
-    IsInt,
-    Length,
-    IsEmail,
-    IsFQDN,
-    IsDate,
-    Min,
-    Max, MinLength, MaxLength,
-    IsNotEmpty ,ValidateIf
-  } from 'class-validator';
+import { Length, IsNotEmpty } from 'class-validator';
 
 export class ProductRequest implements Product {
-    
-
     declare id: string;
 
-    @Length(10, 20, {message: 'Name should be between 2 and 50 characters'})
+    @Length(2, 50, {message: 'Name should be between 2 and 50 characters'})
     @IsNotEmpty({message: 'Name is required'})
     declare name: string;
 
+    @Length(2, 100, {message: 'Description should be between 2 and 100 characters'})
+    @IsNotEmpty({message: 'Description is required'})
     declare description: string;
 
+    @IsNotEmpty({message: 'Image is required'})
     declare image: string;
 
+    @Length(2, 10, {message: 'Unit price should be between 2 and 10 characters'})
+    @IsNotEmpty({message: 'Unit price is required'})
     declare unitPrice: number;
-    
-    declare category: string;
 
+    @Length(6, 20, {message: 'Category should be Lanche, Acompanhamento, Bebida, Sobremesa'})
+    @IsNotEmpty({message: 'Category is required'})
+    declare category: string;
 }
