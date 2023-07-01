@@ -1,5 +1,5 @@
 import ProductModel from "../../../../infra/models/productModel";
-import { Product } from "../../../domain/product";
+import { Product } from "../../../domain/Product";
 
 export interface IProductRepository {
   addProduct(body: Product): Promise<ProductModel>;
