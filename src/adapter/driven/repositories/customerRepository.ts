@@ -1,24 +1,34 @@
-import CustomerModel from 'infra/models/customerModel';
-import { injectable } from 'tsyringe';
-import { ICustomerRepository } from 'core/applications/ports/out/customerRepository';
-import { Customer } from 'core/domain/customer';
+import CustomerModel from "infra/models/customerModel";
+import { injectable } from "tsyringe";
+import { ICustomerRepository } from "core/applications/ports/out/customerRepository";
+import { Customer, isValidCPF } from "core/domain/customer";
+import { CustomerMap } from "adapter/mapper/customerMap";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {
-  async getCustomerByDocument(document: string): Promise<CustomerModel> {
+  async getCustomerByDocument(document: string): Promise<Customer> {
+    let message: string = "";
+    let partialCustomer: Partial<Customer> = {};
     const customer = await CustomerModel.findOne({
       where: {
         document: document,
       },
     });
-
+    if (!isValidCPF(document)) {
+      message = "Documento inválido!";
+    }
     if (!customer) {
-      throw new Error("Cliente não encontrado");
+      partialCustomer = CustomerMap.Convert(message, undefined);
+    } else {
+      partialCustomer = CustomerMap.Convert(message, customer);
     }
 
-    return customer!;
+    return partialCustomer as Customer;
   }
   async addCustomer(body: Customer): Promise<CustomerModel> {
+    if (!isValidCPF(body.document)) {
+      throw new Error("Documento inválido!");
+    }
     let result = await CustomerModel.create({
       ...body,
     });
