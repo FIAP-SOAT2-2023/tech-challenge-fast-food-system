@@ -1,21 +1,18 @@
 import express, { Request, Response } from "express";
 import { Product } from 'core/domain/product';
 import { ProductService } from 'core/applications/services/productService';
-import { ProductRequest } from "adapter/driven/repositories/request/productRequest";
 import { validate, ValidationError } from 'class-validator';
-import { plainToClass } from 'class-transformer';
+import { plainToClass, plainToInstance } from 'class-transformer';
+import { ProductRequest } from "./request/productRequest";
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
   async addProduct(req: Request, res: Response) {
 
-    /*
-    const product: ProductRequest = {
-      ...req.body,
-    };
-    */
+ 
+  
 
-    const product = plainToClass(ProductRequest, req.body);
+    const product = plainToInstance(ProductRequest, req.body);
 
     const errors: ValidationError[] = await validate(product)
 
@@ -28,7 +25,11 @@ export class ProductController {
 
     } else {
 
-      const result = await this.productService.addProduct(product);
+      const productPending: ProductRequest = {
+        ...req.body,
+      };
+
+      const result = await this.productService.addProduct(productPending);
 
       res.status(200).json(result);
 
