@@ -9,9 +9,6 @@ export class ProductController {
 
   async addProduct(req: Request, res: Response) {
 
- 
-  
-
     const product = plainToInstance(ProductRequest, req.body);
 
     const errors: ValidationError[] = await validate(product)
