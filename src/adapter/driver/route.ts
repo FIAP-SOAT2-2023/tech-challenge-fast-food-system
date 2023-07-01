@@ -2,6 +2,9 @@ import { CustomerService } from "core/applications/services/customerService";
 import express from "express";
 import "infra/config/mysqlConfig";
 
+import swaggerUi from 'swagger-ui-express';
+import swaggerDocs from '../../infra/docs/swagger';
+
 import { CustomerRepository } from "adapter/driven/repositories/customerRepository";
 import { CustomerController } from "adapter/driver/customerController";
 import { ProductRepository } from "adapter/driven/repositories/productRepository";
@@ -28,12 +31,16 @@ export class Route {
     const app = express();
     app.use(express.json());
 
+    // Configuração do Swagger
+    app.use('/docs', swaggerUi.serve);
+    app.get('/docs', swaggerUi.setup(swaggerDocs));
+
     // Customers routes
-    app.post("/consumers", async (req, resp) => {
+    app.post("/customers", async (req, resp) => {
       await customerController.addCustomer(req, resp);
     });
 
-    app.get("/consumers/:document", async (req, resp) => {
+    app.get("/customers/:document", async (req, resp) => {
       await customerController.getCustomerByDocument(req, resp);
     });
 
