@@ -1,5 +1,5 @@
-import { Product } from "../../../domain/product";
-import ProductModel from "../../../../infra/models/productModel";
+import { Product } from 'core/domain/product';
+import ProductModel from "infra/models/productModel";
 
 export interface IProductServicePortIn {
   addProduct(body: Product): Promise<ProductModel>;

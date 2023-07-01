@@ -1,7 +1,6 @@
 import express, { Request, Response } from "express";
-import { ProductService } from "../../core/applications/services/productService";
-import { Product } from "../../core/domain/product";
-
+import { Product } from 'core/domain/product';
+import { ProductService } from 'core/applications/services/productService';
 
 export class ProductController {
   constructor(private readonly productService: ProductService) {}

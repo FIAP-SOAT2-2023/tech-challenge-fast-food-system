@@ -1,8 +1,8 @@
-import addressModel from "../models/addressModel";
-import basketsModel from "../models/basketsModel";
-import customerModel from "../models/customerModel";
-import itensModel from "../models/itemModel";
-import productsModel from "../models/productModel";
+import addressModel from 'infra/models/addressModel';
+import basketsModel from 'infra/models/basketsModel';
+import customerModel from 'infra/models/customerModel';
+import itensModel from 'infra/models/itemModel';
+import productsModel from 'infra/models/productModel';
 
 export default () => {
   // Criação da tabela no banco de dados

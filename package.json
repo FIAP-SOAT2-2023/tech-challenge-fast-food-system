@@ -1,45 +1,51 @@
 {
-    "name": "nome-do-projeto",
-    "version": "1.0.0",
-    "description": "Descrição do projeto",
-    "main": "index.js",
-    "scripts": {
-        "start": "nodemon dotenv/config program.ts dotenv_config_path=.env",
-        "dev": "ts-node -r dotenv/config program.ts dotenv_config_path=.env"
-    },
-    "keywords": [],
-    "author": "",
-    "license": "ISC",
-    "dependencies": {
-        "@types/body-parser": "1.19.2",
-        "@types/connect": "3.4.35",
-        "@types/express": "4.17.17",
-        "@types/express-serve-static-core": "4.17.33",
-        "@types/mime": "3.0.1",
-        "@types/node": "^18.14.1",
-        "@types/qs": "6.9.7",
-        "@types/range-parser": "1.2.4",
-        "@types/serve-static": "1.15.1",
-        "body-parser": "^1.18.3",
-        "dotenv": "^16.1.4",
-        "express": "^4.18.2",
-        "mysql": "^2.18.1",
-        "mysql2": "^3.3.3",
-        "mysql8": "^2.17.3",
-        "reflect-metadata": "^0.1.13",
-        "sequelize": "^6.32.0",
-        "swagger-jsdoc": "^6.2.8",
-        "swagger-ui-express": "^4.6.3",
-        "tsyringe": "^4.8.0",
-        "uuid": "^8.3.2"
-    },
-    "devDependencies": {
-        "@types/swagger-jsdoc": "^6.0.1",
-        "@types/swagger-ui-express": "^4.1.3",
-        "nodemon": "^2.0.22",
-        "ts-node": "^10.9.1"
-    },
-    "engines": {
-        "node": ">=14"
-    }
+  "name": "nome-do-projeto",
+  "version": "1.0.0",
+  "description": "Descrição do projeto",
+  "main": "index.js",
+  "scripts": {
+    "start": "nodemon dotenv/config program.ts dotenv_config_path=.env",
+    "dev": "ts-node -r dotenv/config program.ts dotenv_config_path=.env"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "body-parser": "^1.18.3",
+    "dotenv": "^16.1.4",
+    "express": "^4.18.2",
+    "mysql": "^2.18.1",
+    "mysql2": "^3.3.3",
+    "mysql8": "^2.17.3",
+    "reflect-metadata": "^0.1.13",
+    "sequelize": "^6.32.0",
+    "swagger-jsdoc": "^6.2.8",
+    "swagger-ui-express": "^4.6.3",
+    "tsyringe": "^4.8.0",
+    "uuid": "^8.3.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "1.19.2",
+    "@types/connect": "3.4.35",
+    "@types/express": "4.17.17",
+    "@types/express-serve-static-core": "4.17.33",
+    "@types/mime": "3.0.1",
+    "@types/node": "^18.14.1",
+    "@types/qs": "6.9.7",
+    "@types/range-parser": "1.2.4",
+    "@types/serve-static": "1.15.1",
+    "@types/swagger-jsdoc": "^6.0.1",
+    "@types/swagger-ui-express": "^4.1.3",
+    "module-alias": "^2.2.3",
+    "nodemon": "^2.0.22",
+    "ts-node": "^10.9.1",
+    "tsconfig-paths": "^4.2.0"
+  },
+  "engines": {
+    "node": ">=14"
+  },
+  "_moduleAliases": {
+    "@modules": "build/modules",
+    "@core": "build/core"
+  }
 }

@@ -1,8 +1,8 @@
+import { IProductServicePortIn } from 'core/applications/ports/in/iProductServicePortIn';
+import { IProductRepository } from 'core/applications/ports/out/productRepository';
 import { injectable, inject } from "tsyringe";
-import { IProductRepository } from "../ports/out/productRepository";
-import { IProductServicePortIn } from "../ports/in/iProductServicePortIn";
-import ProductModel from "../../../infra/models/productModel";
-import { Product } from "../../domain/product";
+import { Product } from "core/domain/product";
+import ProductModel from "infra/models/productModel";
 
 @injectable()
 export class ProductService implements IProductServicePortIn {

@@ -1,18 +1,17 @@
+import sequelize from 'infra/database/connection';
 import Sequelize from 'sequelize';
-import sequelize from '../database/connection';
 
-
-export default sequelize.define("Item", {
+export default sequelize.define('Item', {
   quantity: {
     type: Sequelize.INTEGER,
-    allowNull: false,
+    allowNull: false
   },
   unitPrice: {
     type: Sequelize.FLOAT,
-    allowNull: false,
+    allowNull: false
   },
   observations: {
     type: Sequelize.STRING,
-    allowNull: true,
-  },
+    allowNull: true
+  }
 });
