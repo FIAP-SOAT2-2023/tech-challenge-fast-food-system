@@ -17,9 +17,9 @@ docker compose up
 
 ### Tecnologias utilizadas
 
-* [TypeScript (Opcional)](https://www.typescriptlang.org/)
-* [Docker (Opcional)](https://www.docker.com/)
-* [Azure (Opcional)](https://azure.microsoft.com/pt-br/products/mysql)
+* [TypeScript](https://www.typescriptlang.org/)
+* [Docker](https://www.docker.com/)
+* [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 
 ### Swagger
 
