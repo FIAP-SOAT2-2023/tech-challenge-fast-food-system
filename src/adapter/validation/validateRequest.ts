@@ -1,22 +1,30 @@
+import { plainToClass } from "class-transformer";
+import { validate, ValidationError } from "class-validator";
+import { Request, Response } from "express";
 
-import { plainToClass, plainToInstance } from 'class-transformer';
+export class ValidationUtil {
+  static async validateAndTransform<T>(
+    classType: new () => T,
+    requestBody: any
+  ): Promise<T | null> {
+    const object = plainToClass(classType, requestBody);
+    const errors: ValidationError[] = await validate(object as Object);
 
-import { validate, ValidationError } from 'class-validator';
+    if (errors.length > 0) {
+      const errorMessages: string[] = errors
+        .map((error) => Object.values(error.constraints || ""))
+        .join(",")
+        .split(",");
+      return null;
+    }
 
-const validateRequest = async ( classType: <T>, requestBody: any) => {
+    return object;
+  }
 
-
-        const object = plainToInstance(classType: classType.prototype, requestBody);
-        const errors: ValidationError[] = await validate(object);
-    
-        if (errors.length > 0) {
-          const errorMessages: string[] = errors.map((error) => Object.values(error.constraints || "")).join(",").split(",");
-          return null;
-        }
-    
-        return object;
-      
+  static sendValidationErrorResponse(
+    res: Response,
+    errorMessages: string[]
+  ): void {
+    res.status(400).json({ error: errorMessages });
+  }
 }
-
-
-export default validateRequest;
