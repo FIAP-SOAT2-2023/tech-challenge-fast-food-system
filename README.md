@@ -12,7 +12,7 @@ Docker Compose
 ### Execução
 
 ```
-docker compose up
+docker-compose up -d --build
 ```
 
 ### Tecnologias utilizadas
