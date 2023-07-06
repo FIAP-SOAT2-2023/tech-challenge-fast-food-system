@@ -1,8 +1,8 @@
 {
-  "name": "nome-do-projeto",
+  "name": "fastfood",
   "version": "1.0.0",
-  "description": "Descrição do projeto",
-  "main": "index.js",
+  "description": "Projeto da Pós Graduação da FIAP - Arquitetura de Software",
+  "main": "program.ts",
   "scripts": {
     "start": "nodemon dotenv/config program.ts dotenv_config_path=.env",
     "dev": "nodemon -r dotenv/config program.ts dotenv_config_path=.env.fastfood"
