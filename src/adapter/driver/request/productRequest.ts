@@ -1,5 +1,5 @@
 import { Product } from "core/domain/product";
-import { Length, IsNotEmpty } from 'class-validator';
+import { Length, IsNotEmpty, IsNumber } from 'class-validator';
 
 export class ProductRequest implements Product {
     declare id: string;
@@ -15,7 +15,7 @@ export class ProductRequest implements Product {
     @IsNotEmpty({message: 'Image is required'})
     declare image: string;
 
-    @Length(2, 10, {message: 'Unit price should be between 2 and 10 characters'})
+    @IsNumber()
     @IsNotEmpty({message: 'Unit price is required'})
     declare unitPrice: number;
 

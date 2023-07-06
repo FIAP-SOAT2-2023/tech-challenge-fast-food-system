@@ -1,40 +1,18 @@
-import express, { Request, Response } from "express";
+import { Request, Response } from "express";
 import { Product } from 'core/domain/product';
 import { ProductService } from 'core/applications/services/productService';
-import { validate, ValidationError } from 'class-validator';
-import { plainToClass, plainToInstance } from 'class-transformer';
 import { ProductRequest } from "./request/productRequest";
+import { ValidationUtil } from "../validation/validateRequest";
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
   async addProduct(req: Request, res: Response) {
+    const product = await ValidationUtil.validateAndTransform(ProductRequest, req.body, res);
 
-    const product = plainToInstance(ProductRequest, req.body);
+    const result = await this.productService.addProduct(product);
 
-    const errors: ValidationError[] = await validate(product)
+    res.status(200).json(result);
 
-    if (errors.length > 0) {
-      
-      const errorMessages: string[] = errors.map((error) => Object.values(error.constraints || "")).join(",").split(",")
-      res.status(400).json({ error: errorMessages });
-      
-      return;
-
-    } else {
-
-      const productPending: ProductRequest = {
-        ...req.body,
-      };
-
-      const result = await this.productService.addProduct(productPending);
-
-      res.status(200).json(result);
-
-    }
-
-    
-
-    
   }
 
   async getProductById(req: Request, res: Response) {
