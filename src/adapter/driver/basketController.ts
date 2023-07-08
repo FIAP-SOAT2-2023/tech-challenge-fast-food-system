@@ -1,41 +1,43 @@
-import {Request, Response} from "express";
-import {BasketService} from "core/applications/services/basketService";
-import {BasketRequest} from "./request/basketRequest";
-import {Basket} from "core/domain/basket";
-import {Order} from "sequelize";
+import { Request, Response } from "express";
+import { BasketService } from "core/applications/services/basketService";
+import { BasketRequest } from "./request/basketRequest";
+import { Basket } from "core/domain/basket";
+import { Order } from "sequelize";
+import { ValidationUtil } from "adapter/validation/validateRequest";
 
 export class BasketController {
-
-  constructor(
-    private readonly basketService: BasketService
-  ) {
-  }
+  constructor(private readonly basketService: BasketService) {}
 
   async create(req: Request, res: Response) {
-    let basket: BasketRequest = {
-      ...req.body
-    };
-
+    const basketRequest = await ValidationUtil.validateAndTransform(
+      BasketRequest,
+      req.body,
+      res
+    );
     this.basketService
-      .createBasket(req.body.customerId, basket, basket.payment ?? {})
+      .createBasket(
+        req.body.customerId,
+        basketRequest,
+        basketRequest.payment ?? {}
+      )
       .then((basketCreated: Basket) => {
-        res.status(200).json({order: basketCreated.order});
+        res.status(200).json({ order: basketCreated.order });
       })
       .catch((error) => {
-        console.error(error)
-        res.json(JSON.stringify({message: error})).sendStatus(400)
-      })
+        console.error(error);
+        res.json(JSON.stringify({ message: error })).sendStatus(400);
+      });
   }
 
   async getAllPendingOrders(req: Request, res: Response) {
     this.basketService
-        .getAllPendingOrders()
-        .then((orders) => {
-          res.status(200).json({orders: orders});
-        })
-        .catch((error) => {
-          console.error(error)
-          res.json(JSON.stringify({message: error})).sendStatus(400)
-        })
+      .getAllPendingOrders()
+      .then((orders) => {
+        res.status(200).json({ orders: orders });
+      })
+      .catch((error) => {
+        console.error(error);
+        res.json(JSON.stringify({ message: error })).sendStatus(400);
+      });
   }
 }
