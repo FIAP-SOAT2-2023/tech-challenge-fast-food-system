@@ -29,3 +29,9 @@ sudo docker compose -f "docker-compose.yml" up -d --build
 ```
 http://localhost:3000/docs
 ```
+
+### Collection Postman
+```
+Para facilitar segue a collection do postman no arquivo: 
+FastFoodSystem-FIAP.postman_collection.json
+```
