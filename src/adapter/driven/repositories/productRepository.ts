@@ -91,5 +91,9 @@ export class ProductRepository implements IProductRepository {
     const rowsDeleted = await ProductModel.destroy({
       where: { uuid: id },
     });
+
+    if (rowsDeleted === 0) {
+      throw new Error("Produto não encontrado");
+    }
   }
 }

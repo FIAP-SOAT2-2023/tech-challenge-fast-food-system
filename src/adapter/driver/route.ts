@@ -33,26 +33,20 @@ export class Route {
     try {
       await fn(req, res, next);
     } catch (error) {
-
       console.error("Error:", error);
-
       if (res.headersSent) {
         return;
 
       }
 
       const errorValue = error as Error
-
       const { message } = errorValue
 
-
       if (message) {
-        res.status(400).json({ errors: [message] });
+        res.status(400).json({ error: [message] });
       } else {
-        res.status(500).json({ errors: ["Internal Server Error"] });
+        res.status(500).json({ error: ["Internal Server Error"] });
       }
-
-
     }
   }
 

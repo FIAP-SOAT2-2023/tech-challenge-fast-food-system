@@ -66,7 +66,4 @@ OrderModel.init({
 OrderModel.belongsTo(BasketModel, {targetKey: 'id', foreignKey: 'basketId'})
 OrderModel.belongsTo(PaymentModel, {targetKey: 'id', foreignKey: 'paymentId'})
 
-//PaymentModel.hasOne(OrderModel, { sourceKey: 'id' })
-// BasketModel.hasOne(OrderModel, { sourceKey: 'id' })
-
 export default OrderModel;
