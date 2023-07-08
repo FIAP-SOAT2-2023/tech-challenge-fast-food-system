@@ -34,7 +34,7 @@ export class BasketRequest implements Basket {
 
   declare order?: Order;
 
-  declare paymentId?: number;
+  declare paymentId?: string;
 
   declare payment?: PaymentRequest;
 

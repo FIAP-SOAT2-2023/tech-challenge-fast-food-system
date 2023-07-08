@@ -20,7 +20,8 @@ export class OrderRepository implements IOrderRepository {
             let orderCreated = await OrderModel.create({
                 status: orderNew.status,
                 basketId: basketModel?.id,
-                paymentId: paymentModel?.id
+                paymentId: paymentModel?.id,
+                expected: orderNew.expected,
             })
 
             const {uuid, status, expected, createdAt} = orderCreated;

@@ -11,6 +11,6 @@ export interface Basket {
   createdAt?: Date;
   items: Item[];
   order?: Order;
-  paymentId?: number;
+  paymentId?: string;
   payment?: Payment;
 }
