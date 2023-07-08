@@ -50,14 +50,15 @@ export class BasketRepository implements IBasketRepository {
         await basketCreated.addItem(itemModel)
       }
 
-      const {id, ...basketValues} = basketCreated.dataValues
+      const {id, customerId, ...basketValues} = basketCreated.dataValues
 
-      const {id: idPayment, createdAt, updatedAt, ...paymentValues} = basketCreated.dataValues
+      const {id: idPayment, createdAt, updatedAt, uuid,  ...paymentValues} = basketCreated.dataValues
 
       let basketResult: Basket = {
         ...basketValues,
-        paymentId: idPayment,
+        paymentId: uuid,
         items,
+
       }
       resolve(basketResult)
     })

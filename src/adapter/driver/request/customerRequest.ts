@@ -29,21 +29,15 @@ export class CustomerRequest implements Customer {
   @IsNotEmpty({ message: "lastName is required" })
   declare lastName: string;
 
-  @Max(9, { message: "document should 9 characters" })
+  @Length(11, 11, { message: "document should 11 characters" })
   @IsNotEmpty({ message: "document is required" })
-  @MinLength(8, {
-    message: "document is too short",
-  })
   declare document: string;
 
   @IsNotEmpty({ message: "email is required" })
   @IsEmail()
   declare email: string;
 
-  @Max(9, { message: "cellphone should 9 characters" })
-  @MinLength(8, {
-    message: "cellphone is too short",
-  })
+  @Length(11, 11, { message: "cellphone should 11 characters" })
   @IsNotEmpty({ message: "cellphone is required" })
   declare cellphone: string;
 }

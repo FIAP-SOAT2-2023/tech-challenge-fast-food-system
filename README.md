@@ -19,6 +19,11 @@ aguardar uns 2 a 3 minutinhos para tentar acessar aplicacao via swagger
 ```
 http://localhost:3000/docs
 ```
+### Collection Postman
+```
+Para facilitar segue a collection do postman no arquivo: 
+FastFoodSystem-FIAP.postman_collection.json
+```
 
 ### Execução Windows
 ```
@@ -30,13 +35,9 @@ docker compose -f "docker-compose.yml" up -d --build
 sudo docker compose -f "docker-compose.yml" up -d --build
 ```
 
-
-
-
 ### Tecnologias utilizadas
 
 * [TypeScript](https://www.typescriptlang.org)
 * [Docker](https://www.docker.com)
 * [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 * [MySQL](https://www.mysql.com)
-

@@ -27,7 +27,6 @@ export class ProductRepository implements IProductRepository {
       },
     });
 
-    // TODO Ajustar retorno para produto não encontrado no banco de dados - status code 404
     if (!product) {
       throw new Error("Produto não encontrado");
     }

@@ -303,16 +303,20 @@ const swaggerConfig = {
         properties: {
           name: {
             type: 'string',
+            example: 'Cachorro Quente'
           },
           description: {
             type: 'string',
+            example: 'Duas salsichas mais tudo que tiver.'
           },
           image: {
             type: 'string',
+            example: 'http://meuproduto.com.br/image/cachorroquente.png'
           },
           unitPrice: {
             type: 'number',
             format: 'float',
+            example: '10.00'
           },
           category: {
             type: 'string',
@@ -326,18 +330,23 @@ const swaggerConfig = {
         properties: {
           firstName: {
             type: 'string',
+            example: 'Fernando'
           },
           lastName: {
             type: 'string',
+            example: 'Bruno'
           },
           document: {
             type: 'string',
+            example: '46699824007'
           },
           email: {
             type: 'string',
+            example: 'fernando.bruno@fiap.com.br',
           },
           cellphone: {
             type: 'string',
+            example: '11960809533'
           },
         },
         required: ['firstName', 'lastName', 'document', 'email', 'cellphone'],
@@ -346,13 +355,16 @@ const swaggerConfig = {
         type: "object",
         properties: {
           isTakeOut: {
-            type: "boolean"
+            type: "boolean",
+            example: true
           },
           customerId: {
-            type: "number"
+            type: "string",
+            example: "ab123nacn2213b123"
           },
           totalPrice: {
-            type: "number"
+            type: "number",
+            example: "10.00"
           },
           items: {
             type: "array",
@@ -371,21 +383,25 @@ const swaggerConfig = {
           productId: {
             type: "string",
             maxLength: 100,
-            minLength: 10
+            minLength: 10,
+            example: "1321313j123"
           },
           quantity: {
             type: "number",
             minimum: 1,
-            maximum: 100
+            maximum: 100,
+            example: 1
           },
           unitPrice: {
             type: "number",
             minimum: 1,
-            maximum: 1000000
+            maximum: 1000000,
+            example: 100
           },
           observations: {
             type: "string",
-            maxLength: 100
+            maxLength: 100,
+            example: "Sem cebola por favor"
           }
         },
       },
@@ -395,24 +411,20 @@ const swaggerConfig = {
           qrCode: {
             type: "string",
             maxLength: 100,
-            minLength: 2
+            minLength: 2,
+            example: "ml-aasdlkjsflkjsfbasdfbasdf"
           },
           nsu: {
             type: "string",
             maxLength: 100,
-            minLength: 2
-          },
-          status: {
-            type: "string"
-          },
-          paidAt: {
-            type: "string",
-            format: "date-time"
+            minLength: 2,
+            example: "nsu-aj123jk123bj1"
           },
           totalPrice: {
             type: "number",
             minimum: 2,
-            maximum: 10
+            maximum: 10,
+            example: 1000
           }
         }
       }

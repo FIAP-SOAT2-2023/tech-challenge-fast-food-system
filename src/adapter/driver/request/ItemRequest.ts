@@ -8,7 +8,8 @@ import {
 
 export class ItemRequest implements Item {
 
-  @Length(10, 20, {message: 'name should be between 2 and 100 characters'})
+  @Max(20, {message: 'name should be between 2 and 100 characters'})
+  @Min(10, {message: 'name should be between 2 and 100 characters'})
   @IsNotEmpty({message: 'productId is required'})
   declare productId: number;
 
