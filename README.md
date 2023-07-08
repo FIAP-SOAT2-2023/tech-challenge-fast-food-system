@@ -8,6 +8,15 @@ docker
 docker compose
 ```
 
+### IMPORTANTE: Na primeira vez que subir, o container da aplicacao vai apresentar erros de conexao
+### com o banco de dados porque vai ser a primeira vez que o banco sobe e demora um pouco, por favor
+### aguardar uns 2 a 3 minutinhos para tentar acessar aplicacao via swagger
+
+### Swagger
+```
+http://localhost:3000/docs
+```
+
 ### Execução Windows
 ```
 docker compose -f "docker-compose.yml" up -d --build
@@ -18,6 +27,9 @@ docker compose -f "docker-compose.yml" up -d --build
 sudo docker compose -f "docker-compose.yml" up -d --build
 ```
 
+
+
+
 ### Tecnologias utilizadas
 
 * [TypeScript](https://www.typescriptlang.org)]
@@ -25,7 +37,3 @@ sudo docker compose -f "docker-compose.yml" up -d --build
 * [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 * [MySQL](https://www.mysql.com)
 
-### Swagger
-```
-http://localhost:3000/docs
-```
