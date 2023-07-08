@@ -118,6 +118,6 @@ export class Route {
       await Route.asyncWrapper(req, resp, next, basketController.getAllPendingOrders.bind(basketController));
     });
 
-    app.listen(3000, () => console.log("Server is listening on port 3000"));
+    app.listen(3000, () => console.log("Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"));
   }
 }

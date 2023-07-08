@@ -1,7 +1,9 @@
 import {Basket} from "core/domain/basket";
 import {
   Length,
-  IsNotEmpty
+  IsNotEmpty,
+  Max,
+  Min
 } from 'class-validator';
 import {ItemRequest} from "./ItemRequest";
 import {PaymentRequest} from "./paymentRequest";
@@ -16,9 +18,10 @@ export class BasketRequest implements Basket {
   declare uuid?: string;
 
   @IsNotEmpty({message: 'customer is required'})
-  declare customer?: CustomerRequest;
+  declare customerId?: string;
 
-  @Length(2, 10, {message: 'Total Price should be between 2 and 10 characters'})
+  @Max(10, {message: 'Total Price should be between 2 and 10 characters'})
+  @Min(2, {message: 'Total Price should be between 2 and 10 characters'})
   @IsNotEmpty({message: 'Total Price is required'})
   declare totalPrice?: number;
 
