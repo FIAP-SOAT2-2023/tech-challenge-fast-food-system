@@ -10,31 +10,20 @@
 			"name": "Produto",
 			"item": [
 				{
-					"name": "Buscar todos os Produtos",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "accept",
-								"value": "application/json"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/products",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"products"
-							]
-						}
-					},
-					"response": []
-				},
-				{
 					"name": "Criar Produto",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"product_uuid\", response.uuid);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -51,6 +40,30 @@
 							"mode": "raw",
 							"raw": "{\n  \"name\": \"Cachorro Quente\",\n  \"description\": \"Duas salsichas mais tudo que tiver.\",\n  \"image\": \"http://meuproduto.com.br/image/cachorroquente.png\",\n  \"unitPrice\": 10,\n  \"category\": \"Lanche\"\n}"
 						},
+						"url": {
+							"raw": "http://localhost:3000/products",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Buscar todos os Produtos",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "application/json"
+							}
+						],
 						"url": {
 							"raw": "http://localhost:3000/products",
 							"protocol": "http",
@@ -84,7 +97,7 @@
 							"raw": "{\n  \"name\": \"Cachorro Quente\",\n  \"description\": \"Duas salsichas mais tudo que tiver.\",\n  \"image\": \"http://meuproduto.com.br/image/cachorroquente.png\",\n  \"unitPrice\": 10,\n  \"category\": \"Lanche\"\n}"
 						},
 						"url": {
-							"raw": "http://localhost:3000/products/45c76d03-79d3-48e7-809a-95a4a58661a8",
+							"raw": "http://localhost:3000/products/{{product_uuid}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -92,7 +105,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"45c76d03-79d3-48e7-809a-95a4a58661a8"
+								"{{product_uuid}}"
 							]
 						}
 					},
@@ -109,7 +122,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/products/45c76d03-79d3-48e7-809a-95a4a58661a8",
+							"raw": "http://localhost:3000/products/{{product_uuid}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -117,32 +130,7 @@
 							"port": "3000",
 							"path": [
 								"products",
-								"45c76d03-79d3-48e7-809a-95a4a58661a8"
-							]
-						}
-					},
-					"response": []
-				},
-				{
-					"name": "Deletar o Produto",
-					"request": {
-						"method": "DELETE",
-						"header": [
-							{
-								"key": "accept",
-								"value": "*/*"
-							}
-						],
-						"url": {
-							"raw": "http://localhost:3000/products/45c76d03-79d3-48e7-809a-95a4a58661a8",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"port": "3000",
-							"path": [
-								"products",
-								"45c76d03-79d3-48e7-809a-95a4a58661a8"
+								"{{product_uuid}}"
 							]
 						}
 					},
@@ -154,7 +142,22 @@
 			"name": "Cliente",
 			"item": [
 				{
-					"name": "Cadastrar",
+					"name": "Cadastrar Cliente",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"let response = pm.response.json();",
+									"",
+									"pm.collectionVariables.set(\"customer_uuid\", response.uuid);",
+									"",
+									"pm.collectionVariables.set(\"customer_document\", response.document);"
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [
@@ -169,7 +172,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"firstName\": \"Fernando\",\n  \"lastName\": \"Bruno\",\n  \"document\": \"46699824007\",\n  \"cellphone\": \"11960809533\"\n}"
+							"raw": "{\n  \"firstName\": \"Fernando\",\n  \"lastName\": \"Bruno\",\n  \"email\": \"fernando.bruno@e-ai.com.br\",\n  \"document\": \"46699824007\",\n  \"cellphone\": \"11960809533\"\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/customers",
@@ -196,7 +199,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost:3000/customers/46699824007",
+							"raw": "http://localhost:3000/customers/{{customer_document}}",
 							"protocol": "http",
 							"host": [
 								"localhost"
@@ -204,7 +207,7 @@
 							"port": "3000",
 							"path": [
 								"customers",
-								"46699824007"
+								"{{customer_document}}"
 							]
 						}
 					},
@@ -273,7 +276,7 @@
 			]
 		},
 		{
-			"name": "Produtos",
+			"name": "Pedidos",
 			"item": [
 				{
 					"name": "Checkout",
@@ -291,7 +294,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\n  \"isTakeOut\": true,\n  \"customerId\": \"b0cf26f0-1b57-4f35-8f0c-86466adbbc65\",\n  \"totalPrice\": 10,\n  \"items\": [\n    {\n      \"productId\": \"57a9163f-aa36-42b7-b3c4-1f4ed573db38\",\n      \"quantity\": 1,\n      \"unitPrice\": 100,\n      \"observations\": \"Sem cebola por favor\"\n    }\n  ],\n  \"payment\": {\n    \"qrCode\": \"ml-aasdlkjsflkjsfbasdfbasdf\",\n    \"nsu\": \"nsu-aj123jk123bj1\",\n    \"totalPrice\": 1000\n  }\n}"
+							"raw": "{\n  \"isTakeOut\": true,\n  \"customerId\": \"{{customer_uuid}}\",\n  \"totalPrice\": 10,\n  \"items\": [\n    {\n      \"productId\": \"{{product_uuid}}\",\n      \"quantity\": 1,\n      \"unitPrice\": 100,\n      \"observations\": \"Sem cebola por favor\"\n    }\n  ],\n  \"payment\": {\n    \"qrCode\": \"mr-{{$randomUUID}}\",\n    \"nsu\": \"nsu-{{$randomUUID}}\",\n    \"totalPrice\": 1000\n  }\n}"
 						},
 						"url": {
 							"raw": "http://localhost:3000/checkout",
@@ -333,6 +336,50 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Delete",
+			"item": [
+				{
+					"name": "Deletar o Produto",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "accept",
+								"value": "*/*"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/products/{{product_uuid}}",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"products",
+								"{{product_uuid}}"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		}
+	],
+	"variable": [
+		{
+			"key": "product_uuid",
+			"value": ""
+		},
+		{
+			"key": "customer_uuid",
+			"value": ""
+		},
+		{
+			"key": "customer_document",
+			"value": ""
 		}
 	]
 }
