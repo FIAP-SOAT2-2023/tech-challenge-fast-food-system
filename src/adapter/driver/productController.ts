@@ -8,9 +8,7 @@ export class ProductController {
 
   async addProduct(req: Request, res: Response) {
     const product = await ValidationUtil.validateAndTransform(ProductRequest, req.body, res);
-
     const result = await this.productService.addProduct(product);
-
     res.status(200).json(result);
 
   }
@@ -29,9 +27,7 @@ export class ProductController {
 
   async putProductById(req: Request, res: Response) {
     const id = req.params.id
-    const product: Product = {
-      ...req.body,
-    };
+    const product = await ValidationUtil.validateAndTransform(ProductRequest, req.body, res);
     const result = await this.productService.putProductById(id, product);
     res.status(200).json(result);
   }

@@ -1,10 +1,9 @@
 import { Product } from 'core/domain/product';
-import ProductModel from "infra/models/productModel";
 
 export interface IProductServicePortIn {
-  addProduct(body: Product): Promise<ProductModel>;
-  getProductById(id: string): Promise<ProductModel>;
-  getAllProduct(filters: Record<string, any>): Promise<ProductModel[]>;
-  putProductById(id: string, body: Product): Promise<ProductModel>;
+  addProduct(body: Product): Promise<Product>;
+  getProductById(id: string): Promise<Product>;
+  getAllProduct(filters: Record<string, any>): Promise<Product[]>;
+  putProductById(id: string, body: Product): Promise<Product>;
   deleteProductById(id: string): Promise<void>;
 }

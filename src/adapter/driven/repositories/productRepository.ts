@@ -5,7 +5,7 @@ import { Product } from "core/domain/product";
 
 @injectable()
 export class ProductRepository implements IProductRepository {
-  async addProduct(body: Product): Promise<ProductModel> {
+  async addProduct(body: Product): Promise<Product> {
     const result = await ProductModel.create({
       name: body.name,
       description: body.description,
@@ -17,7 +17,7 @@ export class ProductRepository implements IProductRepository {
     return result;
   }
 
-  async getProductById(id: string): Promise<ProductModel> {
+  async getProductById(id: string): Promise<Product> {
     const product = await ProductModel.findOne({
       where: {
         uuid: id,
@@ -35,7 +35,7 @@ export class ProductRepository implements IProductRepository {
     return product!;
   }
 
-  async getAllProduct(filters: Record<string, any>): Promise<ProductModel[]> {
+  async getAllProduct(filters: Record<string, any>): Promise<Product[]> {
     const { category } = filters;
 
     const whereOptions: any = {};
@@ -54,7 +54,7 @@ export class ProductRepository implements IProductRepository {
     return products;
   }
 
-  async putProductById(id: string, body: Product): Promise<ProductModel> {
+  async putProductById(id: string, body: Product): Promise<Product> {
     const { name, description, image, unitPrice, category } = body;
 
     const [rowsUpdated] = await ProductModel.update(

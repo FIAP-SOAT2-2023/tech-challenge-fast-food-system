@@ -14,8 +14,8 @@ class Product extends Model<ProductAttributes> implements ProductAttributes {
   public id!: number;
   public uuid!: string;
   public name!: string;
-  public description!: string | null;
-  public image!: string | null;
+  public description!: string;
+  public image!: string;
   public unitPrice!: number;
   public category!: string;
 }
