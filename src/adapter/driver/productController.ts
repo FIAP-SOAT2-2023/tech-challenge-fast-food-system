@@ -9,8 +9,15 @@ export class ProductController {
   async addProduct(req: Request, res: Response) {
     const product = await ValidationUtil.validateAndTransform(ProductRequest, req.body, res);
     const result = await this.productService.addProduct(product);
-    res.status(200).json(result);
 
+    const data = {
+      uuid: result.uuid,
+      name: result.name,
+      image: result.image,
+      unitPrice: result.unitPrice,
+      description: result.description,
+    }
+    res.status(200).json(data);
   }
 
   async getProductById(req: Request, res: Response) {
