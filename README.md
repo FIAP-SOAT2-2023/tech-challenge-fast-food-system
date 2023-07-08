@@ -3,16 +3,19 @@
 Projeto da Pós Graduação da FIAP - Arquitetura de Software
 
 ### Pré-requisitos
-
 ```
 Docker
 Docker Compose
 ```
 
-### Execução
-
+### Execução Windows
 ```
-docker-compose up -d --build
+docker compose up -d --build
+```
+
+### Execução linux/mac
+```
+sudo docker compose up -d --build
 ```
 
 ### Tecnologias utilizadas
@@ -22,7 +25,6 @@ docker-compose up -d --build
 * [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 
 ### Swagger
-
 ```
 http://localhost:3000/docs
 ```

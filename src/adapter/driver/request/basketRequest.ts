@@ -1,35 +1,38 @@
-import { Basket } from "core/domain/basket";
+import {Basket} from "core/domain/basket";
 import {
-    validate,
-    validateOrReject,
-    Contains,
-    IsInt,
-    Length,
-    IsEmail,
-    IsFQDN,
-    IsDate,
-    Min,
-    Max, MinLength, MaxLength,
-    IsNotEmpty ,ValidateIf
-  } from 'class-validator';
-
-import { Customer } from "core/domain/customer";
-import { Item } from "core/domain/item";
+  Length,
+  IsNotEmpty
+} from 'class-validator';
+import {ItemRequest} from "./ItemRequest";
+import {PaymentRequest} from "./paymentRequest";
+import {Customer} from "../../../core/domain/customer";
+import {Order} from "../../../core/domain/order";
+import {CustomerRequest} from "./customerRequest";
 
 export class BasketRequest implements Basket {
 
-    declare id: string;
+  declare id: number;
 
-    declare isTakeOut: boolean;
+  declare uuid?: string;
 
-    @IsNotEmpty({message: 'customer is required'})
-    declare customer: Customer;
+  @IsNotEmpty({message: 'customer is required'})
+  declare customer?: CustomerRequest;
 
-    @Length(2, 10, {message: 'Total Price should be between 2 and 10 characters'})
-    @IsNotEmpty({message: 'Total Price is required'})
-    declare  totalPrice: number;
+  @Length(2, 10, {message: 'Total Price should be between 2 and 10 characters'})
+  @IsNotEmpty({message: 'Total Price is required'})
+  declare totalPrice?: number;
 
-    @IsNotEmpty({message: 'Item is required'})
-    declare items: Item[];
+  declare isTakeOut?: boolean;
+
+  declare createdAt?: Date;
+
+  @IsNotEmpty({message: 'Item is required'})
+  declare items: ItemRequest[];
+
+  declare order?: Order;
+
+  declare paymentId?: number;
+
+  declare payment?: PaymentRequest;
 
 }

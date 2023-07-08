@@ -1,4 +1,4 @@
-import OrderModel from 'infra/models/OrderModel';
+import OrderModel from 'infra/models/orderModel';
 import addressModel from 'infra/models/addressModel';
 import basketsModel from 'infra/models/basketsModel';
 import customerModel from 'infra/models/customerModel';

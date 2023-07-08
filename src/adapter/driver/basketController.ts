@@ -1,31 +1,41 @@
-import { Request, Response } from "express";
-import { Basket } from "../../core/domain/basket";
-import { BasketService } from "../../core/applications/services/BasketService";
-import { Payment } from "core/domain/payment";
+import {Request, Response} from "express";
+import {BasketService} from "core/applications/services/basketService";
+import {BasketRequest} from "./request/basketRequest";
+import {Basket} from "core/domain/basket";
+import {Order} from "sequelize";
 
 export class BasketController {
 
-    constructor(private readonly basketService: BasketService){}
-    
-    async create(req: Request, res: Response) {
+  constructor(
+    private readonly basketService: BasketService
+  ) {
+  }
 
-        let basket: Basket = {
-            ...req.body
-        };
+  async create(req: Request, res: Response) {
+    let basket: BasketRequest = {
+      ...req.body
+    };
 
-        let payment: Payment = {
-            ...req.body.payment
-        }
-        
-        this.basketService
-        .createBasket(req.body.customerId, basket, payment)
-        .then((basketCreated: Basket) => {
-            res.status(200).json({order: basketCreated.order});
+    this.basketService
+      .createBasket(req.body.customerId, basket, basket.payment ?? {})
+      .then((basketCreated: Basket) => {
+        res.status(200).json({order: basketCreated.order});
+      })
+      .catch((error) => {
+        console.error(error)
+        res.json(JSON.stringify({message: error})).sendStatus(400)
+      })
+  }
+
+  async getAllPendingOrders(req: Request, res: Response) {
+    this.basketService
+        .getAllPendingOrders()
+        .then((orders) => {
+          res.status(200).json({orders: orders});
         })
         .catch((error) => {
-            console.error(error)
-            res.json(JSON.stringify({message: error})).sendStatus(400)
+          console.error(error)
+          res.json(JSON.stringify({message: error})).sendStatus(400)
         })
-        
-    }
+  }
 }

@@ -4,7 +4,6 @@ import PaymentModel from "infra/models/paymentModel";
 
 export class PaymentRepository implements IPaymentRepository {
 
-
     async createPayment(paymentNew: Payment): Promise<Payment> {
 
         return new Promise<Payment> (async  (resolve ) =>  {
@@ -20,5 +19,4 @@ export class PaymentRepository implements IPaymentRepository {
             resolve(payment)
         })
     }
-
 }

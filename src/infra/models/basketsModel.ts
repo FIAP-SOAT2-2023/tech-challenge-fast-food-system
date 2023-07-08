@@ -10,38 +10,21 @@ class BasketModel extends Model<InferAttributes<BasketModel>, InferCreationAttri
   declare uuid: CreationOptional<string>
   declare isTakeOut: CreationOptional<boolean>
   declare totalPrice: CreationOptional<number>
-  
-
   declare customerId?: ForeignKey<CustomerModel['id']>
-
   declare customer?: NonAttribute<CustomerModel>
-
   declare items: NonAttribute<ItemModel[]>
-
-  declare public static associations: { 
-    //customerId: Association<BasketModel, CustomerModel>,
-    //items: Association<BasketModel, Item>
+  declare public static associations: {
     customer: Association<BasketModel, CustomerModel>
   };
 
   declare getItems: HasManyGetAssociationsMixin<ItemModel>
   declare addItems: HasManyAddAssociationsMixin<ItemModel, number>
-
   declare addItem: HasManyAddAssociationMixin<ItemModel, 'basketId'>
-
-
   declare addCustomer: BelongsToCreateAssociationMixin<CustomerModel>;
 
-
-  //declare getCustomer: HasManyGetAssociationsMixin
-
- 
-  
   declare createdAt: CreationOptional<Date>
   declare updatedAt: CreationOptional<Date>
 }
-
-
 
 BasketModel.init(
   {

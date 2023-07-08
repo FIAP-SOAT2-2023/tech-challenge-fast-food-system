@@ -22,6 +22,7 @@
     "sequelize": "^6.32.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3",
+    "tsoa": "^5.1.1",
     "tsyringe": "^4.8.0",
     "uuid": "^8.3.2"
   },
@@ -40,6 +41,7 @@
     "@types/uuid": "^9.0.2",
     "class-transformer": "^0.5.1",
     "class-validator": "^0.14.0",
+    "concurrently": "^8.2.0",
     "module-alias": "^2.2.3",
     "nodemon": "^2.0.22",
     "ts-node": "^10.9.1",

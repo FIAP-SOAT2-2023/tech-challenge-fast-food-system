@@ -3,8 +3,8 @@ import { Payment } from "./payment";
 
 export interface Order {
     uuid?: string,
-    basket: Basket,
-    payment: Payment,
+    basket?: Basket,
+    payment?: Payment,
     status: string,
     doneAt?: Date,
     expected?: Date,
