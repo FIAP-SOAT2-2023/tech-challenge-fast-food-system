@@ -35,7 +35,7 @@ sudo docker compose -f "docker-compose.yml" up -d --build
 
 ### Tecnologias utilizadas
 
-* [TypeScript](https://www.typescriptlang.org)]
+* [TypeScript](https://www.typescriptlang.org)
 * [Docker](https://www.docker.com)
 * [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 * [MySQL](https://www.mysql.com)
