@@ -10,13 +10,13 @@ services:
       - MYSQL_ROOT_PASSWORD=${DB_PASS}
       - MYSQL_DATABASE=${DB_SCHEMA}
       - MYSQL_USER=${DB_USER}
-      - MYSQL_PASSWORD= ${DB_PASS}
+      - MYSQL_PASSWORD=${DB_PASS}
     ports:
       - 3306:3306
+    expose:
+      - 3306
     volumes:
       - ./data/mysql:/var/lib/mysql
-    network_mode: "host"
-
   fastfoodservice:
     depends_on:
       - mysqldb
@@ -25,9 +25,8 @@ services:
     ports:
       - 3000:3000
     environment:
-      - DB_HOST=${DB_HOST}
+      - DB_HOST=mysqldb
       - DB_USER=${DB_USER}
       - DB_PASSWORD= ${DB_PASS}
       - DB_NAME=${DB_NAME}
       - DB_PORT=${DB_PORT}
-    network_mode: "host"

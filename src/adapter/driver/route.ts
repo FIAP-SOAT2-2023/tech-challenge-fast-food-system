@@ -1,25 +1,28 @@
-import {CustomerService} from "core/applications/services/customerService";
-import express, {Request, Response, NextFunction} from "express";
+import { CustomerService } from "core/applications/services/customerService";
+import express, { Request, Response, NextFunction } from "express";
 import "infra/config/mysqlConfig";
 
 import swaggerUi from 'swagger-ui-express';
 import swaggerDocs from 'infra/docs/swagger';
 
-import {CustomerRepository} from "adapter/driven/repositories/customerRepository";
-import {CustomerController} from "adapter/driver/customerController";
-import {ProductRepository} from "adapter/driven/repositories/productRepository";
-import {ProductService} from "core/applications/services/productService";
-import {ProductController} from "adapter/driver/productController";
-import {AddressRepository} from "adapter/driven/repositories/addressRepository";
-import {AddressService} from "core/applications/services/addressService";
-import {BasketRepository} from "adapter/driven/repositories/basketRepository";
-import {BasketService} from "core/applications/services/basketService";
-import {BasketController} from "adapter/driver/basketController";
+import { CustomerRepository } from "adapter/driven/repositories/customerRepository";
+import { CustomerController } from "adapter/driver/customerController";
+import { ProductRepository } from "adapter/driven/repositories/productRepository";
+import { ProductService } from "core/applications/services/productService";
+import { ProductController } from "adapter/driver/productController";
+import { AddressRepository } from "adapter/driven/repositories/addressRepository";
+import { AddressService } from "core/applications/services/addressService";
+import { BasketRepository } from "adapter/driven/repositories/basketRepository";
+import { BasketService } from "core/applications/services/basketService";
+import { BasketController } from "adapter/driver/basketController";
 import IPaymentRepository from "core/applications/ports/out/paymentRepository";
-import {PaymentRepository} from "adapter/driven/repositories/paymentRepository";
-import {IOrderRepository} from "core/applications/ports/out/orderRepository";
-import {OrderRepository} from "adapter/driven/repositories/orderRepository";
+import { PaymentRepository } from "adapter/driven/repositories/paymentRepository";
+import { IOrderRepository } from "core/applications/ports/out/orderRepository";
+import { OrderRepository } from "adapter/driven/repositories/orderRepository";
 
+export interface Error {
+  message?: string
+}
 export class Route {
   static async asyncWrapper(
     req: Request,
@@ -30,10 +33,26 @@ export class Route {
     try {
       await fn(req, res, next);
     } catch (error) {
+
       console.error("Error:", error);
-      if (!res.headersSent) {
-        res.status(500).json({error: "Internal server error"});
+
+      if (res.headersSent) {
+        return;
+
       }
+
+      const errorValue = error as Error
+
+      const { message } = errorValue
+
+
+      if (message) {
+        res.status(400).json({ errors: [message] });
+      } else {
+        res.status(500).json({ errors: ["Internal Server Error"] });
+      }
+
+
     }
   }
 
@@ -67,7 +86,7 @@ export class Route {
     app.use((err: Error, req: Request, res: Response, next: NextFunction) => {
       console.error("Error:", err);
       if (!res.headersSent) {
-        res.status(500).json({error: "Internal server error"});
+        res.status(500).json({ error: "Internal server error" });
       }
     });
 

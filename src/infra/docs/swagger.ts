@@ -345,9 +345,6 @@ const swaggerConfig = {
       Basket: {
         type: "object",
         properties: {
-          id: {
-            type: "string"
-          },
           isTakeOut: {
             type: "boolean"
           },
