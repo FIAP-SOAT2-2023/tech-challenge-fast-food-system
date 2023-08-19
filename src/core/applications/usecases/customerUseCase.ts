@@ -1,6 +1,6 @@
 import { Customer } from "core/domain/entities/customer";
 import { ICustomerRepository } from "core/domain/repositories/customerRepository";
-import { ICustomerUseCase } from "core/domain/usecases/iCustomerUseCase";
+import { ICustomerUseCase } from "core/domain/usecases/ICustomerUseCase";
 
 export class CustomerUseCase implements ICustomerUseCase {
 

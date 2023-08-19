@@ -295,6 +295,85 @@ const swaggerConfig = {
         },
       },
     },
+    '/orders': {
+      get: {
+        summary: 'Retorna todos os pedidos',
+        tags: ['Orders'],
+        parameters: [],
+        responses: {
+          200: {
+            description: 'Lista de pedido retornada com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Order',
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
+    '/status': {
+      get: {
+        summary: 'Retorna todos os Status',
+        tags: ['Status'],
+        parameters: [],
+        responses: {
+          200: {
+            description: 'Lista de status retornada com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Status',
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+      post: {
+        summary: 'Cria um novo Status',
+        tags: ['Status'],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Status',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Status criado com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Status',
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -324,6 +403,20 @@ const swaggerConfig = {
           },
         },
         required: ['name', 'description', 'image', 'unitPrice', 'category'],
+      },
+      Status: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+            example: 'received'
+          },
+          name: {
+            type: 'string',
+            example: 'Recebido'
+          },
+        },
+        required: ['key', 'name'],
       },
       Customer: {
         type: 'object',
