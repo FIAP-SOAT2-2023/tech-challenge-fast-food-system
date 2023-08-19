@@ -19,8 +19,6 @@ import { IOrderRepository } from "core/domain/repositories/orderRepository";
 import { BasketUseCase } from "core/applications/usecases/basketUseCase";
 import { AddressRepository } from "infra/persistence/repositories/addressRepository";
 import { BasketController } from "./controllers/basketController";
-import { OrderController } from "./controllers/orderController";
-import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { StatusRepository } from "infra/persistence/repositories/statusRepository";
 import { StatusUseCase } from "core/applications/usecases/statusUseCase";
 import { StatusController } from "./controllers/statusController";
@@ -83,9 +81,6 @@ export class Route {
     );
     const basketController = new BasketController(basketService);
       
-    const orderUseCase = new OrderUseCase(orderRepository);
-    const orderController = new OrderController(orderUseCase);
-
     const statusUseCase = new StatusUseCase(statusRepository);
     const statusController = new StatusController(statusUseCase);
   
@@ -128,9 +123,6 @@ export class Route {
     });
     app.get("/checkout/pending", async (req, resp, next) => {
       await Route.asyncWrapper(req, resp, next, basketController.getAllPendingOrders.bind(basketController));
-    });
-    app.get("/orders", async (req, resp, next) => {
-      await Route.asyncWrapper(req, resp, next, orderController.getAllOrder.bind(orderController));
     });
     app.get("/status", async (req, resp, next) => {
       await Route.asyncWrapper(req, resp, next, statusController.getAllStatus.bind(statusController));

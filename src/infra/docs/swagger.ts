@@ -295,31 +295,6 @@ const swaggerConfig = {
         },
       },
     },
-    '/orders': {
-      get: {
-        summary: 'Retorna todos os pedidos',
-        tags: ['Orders'],
-        parameters: [],
-        responses: {
-          200: {
-            description: 'Lista de pedido retornada com sucesso',
-            content: {
-              'application/json': {
-                schema: {
-                  type: 'array',
-                  items: {
-                    $ref: '#/components/schemas/Order',
-                  },
-                },
-              },
-            },
-          },
-          500: {
-            description: 'Erro interno do servidor',
-          },
-        },
-      },
-    },
     '/status': {
       get: {
         summary: 'Retorna todos os Status',

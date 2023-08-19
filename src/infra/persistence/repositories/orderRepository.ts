@@ -16,11 +16,11 @@ export class OrderRepository implements IOrderRepository {
 
         return new Promise<Order> (async (resolve) =>  {
 
-            const { basket, payment } = orderNew;
+            const { basket, payment, status } = orderNew;
 
             const basketModel = await BasketModel.findOne({where: { uuid: basket?.uuid}});
             const paymentModel = await PaymentModel.findOne({where: { nsu: payment?.nsu }})
-            const statusModel = await StatusModel.findOne({where: { key: OrderStatusKey.RECEIVED }})
+            const statusModel = await StatusModel.findOne({where: { key: status.key }})
 
             let orderCreated = await OrderModel.create({
                 statusId: statusModel?.id,
@@ -42,72 +42,6 @@ export class OrderRepository implements IOrderRepository {
     async getAllPendingOrders(): Promise<Order[]> {
         return new Promise<Order[]>(async (resolve, reject) => {
             const listOrdersFromDatabase = await OrderModel.findAll({
-                where: {},
-                include: [
-                    {
-                        model: StatusModel,
-                        where: {
-                            key: {
-                                [Op.or]: [OrderStatusKey.RECEIVED, OrderStatusKey.PREPARATION]
-                            }
-                        }
-                    }
-                ]
-            });
-
-            let orderList: Order[] = [];
-            for (const orderFromDatabase of listOrdersFromDatabase)
-            {
-                const basket = await BasketsModel.findOne({where: {
-                        id: orderFromDatabase.basketId
-                    }})
-
-                const status = await StatusModel.findOne({
-                    where: {
-                        id: orderFromDatabase.statusId
-                    }
-                })
-
-                if (basket != null)
-                    basket.items = await ItemModel.findAll({where: {
-                            basketId: basket?.id
-                        }})
-
-                const order: Order = {
-                    createdAt: orderFromDatabase.createdAt,
-                    uuid: orderFromDatabase.uuid,
-                    status: {
-                        key: status?.key as string,
-                        name: status?.name as string,
-                    },
-                    doneAt: orderFromDatabase.doneAt,
-                    expected: orderFromDatabase.expected,
-                    basket: {
-                        totalPrice: basket?.totalPrice,
-                        isTakeOut: basket?.isTakeOut,
-                        items: basket?.items.map(maping => {
-                            return {
-                                id: maping.id,
-                                quantity: maping.quantity,
-                                unitPrice: maping.unitPrice,
-                                observations: maping.observations,
-                                basketId: maping.basketId,
-                                productId: maping.productId,
-                                createdAt: maping.createdAt,
-                                updatedAt: maping.updatedAt,
-                            }
-                        }) ?? [],
-                    }
-                }
-                orderList.push(order);
-            }
-            return resolve(orderList)
-        });
-    }
-
-    async getAllOrder(): Promise<Order[]> {
-        return new Promise<Order[]>(async (resolve, reject) => {
-            const orders = await OrderModel.findAll({
                 include: [
                     {
                         model: StatusModel,
@@ -134,26 +68,51 @@ export class OrderRepository implements IOrderRepository {
             });
 
             let orderList: Order[] = [];
-            for (const order of orders)
+            for (const orderFromDatabase of listOrdersFromDatabase)
             {
+                const basket = await BasketsModel.findOne({where: {
+                        id: orderFromDatabase.basketId
+                    }})
+
                 const status = await StatusModel.findOne({
                     where: {
-                        id: order.statusId
+                        id: orderFromDatabase.statusId
                     }
                 })
 
-                orderList.push({
-                    uuid: order.uuid,
+                if (basket != null)
+                    basket.items = await ItemModel.findAll({where: {
+                            basketId: basket?.id
+                        }})
+
+                const order: Order = {
+                    uuid: orderFromDatabase.uuid,
+                    doneAt: orderFromDatabase.doneAt,
+                    expected: orderFromDatabase.expected,
+                    createdAt: orderFromDatabase.createdAt,
                     status: {
                         key: status?.key as string,
                         name: status?.name as string,
                     },
-                    doneAt: order.doneAt,
-                    expected: order.expected,
-                    createdAt: order.createdAt,
-                })
+                    basket: {
+                        totalPrice: basket?.totalPrice,
+                        isTakeOut: basket?.isTakeOut,
+                        items: basket?.items.map(maping => {
+                            return {
+                                id: maping.id,
+                                quantity: maping.quantity,
+                                unitPrice: maping.unitPrice,
+                                observations: maping.observations,
+                                basketId: maping.basketId,
+                                productId: maping.productId,
+                                createdAt: maping.createdAt,
+                                updatedAt: maping.updatedAt,
+                            }
+                        }) ?? [],
+                    }
+                }
+                orderList.push(order);
             }
-
             return resolve(orderList)
         });
     }

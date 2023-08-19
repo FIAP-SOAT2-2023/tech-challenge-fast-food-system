@@ -6,5 +6,4 @@ export interface IOrderRepository {
 
   getAllPendingOrders(): Promise<Order[]>;
 
-  getAllOrder(): Promise<Order[]>
 }
