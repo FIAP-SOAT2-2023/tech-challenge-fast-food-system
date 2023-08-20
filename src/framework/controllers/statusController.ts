@@ -24,9 +24,4 @@ export class StatusController {
     const result = await this.statusUseCase.getAllStatus();
     res.status(200).json(result);
   }
-
-  async getByKey(req: Request, res: Response) {
-    const result = await this.statusUseCase.getAllStatus();
-    res.status(200).json(result);
-  }
 }
