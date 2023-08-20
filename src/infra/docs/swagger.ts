@@ -320,7 +320,7 @@ const swaggerConfig = {
         },
       },
       post: {
-        summary: 'Cria um novo Status',
+        summary: 'Cria novos Status',
         tags: ['Status'],
         requestBody: {
           required: true,
@@ -384,13 +384,29 @@ const swaggerConfig = {
         properties: {
           key: {
             type: 'string',
-            example: 'received'
           },
           name: {
             type: 'string',
-            example: 'Recebido'
           },
         },
+        example: [
+          {
+            key: 'done',
+            name: 'Finalizado',
+          },
+          {
+            key: 'received',
+            name: 'Recebido',
+          },
+          {
+            key: 'preparation',
+            name: 'Em preparação',
+          },
+          {
+            key: 'ready',
+            name: 'Pronto',
+          },
+        ],
         required: ['key', 'name'],
       },
       Customer: {

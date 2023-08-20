@@ -5,7 +5,7 @@ import { IStatusUseCase } from 'core/domain/usecases/IStatusUseCase';
 
 export class StatusUseCase implements IStatusUseCase {
   constructor(private readonly statusRepository: IStatusRepository) {}
-  addStatus(body: Status): Promise<Status> {
+  addStatus(body: Status[]): Promise<Status[]> {
     return this.statusRepository.addStatus(body);
   }
 

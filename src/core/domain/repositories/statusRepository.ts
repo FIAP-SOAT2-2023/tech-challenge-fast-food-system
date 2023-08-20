@@ -2,7 +2,7 @@ import { Status } from "../entities/status";
 
 
 export default interface IStatusRepository {
-    addStatus(body: Status): Promise<Status>;
+    addStatus(body: Status[]): Promise<Status[]>;
 
     getAllStatus(): Promise<Status[]>;
 

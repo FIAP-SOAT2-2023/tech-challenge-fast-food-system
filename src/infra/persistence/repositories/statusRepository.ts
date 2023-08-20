@@ -4,13 +4,15 @@ import StatusModel from "../models/statusModel";
 
 
 export class StatusRepository implements IStatusRepository {
-  async addStatus(body: Status): Promise<Status> {
-    const result = await StatusModel.create({
-      key: body.key,
-      name: body.name,
-    });
-
-    return result;
+  async addStatus(status: Status[]): Promise<Status[]> {
+    const createdStatuses = await StatusModel.bulkCreate(
+      status.map(singleStatus => ({
+        key: singleStatus.key,
+        name: singleStatus.name,
+      }))
+    );
+  
+    return createdStatuses;
   }
 
   async getAllStatus(): Promise<Status[]> {
