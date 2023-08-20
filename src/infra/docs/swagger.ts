@@ -295,6 +295,60 @@ const swaggerConfig = {
         },
       },
     },
+    '/status': {
+      get: {
+        summary: 'Retorna todos os Status',
+        tags: ['Status'],
+        parameters: [],
+        responses: {
+          200: {
+            description: 'Lista de status retornada com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/Status',
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+      post: {
+        summary: 'Cria novos Status',
+        tags: ['Status'],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Status',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Status criado com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/Status',
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -324,6 +378,36 @@ const swaggerConfig = {
           },
         },
         required: ['name', 'description', 'image', 'unitPrice', 'category'],
+      },
+      Status: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+        },
+        example: [
+          {
+            key: 'done',
+            name: 'Finalizado',
+          },
+          {
+            key: 'received',
+            name: 'Recebido',
+          },
+          {
+            key: 'preparation',
+            name: 'Em preparação',
+          },
+          {
+            key: 'ready',
+            name: 'Pronto',
+          },
+        ],
+        required: ['key', 'name'],
       },
       Customer: {
         type: 'object',
