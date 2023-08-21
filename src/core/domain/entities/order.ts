@@ -3,6 +3,7 @@ import { Payment } from "./payment";
 
 export interface Order {
     uuid?: string,
+    code?: string,
     basket?: Basket,
     payment?: Payment,
     status: string,

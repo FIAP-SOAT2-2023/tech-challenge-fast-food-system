@@ -31,6 +31,6 @@ export class CustomerController {
       customerId: result.uuid,
     };
     await this.addressUseCase.addAddress(address);
-    res.status(200).json(result);
+    res.status(201).json(result);
   }
 }

@@ -18,17 +18,21 @@ export class OrderRepository implements IOrderRepository {
             const basketModel = await BasketModel.findOne({where: { uuid: basket?.uuid}});
             const paymentModel = await PaymentModel.findOne({where: { nsu: payment?.nsu }})
 
+            const codeNumber = basketModel ? basketModel.id * 2:1
+            const codeNew = `ORD-${codeNumber}${paymentModel?.id}`
+
             let orderCreated = await OrderModel.create({
                 status: orderNew.status,
                 basketId: basketModel?.id,
                 paymentId: paymentModel?.id,
                 expected: orderNew.expected,
+                code: codeNew
             })
 
-            const {uuid, status, expected, createdAt} = orderCreated;
+            const {uuid, status, expected, createdAt, code} = orderCreated;
 
             const orderResult = {
-                ...orderNew, uuid, status, expected, createdAt
+                ...orderNew, uuid, status, expected, createdAt, code
             }
 
             resolve(orderResult)

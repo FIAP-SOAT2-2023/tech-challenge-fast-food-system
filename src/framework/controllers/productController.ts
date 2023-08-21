@@ -18,7 +18,7 @@ export class ProductController {
       unitPrice: result.unitPrice,
       description: result.description,
     }
-    res.status(200).json(data);
+    res.status(201).json(data);
   }
 
   async getProductById(req: Request, res: Response) {

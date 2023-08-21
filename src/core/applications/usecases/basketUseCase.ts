@@ -39,8 +39,8 @@ export class BasketUseCase implements IBasketUseCase {
             const orderCreated = await this.orderRepository.createOrder(orderPending)
 
             const basketResult: Basket = {
+                order: orderCreated,
                 ...basketCreated,
-                order: orderCreated
             }
 
             resolve(basketResult);

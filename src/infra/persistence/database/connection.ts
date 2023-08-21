@@ -1,5 +1,6 @@
 import { Sequelize } from "sequelize";
 import 'dotenv/config'
+import mysqlConfig from "../config/mysqlConfig";
 
 const dbName : string = process.env.DB_NAME as string;
 const dbUser : string = process.env.DB_USER  as string;
@@ -14,5 +15,21 @@ const sequelize = new Sequelize(dbName, dbUser, dbPassword, {
   host: dbHost,
   port: dbPort
 });
+
+sequelize.authenticate()
+  .then(() => {
+    console.log('Conexão estabelecida com sucesso.');
+
+    // Coloque o código que deseja executar após a conexão aqui
+    //mysqlConfig(sequelize)
+
+  })
+  .catch((error) => {
+    console.error('Erro ao conectar:', error);
+  });
+
+
+
+
 
 export default sequelize;

@@ -20,6 +20,7 @@ class OrderModel extends Model<InferAttributes<OrderModel>, InferCreationAttribu
     declare basketId: ForeignKey<BasketModel['id']>
     declare paymentId: ForeignKey<PaymentModel['id']>
     declare uuid: CreationOptional<string>
+    declare code: CreationOptional<string>    
     declare payment?: NonAttribute<PaymentModel>
     declare basket?: NonAttribute<BasketModel>
     declare status: CreationOptional<string>
@@ -47,6 +48,11 @@ OrderModel.init({
         primaryKey: true,
         allowNull: false,
         defaultValue: DataTypes.UUIDV4
+    },
+    code: {
+        type: DataTypes.STRING,
+        primaryKey: false,
+        allowNull: false
     },
     status: {
         type: DataTypes.STRING,
