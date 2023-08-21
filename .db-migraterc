@@ -1,0 +1,5 @@
+{
+  "sql-file": true,
+  "configFile": "./src/infra/persistence/config/db_migrations.json",
+  "table": "migrations"
+}

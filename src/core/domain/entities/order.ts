@@ -1,12 +1,13 @@
 import { Basket } from "./basket";
 import { Payment } from "./payment";
+import { Status } from "./status";
 
 export interface Order {
     uuid?: string,
     code?: string,
     basket?: Basket,
     payment?: Payment,
-    status: string,
+    status: Status,
     doneAt?: Date,
     expected?: Date,
     createdAt?: Date
