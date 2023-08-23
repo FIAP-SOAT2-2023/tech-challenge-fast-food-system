@@ -1,10 +1,7 @@
 import IOrderStatusRepository from "core/domain/repositories/statusRepository";
 import { OrderStatus } from "core/domain/entities/orderStatus";
 import OrderStatusModel from "../models/orderStatusModel";
-
-
 export class OrderStatusRepository implements IOrderStatusRepository {
-
 
   async addOrderStatus(body: OrderStatus[]): Promise<OrderStatus[]> {
     const createdStatus = await OrderStatusModel.bulkCreate(
