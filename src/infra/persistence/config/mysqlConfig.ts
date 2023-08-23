@@ -5,7 +5,7 @@ import customerModel from 'infra/persistence/models/customerModel';
 import itensModel from 'infra/persistence/models/itemModel';
 import PaymentModel from 'infra/persistence/models/paymentModel';
 import productsModel from 'infra/persistence/models/productModel';
-import StatusModel from '../models/statusModel';
+import OrderStatusModel from '../models/orderStatusModel';
 
 export default () => {
   // Criação da tabela no banco de dados
@@ -16,5 +16,5 @@ export default () => {
   addressModel.sync();
   OrderModel.sync();
   PaymentModel.sync();
-  StatusModel.sync();
+  OrderStatusModel.sync();
 };

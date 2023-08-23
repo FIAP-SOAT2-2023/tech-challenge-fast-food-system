@@ -2,7 +2,7 @@ import db from "../database/connection";
 import { Model, InferAttributes, InferCreationAttributes, CreationOptional, DataTypes } from 'sequelize';
 
 
-class StatusModel extends Model<InferAttributes<StatusModel>, InferCreationAttributes<StatusModel>>{
+class OrderStatusModel extends Model<InferAttributes<OrderStatusModel>, InferCreationAttributes<OrderStatusModel>>{
 
     declare id: CreationOptional<number>
     declare uuid: CreationOptional<string>
@@ -10,7 +10,7 @@ class StatusModel extends Model<InferAttributes<StatusModel>, InferCreationAttri
     declare name: CreationOptional<string>
 }
 
-StatusModel.init({
+OrderStatusModel.init({
   id: {
     type: DataTypes.INTEGER.UNSIGNED,
     autoIncrement: true,
@@ -34,7 +34,7 @@ StatusModel.init({
 },
 {
   sequelize: db,
-  modelName: "Status",
+  modelName: "OrderStatus",
 })
 
-export default StatusModel
+export default OrderStatusModel

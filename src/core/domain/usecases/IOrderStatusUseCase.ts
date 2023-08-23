@@ -1,7 +1,7 @@
 import { OrderStatus } from "../entities/orderStatus";
 
 
-export default interface IOrderStatusRepository {
+export interface IOrderStatusUseCase {
     addOrderStatus(body: OrderStatus[]): Promise<OrderStatus[]>;
 
     getAllOrderStatus(): Promise<OrderStatus[]>;

@@ -13,23 +13,23 @@ import Sequelize, {
 import BasketModel from './basketsModel';
 import db from "../database/connection";
 import PaymentModel from './paymentModel';
-import StatusModel from './statusModel';
+import OrderStatusModel from './orderStatusModel';
 
 class OrderModel extends Model<InferAttributes<OrderModel>, InferCreationAttributes<OrderModel>> {
 
     declare id: CreationOptional<number>
     declare basketId: ForeignKey<BasketModel['id']>
     declare paymentId: ForeignKey<PaymentModel['id']>
-    declare statusId: ForeignKey<StatusModel['id']>
+    declare statusId: ForeignKey<OrderStatusModel['id']>
     declare uuid: CreationOptional<string>
     declare code: CreationOptional<string>    
     declare payment?: NonAttribute<PaymentModel>
     declare basket?: NonAttribute<BasketModel>
-    declare status?: NonAttribute<StatusModel>
+    declare status?: NonAttribute<OrderStatusModel>
     declare public static associations: {
         basket: Association<OrderModel, BasketModel>
         payment: Association<OrderModel, PaymentModel>
-        status: Association<OrderModel, StatusModel>
+        status: Association<OrderModel, OrderStatusModel>
     }
     declare doneAt: CreationOptional<Date>
     declare expected: CreationOptional<Date>
@@ -66,7 +66,7 @@ OrderModel.init({
     modelName: "Orders",
 })
 
-OrderModel.belongsTo(StatusModel, {targetKey: 'id', foreignKey: 'statusId'})
+OrderModel.belongsTo(OrderStatusModel, {targetKey: 'id', foreignKey: 'statusId'})
 OrderModel.belongsTo(BasketModel, {targetKey: 'id', foreignKey: 'basketId'})
 OrderModel.belongsTo(PaymentModel, {targetKey: 'id', foreignKey: 'paymentId'})
 

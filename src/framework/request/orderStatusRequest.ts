@@ -1,7 +1,7 @@
 import { Length, IsNotEmpty, IsNumber } from 'class-validator';
-import { Status } from 'core/domain/entities/status';
+import { OrderStatus } from 'core/domain/entities/orderStatus';
 
-export class StatusRequest implements Status {
+export class OrderStatusRequest implements OrderStatus {
     declare id: string;
 
     @Length(2, 50, {message: 'Key should be between 2 and 50 characters'})
