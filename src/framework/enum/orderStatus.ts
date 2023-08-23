@@ -1,8 +1,8 @@
 enum OrderStatusKey {
-    DONE = "done",
-    PREPARATION = "preparation",
-    READY = "ready",
-    RECEIVED = "received"
+    DONE = "DONE",
+    PREPARATION = "PREPARATION",
+    READY = "READY",
+    RECEIVED = "RECEIVED"
 }
 
 export default OrderStatusKey;
