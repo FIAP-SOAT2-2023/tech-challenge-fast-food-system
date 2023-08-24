@@ -66,7 +66,7 @@ OrderModel.init({
     modelName: "Orders",
 })
 
-OrderModel.belongsTo(OrderStatusModel, {targetKey: 'id', foreignKey: 'statusId'})
+OrderModel.belongsTo(OrderStatusModel, {targetKey: 'id', foreignKey: 'statusId', as: 'status'})
 OrderModel.belongsTo(BasketModel, {targetKey: 'id', foreignKey: 'basketId'})
 OrderModel.belongsTo(PaymentModel, {targetKey: 'id', foreignKey: 'paymentId'})
 

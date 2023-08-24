@@ -48,7 +48,7 @@ export class OrderRepository implements IOrderRepository {
             const listOrdersFromDatabase = await OrderModel.findAll({
                 include: [
                     {
-                        model: OrderStatusModel,
+                        model: OrderStatusModel, as: 'status',
                         where: {
                             key: {
                                 [Op.not]: OrderStatusKey.DONE
@@ -60,7 +60,7 @@ export class OrderRepository implements IOrderRepository {
                     [
                         Sequelize.fn(
                             "FIELD",
-                            Sequelize.col("orderStatus.key"),
+                            Sequelize.col("status.key"),
                             OrderStatusKey.READY,
                             OrderStatusKey.PREPARATION,
                             OrderStatusKey.RECEIVED
@@ -78,12 +78,6 @@ export class OrderRepository implements IOrderRepository {
                         id: orderFromDatabase.basketId
                     }})
 
-                const orderStatus = await OrderStatusModel.findOne({
-                    where: {
-                        id: orderFromDatabase.statusId
-                    }
-                })
-
                 if (basket != null)
                     basket.items = await ItemModel.findAll({where: {
                             basketId: basket?.id
@@ -95,8 +89,8 @@ export class OrderRepository implements IOrderRepository {
                     expected: orderFromDatabase.expected,
                     createdAt: orderFromDatabase.createdAt,
                     status: {
-                        key: orderStatus?.key as string,
-                        name: orderStatus?.name as string,
+                        key: orderFromDatabase?.status?.key as string,
+                        name: orderFromDatabase?.status?.name as string,
                     },
                     basket: {
                         totalPrice: basket?.totalPrice,
@@ -119,5 +113,56 @@ export class OrderRepository implements IOrderRepository {
             }
             return resolve(orderList)
         });
+    }
+
+    async updateOrderById(id: string, body: Order): Promise<Order> {
+        return new Promise<Order> (async (resolve) =>  {
+            const order = await OrderModel.findOne({
+                where: {
+                    uuid: id
+                }
+            });
+
+            if (!order) {
+                throw new Error('Pedido não encontrado.');
+            }
+            
+            const orderStatus = await OrderStatusModel.findOne({
+                where: {
+                    key: body.status.key
+                }
+            })
+
+            if (!orderStatus) {
+                throw new Error('Status de pedido não encontrado.');
+            }
+
+            await order.update(
+                { statusId: orderStatus?.id },
+                { where: { uuid: id } }
+            );
+
+            const orderUpdated = await OrderModel.findOne({
+                where: {
+                    uuid: id
+                },
+                include: [
+                    { model: OrderStatusModel, as: 'status' },
+                ]
+            });
+
+            resolve({
+                uuid: orderUpdated?.uuid,
+                code: orderUpdated?.code,
+                doneAt: orderUpdated?.doneAt,
+                expected: orderUpdated?.expected,
+                createdAt: orderUpdated?.createdAt,
+                updatedAt: orderUpdated?.updatedAt,
+                status: {
+                    key: orderUpdated?.status?.key as string,
+                    name: orderUpdated?.status?.name as string,
+                }
+            });
+        })
     }
 }

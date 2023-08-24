@@ -22,6 +22,8 @@ import { BasketController } from "./controllers/basketController";
 import { OrderStatusRepository } from "infra/persistence/repositories/orderStatusRepository";
 import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCase";
 import { OrderStatusController } from "./controllers/orderStatusController";
+import { OrderUseCase } from "core/applications/usecases/orderUseCase";
+import { OrderController } from "./controllers/orderController";
 
 export interface Error {
   message?: string
@@ -83,6 +85,9 @@ export class Route {
       
     const orderStatusUseCase = new OrderStatusUseCase(orderStatusRepository);
     const orderStatusController = new OrderStatusController(orderStatusUseCase);
+
+    const orderUseCase = new OrderUseCase(orderRepository);
+    const orderController = new OrderController(orderUseCase);
   
     const app = express();
     app.use(express.json());
@@ -129,6 +134,9 @@ export class Route {
     });
     app.post("/orders/status", async (req, resp, next) => {
       await Route.asyncWrapper(req, resp, next, orderStatusController.addOrderStatus.bind(orderStatusController));
+    });
+    app.patch("/orders/:id", async (req, resp, next) => {
+      await Route.asyncWrapper(req, resp, next, orderController.updateOrderById.bind(orderController));
     });
 
     app.listen(3000, () => console.log("Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"));
