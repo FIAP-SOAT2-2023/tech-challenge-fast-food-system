@@ -60,7 +60,7 @@ export class OrderRepository implements IOrderRepository {
                     [
                         Sequelize.fn(
                             "FIELD",
-                            Sequelize.col("status.key"),
+                            Sequelize.col("orderStatus.key"),
                             OrderStatusKey.READY,
                             OrderStatusKey.PREPARATION,
                             OrderStatusKey.RECEIVED
