@@ -295,10 +295,10 @@ const swaggerConfig = {
         },
       },
     },
-    '/status': {
+    '/orders/status': {
       get: {
         summary: 'Retorna todos os Status',
-        tags: ['Status'],
+        tags: ['Order Status'],
         parameters: [],
         responses: {
           200: {
@@ -308,7 +308,7 @@ const swaggerConfig = {
                 schema: {
                   type: 'array',
                   items: {
-                    $ref: '#/components/schemas/Status',
+                    $ref: '#/components/schemas/OrderStatus',
                   },
                 },
               },
@@ -321,13 +321,13 @@ const swaggerConfig = {
       },
       post: {
         summary: 'Cria novos Status',
-        tags: ['Status'],
+        tags: ['Order Status'],
         requestBody: {
           required: true,
           content: {
             'application/json': {
               schema: {
-                $ref: '#/components/schemas/Status',
+                $ref: '#/components/schemas/OrderStatus',
               },
             },
           },
@@ -338,7 +338,7 @@ const swaggerConfig = {
             content: {
               'application/json': {
                 schema: {
-                  $ref: '#/components/schemas/Status',
+                  $ref: '#/components/schemas/OrderStatus',
                 },
               },
             },
@@ -379,7 +379,7 @@ const swaggerConfig = {
         },
         required: ['name', 'description', 'image', 'unitPrice', 'category'],
       },
-      Status: {
+      OrderStatus: {
         type: 'object',
         properties: {
           key: {
@@ -391,19 +391,19 @@ const swaggerConfig = {
         },
         example: [
           {
-            key: 'done',
+            key: 'DONE',
             name: 'Finalizado',
           },
           {
-            key: 'received',
+            key: 'RECEIVED',
             name: 'Recebido',
           },
           {
-            key: 'preparation',
+            key: 'PREPARATION',
             name: 'Em preparação',
           },
           {
-            key: 'ready',
+            key: 'READY',
             name: 'Pronto',
           },
         ],

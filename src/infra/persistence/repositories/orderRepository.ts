@@ -7,7 +7,7 @@ import BasketsModel from "infra/persistence/models/basketsModel";
 import ItemModel from "infra/persistence/models/itemModel";
 import { Order } from "core/domain/entities/order";
 import { IOrderRepository } from "core/domain/repositories/orderRepository";
-import StatusModel from "../models/statusModel";
+import OrderStatusModel from "../models/orderStatusModel";
 import OrderStatusKey from "framework/enum/orderStatus";
 
 export class OrderRepository implements IOrderRepository {
@@ -20,13 +20,13 @@ export class OrderRepository implements IOrderRepository {
 
             const basketModel = await BasketModel.findOne({where: { uuid: basket?.uuid}});
             const paymentModel = await PaymentModel.findOne({where: { nsu: payment?.nsu }})
-            const statusModel = await StatusModel.findOne({where: { key: status.key }})
+            const orderStatusModel = await OrderStatusModel.findOne({where: { key: status.key }})
 
             const codeNumber = basketModel ? basketModel.id * 2:1
             const codeNew = `ORD-${codeNumber}${paymentModel?.id}`
 
             let orderCreated = await OrderModel.create({
-                statusId: statusModel?.id,
+                statusId: orderStatusModel?.id,
                 basketId: basketModel?.id,
                 paymentId: paymentModel?.id,
                 expected: orderNew.expected,
@@ -48,7 +48,7 @@ export class OrderRepository implements IOrderRepository {
             const listOrdersFromDatabase = await OrderModel.findAll({
                 include: [
                     {
-                        model: StatusModel,
+                        model: OrderStatusModel,
                         where: {
                             key: {
                                 [Op.not]: OrderStatusKey.DONE
@@ -60,7 +60,7 @@ export class OrderRepository implements IOrderRepository {
                     [
                         Sequelize.fn(
                             "FIELD",
-                            Sequelize.col("status.key"),
+                            Sequelize.col("orderStatus.key"),
                             OrderStatusKey.READY,
                             OrderStatusKey.PREPARATION,
                             OrderStatusKey.RECEIVED
@@ -78,7 +78,7 @@ export class OrderRepository implements IOrderRepository {
                         id: orderFromDatabase.basketId
                     }})
 
-                const status = await StatusModel.findOne({
+                const orderStatus = await OrderStatusModel.findOne({
                     where: {
                         id: orderFromDatabase.statusId
                     }
@@ -95,8 +95,8 @@ export class OrderRepository implements IOrderRepository {
                     expected: orderFromDatabase.expected,
                     createdAt: orderFromDatabase.createdAt,
                     status: {
-                        key: status?.key as string,
-                        name: status?.name as string,
+                        key: orderStatus?.key as string,
+                        name: orderStatus?.name as string,
                     },
                     basket: {
                         totalPrice: basket?.totalPrice,

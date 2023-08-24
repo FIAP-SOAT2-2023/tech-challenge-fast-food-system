@@ -19,9 +19,9 @@ import { IOrderRepository } from "core/domain/repositories/orderRepository";
 import { BasketUseCase } from "core/applications/usecases/basketUseCase";
 import { AddressRepository } from "infra/persistence/repositories/addressRepository";
 import { BasketController } from "./controllers/basketController";
-import { StatusRepository } from "infra/persistence/repositories/statusRepository";
-import { StatusUseCase } from "core/applications/usecases/statusUseCase";
-import { StatusController } from "./controllers/statusController";
+import { OrderStatusRepository } from "infra/persistence/repositories/orderStatusRepository";
+import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCase";
+import { OrderStatusController } from "./controllers/orderStatusController";
 
 export interface Error {
   message?: string
@@ -71,18 +71,18 @@ export class Route {
     const basketRepository: BasketRepository = new BasketRepository()
     const paymentRepository: IPaymentRepository = new PaymentRepository();
     const orderRepository: IOrderRepository = new OrderRepository();
-    const statusRepository = new StatusRepository();
+    const orderStatusRepository = new OrderStatusRepository();
     const basketService = new BasketUseCase(
       basketRepository,
       paymentRepository,
       orderRepository,
       customerRepository,
-      statusRepository,
+      orderStatusRepository,
     );
     const basketController = new BasketController(basketService);
       
-    const statusUseCase = new StatusUseCase(statusRepository);
-    const statusController = new StatusController(statusUseCase);
+    const orderStatusUseCase = new OrderStatusUseCase(orderStatusRepository);
+    const orderStatusController = new OrderStatusController(orderStatusUseCase);
   
     const app = express();
     app.use(express.json());
@@ -124,11 +124,11 @@ export class Route {
     app.get("/checkout/pending", async (req, resp, next) => {
       await Route.asyncWrapper(req, resp, next, basketController.getAllPendingOrders.bind(basketController));
     });
-    app.get("/status", async (req, resp, next) => {
-      await Route.asyncWrapper(req, resp, next, statusController.getAllStatus.bind(statusController));
+    app.get("/orders/status", async (req, resp, next) => {
+      await Route.asyncWrapper(req, resp, next, orderStatusController.getAllOrderStatus.bind(orderStatusController));
     });
-    app.post("/status", async (req, resp, next) => {
-      await Route.asyncWrapper(req, resp, next, statusController.addStatus.bind(statusController));
+    app.post("/orders/status", async (req, resp, next) => {
+      await Route.asyncWrapper(req, resp, next, orderStatusController.addOrderStatus.bind(orderStatusController));
     });
 
     app.listen(3000, () => console.log("Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"));
