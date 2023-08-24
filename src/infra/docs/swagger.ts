@@ -349,9 +349,57 @@ const swaggerConfig = {
         },
       },
     },
+    '/orders/{id}': {
+      patch: {
+        summary: 'Atualiza pedido',
+        tags: ['Order'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'ID do pedido a ser atualizado',
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Order',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Pedido atualizado com sucesso',
+          },
+          404: {
+            description: 'Pedido não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
+      Order: {
+        type: 'object',
+        properties: {
+          status: {
+            type: 'string',
+            enum: ['DONE', 'PREPARATION', 'READY', 'RECEIVED']
+          },
+        },
+        required: ['status'],
+      },
       Product: {
         type: 'object',
         properties: {

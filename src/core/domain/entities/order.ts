@@ -10,5 +10,6 @@ export interface Order {
     status: OrderStatus,
     doneAt?: Date,
     expected?: Date,
-    createdAt?: Date
+    createdAt?: Date,
+    updatedAt?: Date,
 }
