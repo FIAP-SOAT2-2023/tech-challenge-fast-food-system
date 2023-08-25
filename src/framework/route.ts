@@ -24,6 +24,8 @@ import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCas
 import { OrderStatusController } from "./controllers/orderStatusController";
 import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { OrderController } from "./controllers/orderController";
+import { PaymentUseCase } from "core/applications/usecases/paymentUseCase";
+import { PaymentController } from "./controllers/paymentController";
 
 export interface Error {
   message?: string
@@ -88,6 +90,9 @@ export class Route {
 
     const orderUseCase = new OrderUseCase(orderRepository);
     const orderController = new OrderController(orderUseCase);
+
+    const paymentUseCase = new PaymentUseCase(paymentRepository);
+    const paymentController = new PaymentController(paymentUseCase);
   
     const app = express();
     app.use(express.json());
@@ -137,6 +142,9 @@ export class Route {
     });
     app.patch("/orders/:id", async (req, resp, next) => {
       await Route.asyncWrapper(req, resp, next, orderController.updateOrderById.bind(orderController));
+    });
+    app.post("/payment/webhook-notification", async (req, resp, next) => {
+      await Route.asyncWrapper(req, resp, next, paymentController.updatePaymentStatusByNsu.bind(paymentController));
     });
 
     app.listen(3000, () => console.log("Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"));
