@@ -1,4 +1,3 @@
-
 import { Customer } from "core/domain/entities/customer";
 import CustomerModel from "infra/persistence/models/customerModel";
 
@@ -23,13 +22,12 @@ export class CustomerMap {
         cellphone: customer.cellphone,
         document: customer.document,
         email: customer.email,
-        message,
       };
     }
     return partialCustomer;
   }
 
   static ConvertSimple(customer?: CustomerModel): Partial<Customer> {
-    return this.Convert("", customer)
+    return this.Convert("", customer);
   }
 }
