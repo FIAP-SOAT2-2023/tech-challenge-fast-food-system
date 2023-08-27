@@ -13,6 +13,7 @@ export class BasketController {
       req.body,
       res
     );
+    
     this.basketUseCase
       .createBasket(
         req.body.customerId,
@@ -20,7 +21,7 @@ export class BasketController {
         basketRequest.payment ?? {}
       )
       .then((basketCreated: Basket) => {
-        res.status(200).json({ order: basketCreated.order });
+        res.status(200).json({ checkout: basketCreated.checkoutUrl ,order: basketCreated.order });
       })
       .catch((error) => {
         console.error(error);

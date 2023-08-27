@@ -1,3 +1,5 @@
+import { Payment } from 'core/domain/entities/payment';
+import { IPaymentExternalGateway, PaymentExternalGateway } from './gateways/PaymentExternalGateway';
 
 import express, { Request, Response, NextFunction } from "express";
 import "infra/persistence/config/mysqlConfig";
@@ -24,6 +26,7 @@ import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCas
 import { OrderStatusController } from "./controllers/orderStatusController";
 import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { OrderController } from "./controllers/orderController";
+import { IMercadoPagoProvider, MercadoPagoProviderImpl } from 'infra/providers/mercadopago/MercadoPagoProvider';
 
 export interface Error {
   message?: string
@@ -74,12 +77,20 @@ export class Route {
     const paymentRepository: IPaymentRepository = new PaymentRepository();
     const orderRepository: IOrderRepository = new OrderRepository();
     const orderStatusRepository = new OrderStatusRepository();
+
+    
+    const mercadoPagoProvider: IMercadoPagoProvider = new MercadoPagoProviderImpl()
+    const paymentExternalGateway:IPaymentExternalGateway = new PaymentExternalGateway(mercadoPagoProvider)
+
+
+
     const basketService = new BasketUseCase(
       basketRepository,
       paymentRepository,
       orderRepository,
       customerRepository,
       orderStatusRepository,
+      paymentExternalGateway
     );
     const basketController = new BasketController(basketService);
       

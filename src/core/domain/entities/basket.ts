@@ -13,4 +13,5 @@ export interface Basket {
   order?: Order;
   paymentId?: string;
   payment?: Payment;
+  checkoutUrl?: string;
 }

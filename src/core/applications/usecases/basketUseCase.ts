@@ -1,3 +1,4 @@
+import { IPaymentExternalGateway, PaymentExternalGateway } from './../../../framework/gateways/PaymentExternalGateway';
 import { Basket } from "core/domain/entities/basket";
 import { Order } from "core/domain/entities/order";
 import { Payment } from "core/domain/entities/payment";
@@ -17,7 +18,8 @@ export class BasketUseCase implements IBasketUseCase {
         private readonly paymentRepository: IPaymentRepository,
         private readonly orderRepository: IOrderRepository,
         private readonly customerRepository: ICustomerRepository,
-        private readonly orderStatusRepository: IOrderStatusRepository
+        private readonly orderStatusRepository: IOrderStatusRepository,
+        private readonly paymentExternalGateway: IPaymentExternalGateway
     ) {}
 
     async createBasket(customerId: string, basketPending: Basket, paymentNew: Payment): Promise<Basket> {
@@ -44,9 +46,12 @@ export class BasketUseCase implements IBasketUseCase {
     
             const orderCreated = await this.orderRepository.createOrder(orderPending)
 
+            const checkoutUrl = await this.paymentExternalGateway.create(orderCreated)
+
             const basketResult: Basket = {
                 order: orderCreated,
                 ...basketCreated,
+                checkoutUrl: checkoutUrl
             }
 
             resolve(basketResult);
