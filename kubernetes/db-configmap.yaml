@@ -1,0 +1,9 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: db-configmap
+data:
+  MYSQL_ROOT_PASSWORD: "@SOAT47fastfood"
+  MYSQL_DATABASE: "fastfood-db"
+  MYSQL_USER: admin
+  MYSQL_PASSWORD: "@SOAT47fastfood"
