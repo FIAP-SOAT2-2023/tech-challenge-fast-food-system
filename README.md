@@ -55,6 +55,13 @@ sh up.sh
 
 *Observação tem que estar na pasta raiz do projeto
 
+No terminal rodar:
+Kubectl get pods, para verificar se os pods foram iniciados após isso no navegador ir: http:localhost:30000/docs abrirá a pagina do swagger
+
+Observa que as imagens leva um tempo para ser criada.
+
+
+
 ```
 
 - [TypeScript](https://www.typescriptlang.org)

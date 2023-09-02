@@ -1,9 +1,9 @@
 {
 	"info": {
-		"_postman_id": "253af3d4-6e92-4a50-b69a-17db4eb59a7f",
+		"_postman_id": "411e35c5-9fd5-4d55-bbac-ac8720420eff",
 		"name": "FastFoodSystem-FIAP",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
-		"_exporter_id": "10555396"
+		"_exporter_id": "3970128"
 	},
 	"item": [
 		{
@@ -366,6 +366,143 @@
 					"response": []
 				}
 			]
+		},
+		{
+			"name": "Order",
+			"item": [
+				{
+					"name": "Retorna todos os Status",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									""
+								],
+								"type": "text/javascript"
+							}
+						}
+					],
+					"request": {
+						"method": "GET",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "",
+							"options": {
+								"raw": {
+									"language": "text"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/orders/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Cria novos Status",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "[\r\n  {\r\n    \"key\": \"DONE\",\r\n    \"name\": \"Finalizado\"\r\n  }\r\n  \r\n]",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/orders/status",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"status"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Atualiza pedido",
+					"request": {
+						"method": "PATCH",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"status\": \"DONE\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/orders/1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"orders",
+								"1"
+							]
+						}
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Payment",
+			"item": [
+				{
+					"name": "Atualiza pagamento",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n  \"nsu\": \"nsu-eu198-1928\",\r\n  \"status\": \"APPROVED\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": {
+							"raw": "http://localhost:3000/payment/webhook-notification",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payment",
+								"webhook-notification"
+							]
+						}
+					},
+					"response": []
+				}
+			]
 		}
 	],
 	"variable": [
@@ -380,6 +517,11 @@
 		{
 			"key": "customer_document",
 			"value": ""
+		},
+		{
+			"key": "order_uuid",
+			"value": "",
+			"type": "default"
 		}
 	]
 }
