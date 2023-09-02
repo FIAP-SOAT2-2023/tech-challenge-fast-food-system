@@ -1,0 +1,11 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: fast-food-app-svc
+spec:
+  type: NodePort
+  ports:
+    - port: 3000
+      nodePort: 30000
+  selector:
+    app: fast-food-app
