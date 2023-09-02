@@ -41,7 +41,7 @@ PaymentModel.init({
       status: {
         type: DataTypes.STRING,
         allowNull: true,
-        defaultValue: "PAID"
+        defaultValue: "PENDING"
       },
       nsu: {
         type: DataTypes.STRING,

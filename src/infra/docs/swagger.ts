@@ -387,6 +387,34 @@ const swaggerConfig = {
         },
       },
     },
+    '/payment/webhook-notification': {
+      post: {
+        summary: 'Atualiza pagamento',
+        tags: ['Payment'],
+        parameters: [],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/PaymentWebHook',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Pagamento atualizado com sucesso',
+          },
+          404: {
+            description: 'Pagamento não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -557,6 +585,21 @@ const swaggerConfig = {
             minimum: 2,
             maximum: 10,
             example: 1000
+          }
+        }
+      },
+      PaymentWebHook: {
+        type: "object",
+        properties: {
+          nsu: {
+            type: "string",
+            maxLength: 100,
+            minLength: 2,
+            example: "nsu-eu198-1928"
+          },
+          status: {
+            type: "string",
+            enum: ['APPROVED', 'REPROVED'],
           }
         }
       }

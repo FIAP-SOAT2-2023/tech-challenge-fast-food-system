@@ -19,4 +19,30 @@ export class PaymentRepository implements IPaymentRepository {
             resolve(payment)
         })
     }
+
+    async updatePaymentStatusByNsu(body: Payment): Promise<Payment> {
+        
+        return new Promise<Payment> (async  (resolve ) => {
+        
+            const payment = await PaymentModel.findOne({
+                where: {
+                    nsu: body.nsu
+                }
+            });
+
+            if (!payment) {
+                throw new Error('Nsu não encontrado.');
+            }
+
+            const paymentUpddated = await payment.update({
+                status: body.status,
+                paidAt: new Date()
+            })
+
+            resolve({
+                nsu: paymentUpddated.nsu,
+                status: paymentUpddated.status
+            })
+        })
+    }
 }
