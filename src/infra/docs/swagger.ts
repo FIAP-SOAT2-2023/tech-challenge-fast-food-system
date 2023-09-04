@@ -295,9 +295,174 @@ const swaggerConfig = {
         },
       },
     },
+    '/orders/status': {
+      get: {
+        summary: 'Retorna todos os Status',
+        tags: ['Order Status'],
+        parameters: [],
+        responses: {
+          200: {
+            description: 'Lista de status retornada com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  type: 'array',
+                  items: {
+                    $ref: '#/components/schemas/OrderStatus',
+                  },
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+      post: {
+        summary: 'Cria novos Status',
+        tags: ['Order Status'],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/OrderStatus',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Status criado com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/OrderStatus',
+                },
+              },
+            },
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
+    '/orders/{id}': {
+      patch: {
+        summary: 'Atualiza pedido',
+        tags: ['Order'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'id',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'ID do pedido a ser atualizado',
+          },
+        ],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/Order',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Pedido atualizado com sucesso',
+          },
+          404: {
+            description: 'Pedido não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
+    '/payment/webhook-notification': {
+      post: {
+        summary: 'Atualiza pagamento',
+        tags: ['Payment'],
+        parameters: [],
+        requestBody: {
+          required: true,
+          content: {
+            'application/json': {
+              schema: {
+                $ref: '#/components/schemas/PaymentWebHook',
+              },
+            },
+          },
+        },
+        responses: {
+          200: {
+            description: 'Pagamento atualizado com sucesso',
+          },
+          404: {
+            description: 'Pagamento não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
+    '/payment/{orderId}': {
+      get: {
+        summary: 'coleta o pagamento com o id do pedido',
+        tags: ['Payment'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'orderId',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'ID do pedido ou NSU do pedido',
+          },
+        ],        
+        responses: {
+          200: {
+            description: 'Pagamento atualizado com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/PaymentInfo',
+                },
+              },
+            },
+          },
+          404: {
+            description: 'Pagamento não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
+      Order: {
+        type: 'object',
+        properties: {
+          status: {
+            type: 'string',
+            enum: ['DONE', 'PREPARATION', 'READY', 'RECEIVED']
+          },
+        },
+        required: ['status'],
+      },
       Product: {
         type: 'object',
         properties: {
@@ -324,6 +489,36 @@ const swaggerConfig = {
           },
         },
         required: ['name', 'description', 'image', 'unitPrice', 'category'],
+      },
+      OrderStatus: {
+        type: 'object',
+        properties: {
+          key: {
+            type: 'string',
+          },
+          name: {
+            type: 'string',
+          },
+        },
+        example: [
+          {
+            key: 'DONE',
+            name: 'Finalizado',
+          },
+          {
+            key: 'RECEIVED',
+            name: 'Recebido',
+          },
+          {
+            key: 'PREPARATION',
+            name: 'Em preparação',
+          },
+          {
+            key: 'READY',
+            name: 'Pronto',
+          },
+        ],
+        required: ['key', 'name'],
       },
       Customer: {
         type: 'object',
@@ -427,7 +622,55 @@ const swaggerConfig = {
             example: 1000
           }
         }
-      }
+      },
+      PaymentWebHook: {
+        type: "object",
+        properties: {
+          nsu: {
+            type: "string",
+            maxLength: 100,
+            minLength: 2,
+            example: "nsu-eu198-1928"
+          },
+          status: {
+            type: "string",
+            enum: ['APPROVED', 'REPROVED'],
+          }
+        }
+      },
+      PaymentInfo: {
+        type: "object",
+        properties: {
+          id: {
+            type: "integer"
+          },
+          uuid: {
+            type: "string",
+            format: "uuid"
+          },
+          status: {
+            type: "string"
+          },
+          nsu: {
+            type: "string"
+          },
+          qrCode: {
+            type: "string"
+          },
+          paidAt: {
+            type: "string",
+            format: "date-time"
+          },
+          createdAt: {
+            type: "string",
+            format: "date-time"
+          },
+          updatedAt: {
+            type: "string",
+            format: "date-time"
+          }
+        }
+      }    
     }
   }
 };

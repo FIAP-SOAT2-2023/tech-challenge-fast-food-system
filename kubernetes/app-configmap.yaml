@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: fast-food-app-configmap
+data:
+  APP_ENV: fastfood
+  DB_SCHEMA: fastfood-db
+  DB_NAME: fastfood-db
+  DB_HOST: fast-food-db-svc
+  DB_USER: admin
+  DB_PASS: "@SOAT47fastfood"
+  DB_PORT: "3306"
+  DB_DIALECT: mysql
