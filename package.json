@@ -4,7 +4,7 @@
   "description": "Projeto da Pós Graduação da FIAP - Arquitetura de Software",
   "main": "program.ts",
   "scripts": {
-    "start": "ts-node --project tsconfig.json program.ts dotenv_config_path=.env",
+    "start": "ts-node --project tsconfig.json program.ts",
     "dev": "nodemon -r dotenv/config program.ts dotenv_config_path=.env"
   },
   "keywords": [],
