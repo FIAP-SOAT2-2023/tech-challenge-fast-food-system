@@ -75,13 +75,13 @@ export class OrderRepository implements IOrderRepository {
             for (const orderFromDatabase of listOrdersFromDatabase)
             {
                 const basket = await BasketsModel.findOne({where: {
-                        id: orderFromDatabase.basketId
-                    }})
+                    id: orderFromDatabase.basketId
+                }})
 
                 if (basket != null)
                     basket.items = await ItemModel.findAll({where: {
-                            basketId: basket?.id
-                        }})
+                        basketId: basket?.id
+                    }})
 
                 const order: Order = {
                     uuid: orderFromDatabase.uuid,

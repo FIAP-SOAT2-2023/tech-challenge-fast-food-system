@@ -226,6 +226,14 @@ export class Route {
         paymentController.updatePaymentStatusByNsu.bind(paymentController)
       );
     });
+    app.get("/payment/:orderId", async (req, resp, next) => {
+      await Route.asyncWrapper(
+        req,
+        resp,
+        next,
+        paymentController.getPaymentByOrderId.bind(paymentController)
+      );
+    });
 
     app.listen(3000, () =>
       console.log(

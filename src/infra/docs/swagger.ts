@@ -415,6 +415,41 @@ const swaggerConfig = {
         },
       },
     },
+    '/payment/{orderId}': {
+      get: {
+        summary: 'coleta o pagamento com o id do pedido',
+        tags: ['Payment'],
+        parameters: [
+          {
+            in: 'path',
+            name: 'orderId',
+            required: true,
+            schema: {
+              type: 'string',
+            },
+            description: 'ID do pedido ou NSU do pedido',
+          },
+        ],        
+        responses: {
+          200: {
+            description: 'Pagamento atualizado com sucesso',
+            content: {
+              'application/json': {
+                schema: {
+                  $ref: '#/components/schemas/PaymentInfo',
+                },
+              },
+            },
+          },
+          404: {
+            description: 'Pagamento não encontrado',
+          },
+          500: {
+            description: 'Erro interno do servidor',
+          },
+        },
+      },
+    },
   },
   components: {
     schemas: {
@@ -602,7 +637,40 @@ const swaggerConfig = {
             enum: ['APPROVED', 'REPROVED'],
           }
         }
-      }
+      },
+      PaymentInfo: {
+        type: "object",
+        properties: {
+          id: {
+            type: "integer"
+          },
+          uuid: {
+            type: "string",
+            format: "uuid"
+          },
+          status: {
+            type: "string"
+          },
+          nsu: {
+            type: "string"
+          },
+          qrCode: {
+            type: "string"
+          },
+          paidAt: {
+            type: "string",
+            format: "date-time"
+          },
+          createdAt: {
+            type: "string",
+            format: "date-time"
+          },
+          updatedAt: {
+            type: "string",
+            format: "date-time"
+          }
+        }
+      }    
     }
   }
 };

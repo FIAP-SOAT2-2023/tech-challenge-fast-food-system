@@ -6,6 +6,7 @@ import BasketModel from "./basketsModel";
 class PaymentModel extends Model<InferAttributes<PaymentModel>, InferCreationAttributes<PaymentModel>>{
 
     declare id: CreationOptional<number>
+    
     declare uuid: CreationOptional<string>
 
     declare basket: NonAttribute<BasketModel>
