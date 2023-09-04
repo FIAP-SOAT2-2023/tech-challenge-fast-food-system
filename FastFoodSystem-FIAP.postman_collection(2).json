@@ -501,6 +501,31 @@
 						}
 					},
 					"response": []
+				},
+				{
+					"name": "Consultar status do Pedido",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "accept",
+								"value": "/"
+							}
+						],
+						"url": {
+							"raw": "http://localhost:3000/payment/c6670da7-90ab-4e52-a25e-6a064bd2bf1f",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"port": "3000",
+							"path": [
+								"payment",
+								"c6670da7-90ab-4e52-a25e-6a064bd2bf1f"
+							]
+						}
+					},
+					"response": []
 				}
 			]
 		}
