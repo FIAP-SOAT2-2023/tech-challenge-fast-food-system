@@ -15,12 +15,3 @@ jobs:
 
       - name: Construir e testar aplicação Node.js
         run: npm test
-
-      - name: Publicar pacote
-        run: npm publish
-
-      - name: Limpar o ambiente
-        run: npm ci --production
-
-      - name: Notificar sucesso
-        run: echo "Aplicação Node.js publicada com sucesso!"
