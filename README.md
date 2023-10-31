@@ -60,8 +60,6 @@ Kubectl get pods, para verificar se os pods foram iniciados após isso no navega
 
 Observa que as imagens leva um tempo para ser criada.
 
-
-
 ```
 
 - [TypeScript](https://www.typescriptlang.org)
