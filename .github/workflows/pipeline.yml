@@ -1,6 +1,13 @@
 name: pipeline
 on:
   push:
+    branches:
+      - main
+      - develop
+  pull_request:
+    branches:    
+      - main
+      - develop
 
 jobs:
   unit-test:
@@ -19,6 +26,8 @@ jobs:
   deploy:
     runs-on: ubuntu-latest
     needs: unit-test
+
+    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -31,5 +40,5 @@ jobs:
         uses: aws-actions/configure-aws-credentials@vl
         with:
           aws-access-key-1d: ${{ secrets.AWS_ACCESS_KEY_ID }}
-          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY })
+          aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: us-east-1
