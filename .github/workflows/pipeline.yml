@@ -61,5 +61,5 @@ jobs:
           ECR_REPOSITORY: fastfood-service
           IMAGE_TAG: latest
         run: |
-          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE TAG .
-          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
