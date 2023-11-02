@@ -30,7 +30,7 @@ jobs:
       - name: Instalar dependências
         run: npm install
       
-      - name: Confiqure AWS Credentials
+      - name: Configure AWS Credentials
         uses: aws-actions/configure-aws-credentials@v1
         with:
           aws-access-key-id: ${{ secrets.AWS_ACCESS_KEY_ID }}
@@ -61,5 +61,5 @@ jobs:
           ECR REPOSITORY: fastfood-service
           IMAGE_TAG: latest
         run: |
-          docker build -t $ECR REGISTRY/SECR REPOSITORY:$IMAGE TAG .
-          docker push $ECR REGISTRY/$ECR REPOSITORY:$IMAGE TAG
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE TAG
