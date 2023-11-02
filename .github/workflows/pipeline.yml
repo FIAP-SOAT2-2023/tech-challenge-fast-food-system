@@ -22,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-test
 
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
         with:
@@ -50,3 +49,17 @@ jobs:
           context: .
           push: true
           tags: felipenatividade/fastfood-service:latest
+
+      - name: Login to Amazon ECR
+        id: login-ecr
+        uses: aws-actions/amazon-ecr-login@v1
+
+      - name: Build, Tag, and Push the Image to Amazon ECR
+        id: build-image
+        env:
+          ECR_REGISTRY: $({ steps.login-ecr.outputs.registry }}
+          ECR REPOSITORY: fastfood-service
+          IMAGE_TAG: latest
+        run: |
+          docker build -t $ECR REGISTRY/SECR REPOSITORY:$IMAGE TAG .
+          docker push $ECR REGISTRY/$ECR REPOSITORY:$IMAGE TAG
