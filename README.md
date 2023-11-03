@@ -20,7 +20,8 @@ aguardar uns 2 a 3 minutinhos para tentar acessar aplicacao via swagger
 ### Swagger
 
 ```
-http://localhost:3000/docs
+Rodando Direto: http://localhost:3000/docs
+Rodando com Kubernates: http://localhost:30000/docs
 ```
 
 ### Collection Postman
