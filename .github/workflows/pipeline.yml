@@ -48,7 +48,5 @@ jobs:
           ECR_REPOSITORY: fastfoodsystem
           IMAGE_TAG: latest
         run: |
-          aws ecr-public get-login-password --region us-east-1 | docker login --username AWS --password-stdin 914643601265.dkr.ecr.us-east-1.amazonaws.com
-          docker build -t fastfoodsystem . 
-          docker tag fastfoodsystem:latest 914643601265.dkr.ecr.us-east-1.amazonaws.com/fastfoodsystem:latest 
-          docker push 914643601265.dkr.ecr.us-east-1.amazonaws.com/fastfoodsystem:latest 
+          docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
+          docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
