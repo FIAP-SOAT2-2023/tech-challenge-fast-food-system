@@ -4,16 +4,6 @@ on:
     branches:
       - pipeline
 
-env:
-  AWS_REGION: us-east-1                        # set this to your preferred AWS region, e.g. us-west-1
-  ECR_REPOSITORY: fastfood-service               # set this to your Amazon ECR repository name
-  ECS_SERVICE: fastfoodsystem                  # set this to your Amazon ECS service name
-  ECS_CLUSTER: fastfoodsystem                  # set this to your Amazon ECS cluster name
-  ECS_TASK_DEFINITION: MY_ECS_TASK_DEFINITION  # set this to the path to your Amazon ECS task definition
-                                               # file, e.g. .aws/task-definition.json
-  CONTAINER_NAME: fastfood            # set this to the name of the container in the
-                                               # containerDefinitions section of your task definition
-
 jobs:
   unit-test:
     runs-on: ubuntu-latest
@@ -55,7 +45,7 @@ jobs:
         id: build-image
         env:
           ECR_REGISTRY: ${{ steps.login-ecr.outputs.registry }}
-          ECR_REPOSITORY: fastfoodsystem
+          ECR_REPOSITORY: fastfood-service
           IMAGE_TAG: latest
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
