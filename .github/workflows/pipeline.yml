@@ -50,10 +50,4 @@ jobs:
         run: |
           docker build -t $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG .
           docker push $ECR_REGISTRY/$ECR_REPOSITORY:$IMAGE_TAG
-      
-      - name: Deploy to Kubernetes cluster                                                                            
-        uses: kodermax/kubectl-aws-eks@master                                                                         
-        env:                                                                                                          
-          RELEASE_IMAGE: ${{ steps.login-ecr.outputs.registry }}/fastfood-service:latest
-        with:                                                                                                         
-          args: set image deployment/my-pod app=latest --record -n $KUBE_NAMESPACE   
+          
