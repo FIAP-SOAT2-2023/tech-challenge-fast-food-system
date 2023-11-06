@@ -14,7 +14,13 @@ export class CustomerController {
   async getCustomerByDocument(req: Request, res: Response) {
     const document = req.params.document;
     const customer = await this.customerUseCase.getCustomerByDocument(document);
-    res.status(200).json(customer);
+
+    if (customer.message) {
+      res.status(404).json(customer);
+    } else {
+      res.status(200).json(customer);
+    }
+
   }
 
   async addCustomer(req: Request, res: Response) {
