@@ -23,6 +23,18 @@ export class CustomerController {
 
   }
 
+  async getCustomerByEmail(req: Request, res: Response) {
+    const mail = req.params.mail;
+    const customer = await this.customerUseCase.getCustomerByMail(mail);
+
+    if (customer.message) {
+      res.status(404).json(customer);
+    } else {
+      res.status(200).json(customer);
+    }
+
+  }
+
   async addCustomer(req: Request, res: Response) {
     const customerRequest = await ValidationUtil.validateAndTransform(
       CustomerRequest,

@@ -10,6 +10,10 @@ export class CustomerUseCase implements ICustomerUseCase {
     return this.customerRepository.getCustomerByDocument(document);
   }
 
+  getCustomerByMail(mail: string): Promise<Customer> {
+    return this.customerRepository.getCustomerByEmail(mail);
+  }
+
   addCustomer(body: Customer): Promise<Customer> {
     return this.customerRepository.addCustomer(body);
   }

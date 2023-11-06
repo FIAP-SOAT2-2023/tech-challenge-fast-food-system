@@ -238,7 +238,41 @@ const swaggerConfig = {
           },
         },
       },
-    },
+    },'/customers/{mail}': {
+        get: {
+          summary: 'Retorna um cliente pelo E-mail',
+          tags: ['Customers'],
+          parameters: [
+            {
+              in: 'path',
+              name: 'mail',
+              required: true,
+              schema: {
+                type: 'string',
+              },
+              description: 'E-mail do cliente a ser recuperado',
+            },
+          ],
+          responses: {
+            200: {
+              description: 'cliente retornado com sucesso',
+              content: {
+                'application/json': {
+                  schema: {
+                    $ref: '#/components/schemas/Customer',
+                  },
+                },
+              },
+            },
+            404: {
+              description: 'cliente não encontrado',
+            },
+            500: {
+              description: 'Erro interno do servidor',
+            },
+          },
+        },
+      },
     '/checkout': {
       post: {
         summary: 'Cria um novo pedido',

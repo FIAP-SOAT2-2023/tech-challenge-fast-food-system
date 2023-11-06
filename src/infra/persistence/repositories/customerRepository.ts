@@ -69,4 +69,22 @@ export class CustomerRepository implements ICustomerRepository {
   
   }
 
+  async getCustomerByEmail(email: string): Promise<Customer> {
+    let message: string = "";
+    let partialCustomer: Partial<Customer> = {};
+    const customer = await CustomerModel.findOne({
+      where: {
+        email: email,
+      },
+    });
+
+    if (!customer) {
+      partialCustomer = CustomerMap.Convert(message, undefined);
+    } else {
+      partialCustomer = CustomerMap.Convert(message, customer);
+    }
+
+    return partialCustomer as Customer;
+  }
+
 }

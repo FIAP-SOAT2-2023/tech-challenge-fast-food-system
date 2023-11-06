@@ -138,6 +138,18 @@ export class Route {
         customerController.getCustomerByDocument.bind(customerController)
       );
     });
+
+    app.get("/customers/mail/:mail", async (req, resp, next) => {
+      await Route.asyncWrapper(
+          req,
+          resp,
+          next,
+          customerController.getCustomerByEmail.bind(customerController)
+      );
+    });
+
+
+
     app.post("/products", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
