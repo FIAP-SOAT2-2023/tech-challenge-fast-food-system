@@ -2,12 +2,7 @@ name: pipeline
 on:
   push:
     branches:
-      - main
-      - develop
-  pull_request:
-    branches:    
-      - main
-      - develop
+      - pipeline
 
 jobs:
   unit-test:
@@ -27,7 +22,6 @@ jobs:
     runs-on: ubuntu-latest
     needs: unit-test
 
-    if: github.ref == 'refs/heads/main'
     steps:
       - uses: actions/checkout@v2
         with:
