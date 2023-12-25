@@ -3,8 +3,7 @@ import { Order } from "../entities/order";
 import { Payment } from "../entities/payment";
 
 export interface IBasketUseCase {
-  createBasket(customerId: string, basket: Basket, paymentNew: Payment): Promise<Basket>;
+  createBasket(basket: Basket, paymentNew: string): Promise<Basket>;
 
   getAllPendingOrders(): Promise<Order[]>;
 }
-  

@@ -1,28 +1,14 @@
-import { Payment } from "core/domain/entities/payment";
-import {
-  IPaymentExternalGateway,
-  PaymentExternalGateway,
-} from "./gateways/PaymentExternalGateway";
-
 import express, { Request, Response, NextFunction } from "express";
 import "infra/persistence/config/mysqlConfig";
 
 import swaggerUi from "swagger-ui-express";
 import swaggerDocs from "infra/docs/swagger";
-import { AddressUseCase } from "core/applications/usecases/addressUseCase";
-import { CustomerRepository } from "infra/persistence/repositories/customerRepository";
-import { CustomerUseCase } from "core/applications/usecases/customerUseCase";
-import { CustomerController } from "./controllers/customerController";
-import { ProductRepository } from "infra/persistence/repositories/productRepository";
-import { ProductUseCase } from "core/applications/usecases/productUseCase";
-import { ProductController } from "./controllers/productController";
 import { BasketRepository } from "infra/persistence/repositories/basketRepository";
 import { PaymentRepository } from "infra/persistence/repositories/paymentRepository";
 import { OrderRepository } from "infra/persistence/repositories/orderRepository";
 import IPaymentRepository from "core/domain/repositories/paymentRepository";
 import { IOrderRepository } from "core/domain/repositories/orderRepository";
 import { BasketUseCase } from "core/applications/usecases/basketUseCase";
-import { AddressRepository } from "infra/persistence/repositories/addressRepository";
 import { BasketController } from "./controllers/basketController";
 import { OrderStatusRepository } from "infra/persistence/repositories/orderStatusRepository";
 import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCase";
@@ -31,10 +17,6 @@ import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { OrderController } from "./controllers/orderController";
 import { PaymentUseCase } from "core/applications/usecases/paymentUseCase";
 import { PaymentController } from "./controllers/paymentController";
-import {
-  IMercadoPagoProvider,
-  MercadoPagoProviderImpl,
-} from "infra/providers/mercadopago/MercadoPagoProvider";
 
 export interface Error {
   message?: string;
@@ -66,37 +48,15 @@ export class Route {
   }
 
   static Setup() {
-    const addressRepository = new AddressRepository();
-    const addressUseCase = new AddressUseCase(addressRepository);
-
-    const customerRepository = new CustomerRepository();
-    const customerUseCase = new CustomerUseCase(customerRepository);
-    const customerController = new CustomerController(
-      customerUseCase,
-      addressUseCase
-    );
-
-    const productRepository = new ProductRepository();
-    const productUseCase = new ProductUseCase(productRepository);
-    const productController = new ProductController(productUseCase);
-
     const basketRepository: BasketRepository = new BasketRepository();
     const paymentRepository: IPaymentRepository = new PaymentRepository();
     const orderRepository: IOrderRepository = new OrderRepository();
     const orderStatusRepository = new OrderStatusRepository();
 
-    const mercadoPagoProvider: IMercadoPagoProvider =
-      new MercadoPagoProviderImpl();
-    const paymentExternalGateway: IPaymentExternalGateway =
-      new PaymentExternalGateway(mercadoPagoProvider);
-
     const basketService = new BasketUseCase(
       basketRepository,
-      paymentRepository,
       orderRepository,
-      customerRepository,
-      orderStatusRepository,
-      paymentExternalGateway
+      orderStatusRepository
     );
     const basketController = new BasketController(basketService);
 
@@ -122,74 +82,6 @@ export class Route {
       }
     });
 
-    app.post("/customers", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        customerController.addCustomer.bind(customerController)
-      );
-    });
-    app.get("/customers/:document", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        customerController.getCustomerByDocument.bind(customerController)
-      );
-    });
-
-    app.get("/customers/mail/:mail", async (req, resp, next) => {
-      await Route.asyncWrapper(
-          req,
-          resp,
-          next,
-          customerController.getCustomerByEmail.bind(customerController)
-      );
-    });
-
-
-
-    app.post("/products", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        productController.addProduct.bind(productController)
-      );
-    });
-    app.get("/products/:id", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        productController.getProductById.bind(productController)
-      );
-    });
-    app.get("/products", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        productController.getAllProduct.bind(productController)
-      );
-    });
-    app.put("/products/:id", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        productController.putProductById.bind(productController)
-      );
-    });
-    app.delete("/products/:id", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        productController.deleteProductById.bind(productController)
-      );
-    });
     app.post("/checkout", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
@@ -230,14 +122,7 @@ export class Route {
         orderController.updateOrderById.bind(orderController)
       );
     });
-    app.post("/payment/webhook-notification", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        paymentController.updatePaymentStatusByNsu.bind(paymentController)
-      );
-    });
+
     app.get("/payment/:orderId", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,

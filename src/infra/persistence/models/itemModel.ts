@@ -3,42 +3,37 @@ import Sequelize, {
   CreationOptional,
   DataTypes,
   ForeignKey,
-  HasManyAddAssociationMixin,
   InferAttributes,
   InferCreationAttributes,
   Model,
-  NonAttribute
-} from 'sequelize';
-import BasketModel from './basketsModel';
+} from "sequelize";
+import BasketModel from "./basketsModel";
 import db from "../database/connection";
-import ProductModel from './productModel';
 
+class ItemModel extends Model<
+  InferAttributes<ItemModel>,
+  InferCreationAttributes<ItemModel>
+> {
+  declare id: CreationOptional<number>;
+  declare quantity: CreationOptional<number>;
+  declare unitPrice: CreationOptional<number>;
+  declare observations: CreationOptional<string>;
+  declare basketId: ForeignKey<BasketModel["id"]>;
+  declare productId: CreationOptional<number>;
+  declare createdAt: CreationOptional<Date>;
+  declare updatedAt: CreationOptional<Date>;
 
-class ItemModel extends Model<InferAttributes<ItemModel>, InferCreationAttributes<ItemModel>> {
-
-  declare id: CreationOptional<number>
-  declare quantity: CreationOptional<number>
-  declare unitPrice: CreationOptional<number>
-  declare observations: CreationOptional<string>
-  declare basketId: ForeignKey<BasketModel['id']>
-  declare product?: NonAttribute<ProductModel>
-  declare productId: ForeignKey<ProductModel['id']>
-  declare addProduct: HasManyAddAssociationMixin<ProductModel, number>
-  declare createdAt: CreationOptional<Date>
-  declare updatedAt: CreationOptional<Date>
-
-  declare public static associations: {
-    basketId: Association<ItemModel, BasketModel>
-    productId: Association<ItemModel, ProductModel>
-  }
+  public declare static associations: {
+    basketId: Association<ItemModel, BasketModel>;
+  };
 }
 
-
-ItemModel.init({
+ItemModel.init(
+  {
     id: {
       type: DataTypes.INTEGER.UNSIGNED,
       autoIncrement: true,
-      primaryKey: true
+      primaryKey: true,
     },
     quantity: {
       type: DataTypes.INTEGER,
@@ -46,26 +41,20 @@ ItemModel.init({
     },
     unitPrice: {
       type: Sequelize.FLOAT,
-      allowNull: false
+      allowNull: false,
     },
     observations: {
       type: Sequelize.STRING,
-      allowNull: true
+      allowNull: true,
     },
     createdAt: DataTypes.DATE,
-    updatedAt: DataTypes.DATE
-  }, {
+    updatedAt: DataTypes.DATE,
+    productId: { type: DataTypes.NUMBER, allowNull: false },
+  },
+  {
     sequelize: db,
     modelName: "Items",
   }
-)
+);
 
-
-ProductModel.hasMany(ItemModel, {
-  sourceKey: 'id',
-  foreignKey: 'productId',
-  as: 'product'
-})
-
-
-export default ItemModel
+export default ItemModel;

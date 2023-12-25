@@ -3,10 +3,13 @@
   "version": "1.0.0",
   "description": "Projeto da Pós Graduação da FIAP - Arquitetura de Software",
   "main": "program.ts",
+  
   "scripts": {
     "start": "ts-node --project tsconfig.json program.ts",
     "dev": "nodemon -r dotenv/config program.ts dotenv_config_path=.env",
-    "test": "NODE_ENV=test jest --passWithNoTests --runInBand"
+    "test": "jest  --coverage",
+    "build": "tsc -p tsconfig.build.json"
+   
   },
   "keywords": [],
   "author": "",
@@ -14,6 +17,7 @@
   "dependencies": {
     "body-parser": "^1.18.3",
     "class-transformer": "^0.5.1",
+    "coverage": "^0.4.1",
     "db-migrate": "^0.11.13",
     "db-migrate-mysql": "^2.2.0",
     "db-migrate-mysql8": "^1.0.1",
@@ -52,6 +56,7 @@
     "concurrently": "^8.2.0",
     "module-alias": "^2.2.3",
     "nodemon": "^2.0.22",
+    "sequelize-mock": "^0.10.2",
     "ts-node": "^10.9.1",
     "tsconfig-paths": "^4.2.0"
   },
