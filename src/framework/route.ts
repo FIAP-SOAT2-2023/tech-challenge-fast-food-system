@@ -14,6 +14,9 @@ import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCas
 import { OrderStatusController } from "./controllers/orderStatusController";
 import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { OrderController } from "./controllers/orderController";
+import { CustomerRepository } from "infra/persistence/repositories/customerRepository";
+import { ProductRepository } from "infra/persistence/repositories/productRepository";
+import { PaymentRepository } from "infra/persistence/repositories/paymentRepository";
 
 export interface Error {
   message?: string;
@@ -49,13 +52,17 @@ export class Route {
 
     const orderRepository: IOrderRepository = new OrderRepository();
     const orderStatusRepository = new OrderStatusRepository();
+    const customerRepository = new CustomerRepository();
+    const productRepository = new ProductRepository();
+    const paymentRepository = new PaymentRepository();
 
     const basketService = new BasketUseCase(
       basketRepository,
-
       orderRepository,
-
-      orderStatusRepository
+      orderStatusRepository,
+      customerRepository,
+      productRepository,
+      paymentRepository
     );
     const basketController = new BasketController(basketService);
 

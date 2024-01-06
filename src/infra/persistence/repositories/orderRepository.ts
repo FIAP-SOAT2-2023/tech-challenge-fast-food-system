@@ -17,23 +17,18 @@ export class OrderRepository implements IOrderRepository {
       const basketModel = await BasketModel.findOne({
         where: { uuid: basket?.uuid },
       });
-      /*
-      const paymentModel = await PaymentModel.findOne({
-        where: { nsu: payment?.nsu },
-      });
-      */
-      let paymentModel = { id: 0 };
+
       const orderStatusModel = await OrderStatusModel.findOne({
         where: { key: status.key },
       });
 
       const codeNumber = basketModel ? basketModel.id * 2 : 1;
-      const codeNew = `ORD-${codeNumber}${paymentModel?.id}`;
+      const codeNew = `ORD-${codeNumber}${payment?.id}`;
 
       let orderCreated = await OrderModel.create({
         statusId: orderStatusModel?.id,
         basketId: basketModel?.id,
-        paymentId: paymentModel?.id,
+        paymentId: payment?.id,
         expected: orderNew.expected,
         code: codeNew,
       });
@@ -129,6 +124,7 @@ export class OrderRepository implements IOrderRepository {
                 };
               }) ?? [],
           },
+          payment: "",
         };
         orderList.push(order);
       }
@@ -177,6 +173,7 @@ export class OrderRepository implements IOrderRepository {
         expected: orderUpdated?.expected,
         createdAt: orderUpdated?.createdAt,
         updatedAt: orderUpdated?.updatedAt,
+        payment: orderUpdated?.paymentId,
         status: {
           key: orderUpdated?.status?.key as string,
           name: orderUpdated?.status?.name as string,

@@ -3,9 +3,10 @@ import { Order } from "../entities/order";
 
 export interface IBasketUseCase {
   createBasket(
-    customerId: string,
+    document: string,
     basket: Basket,
-    paymentNew: string
+    paymentNew: any,
+    category: string
   ): Promise<Basket>;
 
   getAllPendingOrders(): Promise<Order[]>;

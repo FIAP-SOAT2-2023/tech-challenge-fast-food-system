@@ -8,14 +8,14 @@ import { IBasketRepository } from "core/domain/repositories/basketRepository";
 export class BasketRepository implements IBasketRepository {
   createBasket(basketNew: Basket): Promise<Basket> {
     return new Promise<Basket>(async (resolve, reject) => {
-      const { customer, isTakeOut, totalPrice } = basketNew;
+      const { isTakeOut, totalPrice } = basketNew;
 
       // BASKET
       let basketCreated = await BasketModel.create({
         isTakeOut,
         totalPrice,
         uuid: uuidv4(),
-        customerId: "12",
+        customerId: basketNew.customer?.uuid,
       });
 
       // ITEMS
@@ -24,7 +24,7 @@ export class BasketRepository implements IBasketRepository {
       for (const itemRequest of items) {
         let itemModel = await ItemModel.create({
           ...itemRequest,
-          productId: 0,
+          productId: basketNew.product?.uuid,
         });
 
         await basketCreated.addItem(itemModel);

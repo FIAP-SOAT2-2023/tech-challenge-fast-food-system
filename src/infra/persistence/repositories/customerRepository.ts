@@ -1,10 +1,15 @@
-import { ICustmerRepository } from "core/domain/repositories/CustomerRepository";
-const axios = require("axios");
-export class CustmerRepository implements ICustmerRepository {
-  getCustomerById(): Promise<string> {
-    return new Promise<string>(async (resolve) => {
-      let response = axios.get("https://localhost:300/customer");
-      return resolve(response.customerId);
+import { Customer } from "core/domain/entities/customer";
+import { ICustomerRepository } from "core/domain/repositories/customerRepository";
+
+//const axios = require("axios");
+export class CustomerRepository implements ICustomerRepository {
+  getCustomerIdByDocument(document: string): Promise<Customer> {
+    return new Promise<Customer>(async (resolve, reject) => {
+      fetch(`http:localhost:3000/customer?document=${document}`)
+        .then(function (response) {
+          resolve(response.json());
+        })
+        .catch((err) => reject(err));
     });
   }
 }

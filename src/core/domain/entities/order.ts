@@ -5,7 +5,7 @@ export interface Order {
   uuid?: string;
   code?: string;
   basket?: Basket;
-  payment?: string;
+  payment?: any;
   status: OrderStatus;
   doneAt?: Date;
   expected?: Date;

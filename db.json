@@ -1,17 +1,62 @@
 {
   "customer": [
     {
-      "customerId": "ab123nacn2213b123"
-      
-    }
+    "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+    "firstName": "Fernando",
+    "lastName": "Bruno",
+    "cellphone": "11960809533",
+    "document": "46699824007",
+    "email": "fernando.bruno@fiap.com.br"
+    },
+    {
+      "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+      "firstName": "Fernando",
+      "lastName": "Bruno",
+      "cellphone": "11960809533",
+      "document": "46699824007",
+      "email": "fernando.bruno@fiap.com.br"
+      },
+      {
+        "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+        "firstName": "Fernando",
+        "lastName": "Bruno",
+        "cellphone": "11960809533",
+        "document": "57363188068",
+        "email": "fernando.bruno@fiap.com.br"
+        },
+        {
+          "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+          "firstName": "Fernando",
+          "lastName": "Bruno",
+          "cellphone": "11960809533",
+          "document": "60166564028",
+          "email": "fernando.bruno@fiap.com.br"
+          }
+
   ],
   "product": [
     {
-      "productId": "12333",
+      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
       "quantity": 5,
       "unitPrice": 1,
-      "observations":"Produto teste"
+      "observations":"Produto teste",
+      "category":"Lanche"
+    },
+    {
+      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
+      "quantity": 5,
+      "unitPrice": 1,
+      "observations":"Produto teste",
+      "category":"Bebida"
+    },
+    {
+      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
+      "quantity": 5,
+      "unitPrice": 1,
+      "observations":"Produto teste",
+      "category":"Sobremesa"
     }
+
   ],
   "payment": {
     "paymentId":1,
