@@ -1,0 +1,22 @@
+{
+  "customer": [
+    {
+      "customerId": "ab123nacn2213b123"
+      
+    }
+  ],
+  "product": [
+    {
+      "productId": "12333",
+      "quantity": 5,
+      "unitPrice": 1,
+      "observations":"Produto teste"
+    }
+  ],
+  "payment": {
+    "paymentId":1,
+    "qrCode": "typicode",
+    "nsu": "typicode",
+    "totalPrice":1.98
+  }
+}

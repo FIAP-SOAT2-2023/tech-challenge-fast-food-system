@@ -1,67 +1,70 @@
-import { IPaymentExternalGateway, PaymentExternalGateway } from './../../../framework/gateways/PaymentExternalGateway';
 import { Basket } from "core/domain/entities/basket";
 import { Order } from "core/domain/entities/order";
-import { Payment } from "core/domain/entities/payment";
 import { IBasketRepository } from "core/domain/repositories/basketRepository";
-import { ICustomerRepository } from "core/domain/repositories/customerRepository";
 import { IOrderRepository } from "core/domain/repositories/orderRepository";
-import IPaymentRepository from "core/domain/repositories/paymentRepository";
 import IOrderStatusRepository from "core/domain/repositories/statusRepository";
 import { IBasketUseCase } from "core/domain/usecases/IBasketUseCase";
 import OrderStatusKey from "framework/enum/orderStatus";
 
-
 export class BasketUseCase implements IBasketUseCase {
+  constructor(
+    private readonly basketRepository: IBasketRepository,
+    private readonly orderRepository: IOrderRepository,
+    private readonly orderStatusRepository: IOrderStatusRepository
+  ) {}
 
-    constructor(
-        private readonly basketRepository: IBasketRepository,
-        private readonly paymentRepository: IPaymentRepository,
-        private readonly orderRepository: IOrderRepository,
-        private readonly customerRepository: ICustomerRepository,
-        private readonly orderStatusRepository: IOrderStatusRepository,
-        private readonly paymentExternalGateway: IPaymentExternalGateway
-    ) {}
+  async createBasket(
+    customerId: string,
+    basketPending: Basket,
+    paymentNew: string
+  ): Promise<Basket> {
+    return new Promise<Basket>(async (resolve) => {
+      basketPending.customer = "microservico de customer, retornar o id";
 
-    async createBasket(customerId: string, basketPending: Basket, paymentNew: Payment): Promise<Basket> {
-        return new Promise<Basket> (async (resolve) =>
-        {
-            basketPending.customer = await this.customerRepository.findByUUID(customerId)
+      const basketCreated = await this.basketRepository.createBasket(
+        basketPending
+      );
+      const paymentCreated = "microserviço de pagamento";
 
-            const basketCreated  = await this.basketRepository.createBasket(basketPending)
-            const paymentCreated = await this.paymentRepository.createPayment(paymentNew)
+      const orderStatus = await this.orderStatusRepository.getByKey(
+        OrderStatusKey.RECEIVED
+      );
 
+      let expectedOrder = new Date();
 
-            const orderStatus = await this.orderStatusRepository.getByKey(OrderStatusKey.RECEIVED)
+      expectedOrder.setHours(expectedOrder.getHours() * 4);
 
-            let expectedOrder = new Date();
-    
-            expectedOrder.setHours(expectedOrder.getHours() * 4)
-    
-            const orderPending: Order = {
-                basket: basketCreated, 
-                payment: paymentCreated,
-                status: orderStatus,
-                expected: expectedOrder
-            }
-    
-            const orderCreated = await this.orderRepository.createOrder(orderPending)
+      const orderPending: Order = {
+        basket: basketCreated,
+        payment: paymentCreated,
+        status: orderStatus,
+        expected: expectedOrder,
+      };
 
-            const checkoutUrl = await this.paymentExternalGateway.create(orderCreated)
+      const orderCreated = await this.orderRepository.createOrder(orderPending);
 
-            const basketResult: Basket = {
-                order: orderCreated,
-                ...basketCreated,
-                checkoutUrl: checkoutUrl
-            }
+      /*
+      const checkoutUrl = await this.paymentExternalGateway.create(
+        orderCreated
+      );
+*/
+      const checkoutUrl =
+        "url do mercado livre para direcionar para o pagamento";
 
-            resolve(basketResult);
-        })
-    }
+      const basketResult: Basket = {
+        order: orderCreated,
+        ...basketCreated,
+        checkoutUrl: checkoutUrl,
+      };
 
-    async getAllPendingOrders(): Promise<Order[]> {
-        return new Promise<Order[]> (async (resolve) => {
-            const orderList = await this.orderRepository.getAllPendingOrders()
-            resolve(orderList)
-        });
-    }
+      resolve(basketResult);
+    });
+  }
+
+  async getAllPendingOrders(): Promise<Order[]> {
+    return new Promise<Order[]>(async (resolve) => {
+      const orderList = await this.orderRepository.getAllPendingOrders();
+      resolve(orderList);
+    });
+  }
 }

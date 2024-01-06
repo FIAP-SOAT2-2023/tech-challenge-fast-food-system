@@ -1,17 +1,15 @@
-import {Customer} from "./customer";
-import {Item} from "./item";
-import {Order} from "./order";
-import {Payment} from "./payment";
+import { Item } from "./item";
+import { Order } from "./order";
 
 export interface Basket {
   uuid?: string;
-  customer?: Customer;
+  customer?: string;
   totalPrice?: number;
   isTakeOut?: boolean;
   createdAt?: Date;
   items: Item[];
   order?: Order;
   paymentId?: string;
-  payment?: Payment;
+  payment?: string;
   checkoutUrl?: string;
 }

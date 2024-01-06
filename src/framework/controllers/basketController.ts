@@ -13,15 +13,16 @@ export class BasketController {
       req.body,
       res
     );
-    
+
     this.basketUseCase
-      .createBasket(
-        req.body.customerId,
-        basketRequest,
-        basketRequest.payment ?? {}
-      )
+      .createBasket(req.body.customerId, basketRequest, "id pagamento")
       .then((basketCreated: Basket) => {
-        res.status(200).json({ checkout: basketCreated.checkoutUrl ,order: basketCreated.order });
+        res
+          .status(200)
+          .json({
+            checkout: basketCreated.checkoutUrl,
+            order: basketCreated.order,
+          });
       })
       .catch((error) => {
         console.error(error);
