@@ -55,6 +55,7 @@ export class BasketUseCase implements IBasketUseCase {
       basketPending.payment = await this.paymentRepository.createPayment(
         paymentNew
       );
+      /* Debito técnico: microserviço de Pagamento tem que nos passar a url do mercado livre de pagamento */
       const checkoutUrl =
         "https://www.mercadopago.com.br/checkout/v1/redirect?pref_id=136971995-d28f6df8-8d6d-4310-be5b-0935d83c4419";
 
