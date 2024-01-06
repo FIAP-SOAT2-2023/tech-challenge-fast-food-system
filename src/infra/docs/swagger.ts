@@ -2,16 +2,15 @@ const swaggerConfig = {
   openapi: "3.0.0",
   tags: [
     {
-      name: "Pedido",
-      description:
-        "É um microserviço responsável pela criação dos pedido do Fast Food System",
+      name: "Order",
+      description: "API responsável pela a criação do pedido",
     },
   ],
   paths: {
-    "/checkout": {
+    "/order": {
       post: {
         summary: "Cria um novo pedido",
-        tags: ["Pedido"],
+        tags: ["Order"],
         requestBody: {
           required: true,
           content: {
@@ -39,10 +38,10 @@ const swaggerConfig = {
         },
       },
     },
-    "/checkout/pending": {
+    "/order/pending": {
       get: {
         summary: "Retorna todos os pedidos pendentes",
-        tags: ["Pedido"],
+        tags: ["Order"],
         parameters: [],
         responses: {
           200: {
@@ -68,7 +67,7 @@ const swaggerConfig = {
     "/orders/{id}": {
       patch: {
         summary: "Atualiza pedido",
-        tags: ["Pedido"],
+        tags: ["Order"],
         parameters: [
           {
             in: "path",
@@ -96,42 +95,6 @@ const swaggerConfig = {
           },
           404: {
             description: "Pedido não encontrado",
-          },
-          500: {
-            description: "Erro interno do servidor",
-          },
-        },
-      },
-    },
-
-    "/payment/{orderId}": {
-      get: {
-        summary: "coleta o pagamento com o id do pedido",
-        tags: ["Pedido"],
-        parameters: [
-          {
-            in: "path",
-            name: "orderId",
-            required: true,
-            schema: {
-              type: "string",
-            },
-            description: "ID do pedido ou NSU do pedido",
-          },
-        ],
-        responses: {
-          200: {
-            description: "Pagamento atualizado com sucesso",
-            content: {
-              "application/json": {
-                schema: {
-                  $ref: "#/components/schemas/PaymentInfo",
-                },
-              },
-            },
-          },
-          404: {
-            description: "Pagamento não encontrado",
           },
           500: {
             description: "Erro interno do servidor",
@@ -227,40 +190,6 @@ const swaggerConfig = {
             minimum: 2,
             maximum: 10,
             example: 1000,
-          },
-        },
-      },
-
-      PaymentInfo: {
-        type: "object",
-        properties: {
-          id: {
-            type: "integer",
-          },
-          uuid: {
-            type: "string",
-            format: "uuid",
-          },
-          status: {
-            type: "string",
-          },
-          nsu: {
-            type: "string",
-          },
-          qrCode: {
-            type: "string",
-          },
-          paidAt: {
-            type: "string",
-            format: "date-time",
-          },
-          createdAt: {
-            type: "string",
-            format: "date-time",
-          },
-          updatedAt: {
-            type: "string",
-            format: "date-time",
           },
         },
       },

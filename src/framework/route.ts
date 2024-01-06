@@ -15,8 +15,6 @@ import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCas
 import { OrderStatusController } from "./controllers/orderStatusController";
 import { OrderUseCase } from "core/applications/usecases/orderUseCase";
 import { OrderController } from "./controllers/orderController";
-import { PaymentUseCase } from "core/applications/usecases/paymentUseCase";
-import { PaymentController } from "./controllers/paymentController";
 
 export interface Error {
   message?: string;
@@ -65,9 +63,6 @@ export class Route {
 
     const orderUseCase = new OrderUseCase(orderRepository);
     const orderController = new OrderController(orderUseCase);
-
-    const paymentUseCase = new PaymentUseCase(paymentRepository);
-    const paymentController = new PaymentController(paymentUseCase);
 
     const app = express();
     app.use(express.json());
@@ -120,15 +115,6 @@ export class Route {
         resp,
         next,
         orderController.updateOrderById.bind(orderController)
-      );
-    });
-
-    app.get("/payment/:orderId", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        paymentController.getPaymentByOrderId.bind(paymentController)
       );
     });
 

@@ -67,3 +67,5 @@ Observa que as imagens leva um tempo para ser criada.
 - [Docker](https://www.docker.com)
 - [Azure](https://azure.microsoft.com/pt-br/products/mysql)
 - [MySQL](https://www.mysql.com)
+
+-- https://github.com/rocketseat-content/youtube-node-testes
