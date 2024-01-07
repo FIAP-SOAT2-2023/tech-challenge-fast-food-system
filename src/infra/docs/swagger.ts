@@ -8,7 +8,7 @@ const swaggerConfig = {
     },
   ],
   paths: {
-    "/order": {
+    "/orders": {
       post: {
         summary: "Cria um novo pedido",
         tags: ["Orders"],
@@ -39,7 +39,7 @@ const swaggerConfig = {
         },
       },
     },
-    "/order/pending": {
+    "/orders/pending": {
       get: {
         summary: "Retorna todos os pedidos pendentes",
         tags: ["Orders"],
@@ -124,9 +124,9 @@ const swaggerConfig = {
             type: "boolean",
             example: true,
           },
-          customerId: {
+          document: {
             type: "string",
-            example: "ab123nacn2213b123",
+            example: "46699824007",
           },
           totalPrice: {
             type: "number",
@@ -146,28 +146,17 @@ const swaggerConfig = {
       Item: {
         type: "object",
         properties: {
-          productId: {
+          category: {
             type: "string",
             maxLength: 100,
             minLength: 10,
-            example: "1321313j123",
+            example: "Lanche",
           },
           quantity: {
             type: "number",
             minimum: 1,
             maximum: 100,
             example: 1,
-          },
-          unitPrice: {
-            type: "number",
-            minimum: 1,
-            maximum: 1000000,
-            example: 100,
-          },
-          observations: {
-            type: "string",
-            maxLength: 100,
-            example: "Sem cebola por favor",
           },
         },
       },

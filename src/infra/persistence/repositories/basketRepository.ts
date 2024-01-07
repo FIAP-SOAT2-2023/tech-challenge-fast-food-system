@@ -4,32 +4,39 @@ import BasketModel from "infra/persistence/models/basketsModel";
 import { v4 as uuidv4 } from "uuid";
 import { Basket } from "core/domain/entities/basket";
 import { IBasketRepository } from "core/domain/repositories/basketRepository";
+import { Customer } from "core/domain/entities/customer";
 
 export class BasketRepository implements IBasketRepository {
   createBasket(basketNew: Basket): Promise<Basket> {
     return new Promise<Basket>(async (resolve, reject) => {
-      const { isTakeOut, totalPrice } = basketNew;
+      const { isTakeOut, totalPrice, customer } = basketNew;
 
       // BASKET
       let basketCreated = await BasketModel.create({
         isTakeOut,
         totalPrice,
         uuid: uuidv4(),
-        customerId: basketNew.customer?.uuid,
+        customerId: customer
+          .map((response: Customer) => {
+            return response.uuid;
+          })
+          .toString(),
       });
 
       // ITEMS
       const { items } = basketNew;
 
       for (const itemRequest of items) {
-        let itemModel = await ItemModel.create({
-          ...itemRequest,
-          productId: basketNew.product?.uuid,
-        });
+        if (itemRequest.unitPrice !== undefined) {
+          let itemModel = await ItemModel.create({
+            productId: itemRequest.productId,
+            unitPrice: itemRequest.unitPrice,
+            quantity: itemRequest.quantity,
+          });
 
-        await basketCreated.addItem(itemModel);
+          await basketCreated.addItem(itemModel);
+        }
       }
-
       const { id, customerId, ...basketValues } = basketCreated.dataValues;
 
       const {
@@ -42,7 +49,6 @@ export class BasketRepository implements IBasketRepository {
 
       let basketResult: Basket = {
         ...basketValues,
-        paymentId: uuid,
         items,
       };
       resolve(basketResult);

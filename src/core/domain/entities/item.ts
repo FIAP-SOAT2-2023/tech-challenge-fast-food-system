@@ -1,6 +1,7 @@
 export interface Item {
-  productId: number;
+  productId?: number;
   quantity: number;
-  unitPrice: number;
+  unitPrice?: number;
   observations: string;
+  category?: string;
 }

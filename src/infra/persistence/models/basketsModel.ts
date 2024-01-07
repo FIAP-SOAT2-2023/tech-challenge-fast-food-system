@@ -26,7 +26,7 @@ class BasketModel extends Model<
   declare uuid: CreationOptional<string>;
   declare isTakeOut: CreationOptional<boolean>;
   declare totalPrice: CreationOptional<number>;
-  declare customerId?: CreationOptional<string>;
+  declare customerId: CreationOptional<string>;
   declare items: NonAttribute<ItemModel[]>;
 
   declare getItems: HasManyGetAssociationsMixin<ItemModel>;

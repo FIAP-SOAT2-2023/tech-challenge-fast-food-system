@@ -15,12 +15,7 @@ export class BasketController {
     );
 
     this.basketUseCase
-      .createBasket(
-        req.body.document,
-        basketRequest,
-        req.body.payment,
-        req.body.category
-      )
+      .createBasket(req.body.document, basketRequest, req.body.payment)
       .then((basketCreated: Basket) => {
         res.status(200).json({
           checkout: basketCreated.checkoutUrl,

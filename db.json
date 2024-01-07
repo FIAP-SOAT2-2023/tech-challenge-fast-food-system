@@ -1,67 +1,66 @@
 {
   "customer": [
     {
-    "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
-    "firstName": "Fernando",
-    "lastName": "Bruno",
-    "cellphone": "11960809533",
-    "document": "46699824007",
-    "email": "fernando.bruno@fiap.com.br"
-    },
-    {
       "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
       "firstName": "Fernando",
       "lastName": "Bruno",
       "cellphone": "11960809533",
       "document": "46699824007",
       "email": "fernando.bruno@fiap.com.br"
-      },
-      {
-        "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
-        "firstName": "Fernando",
-        "lastName": "Bruno",
-        "cellphone": "11960809533",
-        "document": "57363188068",
-        "email": "fernando.bruno@fiap.com.br"
-        },
-        {
-          "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
-          "firstName": "Fernando",
-          "lastName": "Bruno",
-          "cellphone": "11960809533",
-          "document": "60166564028",
-          "email": "fernando.bruno@fiap.com.br"
-          }
-
+    },
+    {
+      "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+      "firstName": "Fernando",
+      "lastName": "Bruno",
+      "cellphone": "11960809533",
+      "document": "12675248045",
+      "email": "fernando.bruno@fiap.com.br"
+    },
+    {
+      "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+      "firstName": "Fernando",
+      "lastName": "Bruno",
+      "cellphone": "11960809533",
+      "document": "57363188068",
+      "email": "fernando.bruno@fiap.com.br"
+    },
+    {
+      "uuid": "98097369-7b24-4cb3-a16f-ff12fca9840d",
+      "firstName": "Fernando",
+      "lastName": "Bruno",
+      "cellphone": "11960809533",
+      "document": "60166564028",
+      "email": "fernando.bruno@fiap.com.br"
+    }
   ],
   "product": [
     {
-      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
+      "productId": 1,
       "quantity": 5,
       "unitPrice": 1,
-      "observations":"Produto teste",
-      "category":"Lanche"
+      "observations": "Produto teste",
+      "category": "Lanche"
     },
     {
-      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
+      "productId": 2,
       "quantity": 5,
       "unitPrice": 1,
-      "observations":"Produto teste",
-      "category":"Bebida"
+      "observations": "Produto teste",
+      "category": "Bebida"
     },
     {
-      "productId": "bf5a5ded-e3df-406b-87a3-b41e3010cefd",
+      "productId": 3,
       "quantity": 5,
       "unitPrice": 1,
-      "observations":"Produto teste",
-      "category":"Sobremesa"
+      "observations": "Produto teste",
+      "category": "Sobremesa"
     }
-
   ],
   "payment": {
-    "paymentId":1,
-    "qrCode": "typicode",
-    "nsu": "typicode",
-    "totalPrice":1.98
+    "qrCode": "ml-aasdlkjsflkjsfbasdfbasdf",
+    "nsu": "nsu-aj123jk123bj1",
+    "totalPrice": 1000,
+    "uuid": "72730368-1aa5-4977-bef9-3dfa63f259c8",
+    "paymentId": 3066
   }
 }

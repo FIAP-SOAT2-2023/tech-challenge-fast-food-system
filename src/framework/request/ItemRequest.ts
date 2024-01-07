@@ -4,8 +4,11 @@ import { Item } from "core/domain/entities/item";
 export class ItemRequest implements Item {
   @Max(20, { message: "name should be between 2 and 100 characters" })
   @Min(10, { message: "name should be between 2 and 100 characters" })
-  @IsNotEmpty({ message: "productId is required" })
-  declare productId: number;
+  @IsNotEmpty({ message: "category is required" })
+  declare productId?: number;
+
+  @IsNotEmpty({ message: "category is required" })
+  declare category: string;
 
   @Min(1, { message: "number should be between 1 and 100 characters" })
   @Max(100, { message: "number should be between 1 and 100 characters" })

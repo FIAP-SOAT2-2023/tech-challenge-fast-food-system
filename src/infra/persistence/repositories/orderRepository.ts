@@ -23,12 +23,12 @@ export class OrderRepository implements IOrderRepository {
       });
 
       const codeNumber = basketModel ? basketModel.id * 2 : 1;
-      const codeNew = `ORD-${codeNumber}${payment?.id}`;
+      const codeNew = `ORD-${codeNumber}${payment}`;
 
       let orderCreated = await OrderModel.create({
         statusId: orderStatusModel?.id,
         basketId: basketModel?.id,
-        paymentId: payment?.id,
+        paymentId: payment,
         expected: orderNew.expected,
         code: codeNew,
       });
@@ -98,11 +98,12 @@ export class OrderRepository implements IOrderRepository {
             },
           });
 
-        const order: Order = {
+        let order: Order = {
           uuid: orderFromDatabase.uuid,
           doneAt: orderFromDatabase.doneAt,
           expected: orderFromDatabase.expected,
           createdAt: orderFromDatabase.createdAt,
+
           status: {
             key: orderFromDatabase?.status?.key as string,
             name: orderFromDatabase?.status?.name as string,
@@ -123,8 +124,8 @@ export class OrderRepository implements IOrderRepository {
                   updatedAt: maping.updatedAt,
                 };
               }) ?? [],
+            payment: orderFromDatabase.paymentId,
           },
-          payment: "",
         };
         orderList.push(order);
       }
@@ -146,7 +147,7 @@ export class OrderRepository implements IOrderRepository {
 
       const orderStatus = await OrderStatusModel.findOne({
         where: {
-          key: body.status.key,
+          key: body.status.toString(),
         },
       });
 

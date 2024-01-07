@@ -85,7 +85,7 @@ export class Route {
       }
     });
 
-    app.post("/checkout", async (req, resp, next) => {
+    app.post("/orders", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
         resp,
@@ -93,7 +93,7 @@ export class Route {
         basketController.create.bind(basketController)
       );
     });
-    app.get("/checkout/pending", async (req, resp, next) => {
+    app.get("/orders/pending", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
         resp,
@@ -101,6 +101,7 @@ export class Route {
         basketController.getAllPendingOrders.bind(basketController)
       );
     });
+    /*
     app.get("/orders/status", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
@@ -109,6 +110,7 @@ export class Route {
         orderStatusController.getAllOrderStatus.bind(orderStatusController)
       );
     });
+    
     app.post("/orders/status", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
@@ -116,7 +118,7 @@ export class Route {
         next,
         orderStatusController.addOrderStatus.bind(orderStatusController)
       );
-    });
+    });*/
     app.patch("/orders/:id", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,
@@ -126,9 +128,9 @@ export class Route {
       );
     });
 
-    app.listen(320, () =>
+    app.listen(3000, () =>
       console.log(
-        "Server is listening on port 320 \n SWAGGER: http://localhost:320/docs"
+        "Server is listening on port 3000 \n SWAGGER: http://localhost:3000/docs"
       )
     );
   }

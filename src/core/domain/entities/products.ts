@@ -1,5 +1,6 @@
 export interface Products {
-  uuid: number;
+  productId: number;
   unitPrice: number;
-  category: string;
+  quantity: number;
+  category?: string;
 }

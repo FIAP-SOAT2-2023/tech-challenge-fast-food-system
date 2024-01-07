@@ -4,4 +4,5 @@ export interface Payment {
   totalPrice: number;
   uuid: string;
   orderId: string;
+  paymentId?: number;
 }

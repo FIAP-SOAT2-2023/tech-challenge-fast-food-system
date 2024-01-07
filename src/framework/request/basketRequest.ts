@@ -9,8 +9,8 @@ export class BasketRequest implements Basket {
 
   declare uuid?: string;
 
-  @IsNotEmpty({ message: "customer is required" })
-  declare customerId?: string;
+  @IsNotEmpty({ message: "document is required" })
+  declare document?: string;
 
   @Max(10, { message: "Total Price should be between 2 and 10 characters" })
   @Min(2, { message: "Total Price should be between 2 and 10 characters" })

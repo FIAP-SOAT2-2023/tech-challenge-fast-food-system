@@ -5,7 +5,7 @@ import { ICustomerRepository } from "core/domain/repositories/customerRepository
 export class CustomerRepository implements ICustomerRepository {
   getCustomerIdByDocument(document: string): Promise<Customer> {
     return new Promise<Customer>(async (resolve, reject) => {
-      fetch(`http:localhost:3000/customer?document=${document}`)
+      fetch(`http:localhost:320/customer?document=${document}`)
         .then(function (response) {
           resolve(response.json());
         })

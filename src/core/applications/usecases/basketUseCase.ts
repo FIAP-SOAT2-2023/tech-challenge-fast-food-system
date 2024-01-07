@@ -10,6 +10,8 @@ import IOrderStatusRepository from "core/domain/repositories/statusRepository";
 import { IBasketUseCase } from "core/domain/usecases/IBasketUseCase";
 import OrderStatusKey from "framework/enum/orderStatus";
 import { v4 as uuidv4 } from "uuid";
+import { Item } from "core/domain/entities/item";
+import { Products } from "core/domain/entities/products";
 
 export class BasketUseCase implements IBasketUseCase {
   constructor(
@@ -24,15 +26,28 @@ export class BasketUseCase implements IBasketUseCase {
   async createBasket(
     document: string,
     basketPending: Basket,
-    paymentNew: Payment,
-    category: string
+    paymentNew: Payment
   ): Promise<Basket> {
     return new Promise<Basket>(async (resolve) => {
       basketPending.customer =
         await this.customerRepository.getCustomerIdByDocument(document);
-      basketPending.product = await this.productRepository.getProductByCategory(
-        category
-      );
+      for (const item of basketPending.items) {
+        if (item.category !== undefined) {
+          let result: any = await this.productRepository.getProductByCategory(
+            item.category
+          );
+
+          if (result !== null) {
+            result.map((response: Products) => {
+              basketPending.items?.push({
+                unitPrice: response.unitPrice,
+                productId: response.productId,
+                quantity: item.quantity,
+              } as Item);
+            });
+          }
+        }
+      }
       const basketCreated = await this.basketRepository.createBasket(
         basketPending
       );
@@ -43,10 +58,13 @@ export class BasketUseCase implements IBasketUseCase {
       let expectedOrder = new Date();
 
       expectedOrder.setHours(expectedOrder.getHours() * 4);
+      let paymentId: any = await this.paymentRepository.createPayment(
+        paymentNew
+      );
       paymentNew = { ...paymentNew, uuid: uuidv4() };
       const orderPending: Order = {
         basket: basketCreated,
-        payment: await this.paymentRepository.createPayment(paymentNew),
+        payment: paymentId.paymentId,
         status: orderStatus,
         expected: expectedOrder,
       };

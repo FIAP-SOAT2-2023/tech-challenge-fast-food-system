@@ -5,14 +5,14 @@ import { Products } from "./products";
 
 export interface Basket {
   uuid?: string;
-  customer?: Customer;
+  customer?: any;
   totalPrice?: number;
   isTakeOut?: boolean;
   createdAt?: Date;
   items: Item[];
   order?: Order;
-  paymentId?: string;
+
   payment?: any;
   checkoutUrl?: string;
-  product?: Products;
+  product?: Products[];
 }
