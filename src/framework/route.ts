@@ -101,24 +101,7 @@ export class Route {
         basketController.getAllPendingOrders.bind(basketController)
       );
     });
-    /*
-    app.get("/orders/status", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        orderStatusController.getAllOrderStatus.bind(orderStatusController)
-      );
-    });
-    
-    app.post("/orders/status", async (req, resp, next) => {
-      await Route.asyncWrapper(
-        req,
-        resp,
-        next,
-        orderStatusController.addOrderStatus.bind(orderStatusController)
-      );
-    });*/
+
     app.patch("/orders/:id", async (req, resp, next) => {
       await Route.asyncWrapper(
         req,

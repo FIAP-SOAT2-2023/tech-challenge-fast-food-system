@@ -1,8 +1,6 @@
 import { Op, Sequelize } from "sequelize";
 import OrderModel from "infra/persistence/models/orderModel";
 import BasketModel from "infra/persistence/models/basketsModel";
-
-import BasketsModel from "infra/persistence/models/basketsModel";
 import ItemModel from "infra/persistence/models/itemModel";
 import { Order } from "core/domain/entities/order";
 import { IOrderRepository } from "core/domain/repositories/orderRepository";
@@ -85,7 +83,7 @@ export class OrderRepository implements IOrderRepository {
 
       let orderList: Order[] = [];
       for (const orderFromDatabase of listOrdersFromDatabase) {
-        const basket = await BasketsModel.findOne({
+        const basket = await BasketModel.findOne({
           where: {
             id: orderFromDatabase.basketId,
           },
