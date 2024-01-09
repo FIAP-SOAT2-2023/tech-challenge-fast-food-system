@@ -6,7 +6,6 @@ import { Customer, isValidCPF } from "core/domain/entities/customer";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {
- 
   async getCustomerByDocument(document: string): Promise<Customer> {
     let message: string = "";
     let partialCustomer: Partial<Customer> = {};
@@ -36,37 +35,30 @@ export class CustomerRepository implements ICustomerRepository {
     });
 
     return CustomerMap.ConvertSimple(customer) as Customer;
-
   }
 
   async findByUUID(customerId: string): Promise<Customer> {
-
-    return new Promise<Customer>( async (resolve, reject) => {
+    return new Promise<Customer>(async (resolve, reject) => {
       const customerModel = await CustomerModel.findOne({
         where: {
           uuid: customerId,
         },
       });
-      
 
       if (customerModel == null) {
+        reject(new Error("Usuario não cadastrado"));
 
-        reject(new Error("Usuario não cadastrado"))
-
-        return
-    }
-
+        return;
+      }
 
       const { ...customerValues } = customerModel?.dataValues;
 
       const customerResult: Customer = {
-        ...customerValues
-      }
+        ...customerValues,
+      };
 
-
-      resolve(customerResult)
-    })
-  
+      resolve(customerResult);
+    });
   }
 
   async getCustomerByEmail(email: string): Promise<Customer> {
@@ -74,17 +66,16 @@ export class CustomerRepository implements ICustomerRepository {
     let partialCustomer: Partial<Customer> = {};
     const customer = await CustomerModel.findOne({
       where: {
-        email: email,
+        email,
       },
     });
 
     if (!customer) {
-      partialCustomer = CustomerMap.Convert(message, undefined);
+      partialCustomer = CustomerMap.Convert(message);
     } else {
       partialCustomer = CustomerMap.Convert(message, customer);
     }
 
     return partialCustomer as Customer;
   }
-
 }

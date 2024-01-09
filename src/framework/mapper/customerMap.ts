@@ -6,12 +6,7 @@ export class CustomerMap {
     let partialCustomer: Partial<Customer> = {};
     if (!customer) {
       partialCustomer = {
-        uuid: undefined,
-        firstName: undefined,
-        lastName: undefined,
-        cellphone: undefined,
-        document: undefined,
-        email: undefined,
+    
         message: "Cliente não encontrado",
       };
     } else {
