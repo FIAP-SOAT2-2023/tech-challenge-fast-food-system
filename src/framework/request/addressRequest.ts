@@ -1,4 +1,3 @@
-import { Address } from "core/domain/entities/address";
 import {
   validate,
   validateOrReject,
@@ -16,6 +15,7 @@ import {
   ValidateIf,
   isValidationOptions,
 } from "class-validator";
+import {Address} from "../../core/domain/entities/address";
 export class AddressRequest implements Address {
   declare id: string;
   declare customerId: string;

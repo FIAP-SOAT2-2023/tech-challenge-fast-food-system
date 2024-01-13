@@ -1,7 +1,8 @@
-import { Payment } from "core/domain/entities/payment";
-import IPaymentRepository from "core/domain/repositories/paymentRepository";
-import PaymentModel from "infra/persistence/models/paymentModel";
+
 import { Op } from "sequelize";
+import IPaymentRepository from "../../../core/domain/repositories/paymentRepository";
+import {Payment} from "../../../core/domain/entities/payment";
+import PaymentModel from "../models/paymentModel";
 
 export class PaymentRepository implements IPaymentRepository {
     

@@ -1,7 +1,6 @@
-
-import { Payment } from 'core/domain/entities/payment';
-import IPaymentRepository from 'core/domain/repositories/paymentRepository';
-import { IPaymentUseCase } from 'core/domain/usecases/IPaymentUseCase';
+import {IPaymentUseCase} from "../../domain/usecases/IPaymentUseCase";
+import IPaymentRepository from "../../domain/repositories/paymentRepository";
+import {Payment} from "../../domain/entities/payment";
 
 export class PaymentUseCase implements IPaymentUseCase {
   

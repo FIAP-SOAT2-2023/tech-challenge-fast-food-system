@@ -1,4 +1,5 @@
-import { Address } from "core/domain/entities/address";
+import {Address} from "./address";
+
 
 export interface Customer {
   id?: number;

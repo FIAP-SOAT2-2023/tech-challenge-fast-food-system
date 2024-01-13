@@ -1,7 +1,7 @@
 import { injectable } from "tsyringe";
-import { IProductRepository } from "core/domain/repositories/productRepository";
-import { Product } from "core/domain/entities/product";
 import ProductModel from "../models/productModel";
+import {IProductRepository} from "../../../core/domain/repositories/productRepository";
+import {Product} from "../../../core/domain/entities/product";
 
 @injectable()
 export class ProductRepository implements IProductRepository {

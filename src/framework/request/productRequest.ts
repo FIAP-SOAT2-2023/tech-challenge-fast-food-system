@@ -1,5 +1,5 @@
 import { Length, IsNotEmpty, IsNumber } from 'class-validator';
-import { Product } from 'core/domain/entities/product';
+import {Product} from "../../core/domain/entities/product";
 
 export class ProductRequest implements Product {
     declare id: string;

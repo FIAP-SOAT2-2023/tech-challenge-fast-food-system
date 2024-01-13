@@ -1,5 +1,5 @@
 import { Length, IsNotEmpty, IsNumber } from 'class-validator';
-import { OrderStatus } from 'core/domain/entities/orderStatus';
+import {OrderStatus} from "../../core/domain/entities/orderStatus";
 
 export class OrderStatusRequest implements OrderStatus {
     declare id: string;

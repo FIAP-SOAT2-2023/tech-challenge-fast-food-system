@@ -1,40 +1,36 @@
-import { Payment } from "core/domain/entities/payment";
 import {
   IPaymentExternalGateway,
   PaymentExternalGateway,
 } from "./gateways/PaymentExternalGateway";
 
 import express, { Request, Response, NextFunction } from "express";
-import "infra/persistence/config/mysqlConfig";
+import "../infra/persistence/config/mysqlConfig";
 
 import swaggerUi from "swagger-ui-express";
-import swaggerDocs from "infra/docs/swagger";
-import { AddressUseCase } from "core/applications/usecases/addressUseCase";
-import { CustomerRepository } from "infra/persistence/repositories/customerRepository";
-import { CustomerUseCase } from "core/applications/usecases/customerUseCase";
-import { CustomerController } from "./controllers/customerController";
-import { ProductRepository } from "infra/persistence/repositories/productRepository";
-import { ProductUseCase } from "core/applications/usecases/productUseCase";
-import { ProductController } from "./controllers/productController";
-import { BasketRepository } from "infra/persistence/repositories/basketRepository";
-import { PaymentRepository } from "infra/persistence/repositories/paymentRepository";
-import { OrderRepository } from "infra/persistence/repositories/orderRepository";
-import IPaymentRepository from "core/domain/repositories/paymentRepository";
-import { IOrderRepository } from "core/domain/repositories/orderRepository";
-import { BasketUseCase } from "core/applications/usecases/basketUseCase";
-import { AddressRepository } from "infra/persistence/repositories/addressRepository";
-import { BasketController } from "./controllers/basketController";
-import { OrderStatusRepository } from "infra/persistence/repositories/orderStatusRepository";
-import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCase";
-import { OrderStatusController } from "./controllers/orderStatusController";
-import { OrderUseCase } from "core/applications/usecases/orderUseCase";
+import swaggerDocs from "./../infra/docs/swagger";
 import { OrderController } from "./controllers/orderController";
-import { PaymentUseCase } from "core/applications/usecases/paymentUseCase";
 import { PaymentController } from "./controllers/paymentController";
-import {
-  IMercadoPagoProvider,
-  MercadoPagoProviderImpl,
-} from "infra/providers/mercadopago/MercadoPagoProvider";
+import {AddressRepository} from "../infra/persistence/repositories/addressRepository";
+import {AddressUseCase} from "../core/applications/usecases/addressUseCase";
+import {CustomerRepository} from "../infra/persistence/repositories/customerRepository";
+import {CustomerUseCase} from "../core/applications/usecases/customerUseCase";
+import {CustomerController} from "./controllers/customerController";
+import {ProductRepository} from "../infra/persistence/repositories/productRepository";
+import {ProductUseCase} from "../core/applications/usecases/productUseCase";
+import {ProductController} from "./controllers/productController";
+import {BasketRepository} from "../infra/persistence/repositories/basketRepository";
+import IPaymentRepository from "../core/domain/repositories/paymentRepository";
+import {IOrderRepository} from "../core/domain/repositories/orderRepository";
+import {OrderStatusRepository} from "../infra/persistence/repositories/orderStatusRepository";
+import {BasketUseCase} from "../core/applications/usecases/basketUseCase";
+import {BasketController} from "./controllers/basketController";
+import {OrderStatusUseCase} from "../core/applications/usecases/orderStatusUseCase";
+import {OrderStatusController} from "./controllers/orderStatusController";
+import {OrderUseCase} from "../core/applications/usecases/orderUseCase";
+import {PaymentRepository} from "../infra/persistence/repositories/paymentRepository";
+import {OrderRepository} from "../infra/persistence/repositories/orderRepository";
+import {IMercadoPagoProvider, MercadoPagoProviderImpl} from "../infra/providers/mercadopago/MercadoPagoProvider";
+import {PaymentUseCase} from "../core/applications/usecases/paymentUseCase";
 
 export interface Error {
   message?: string;

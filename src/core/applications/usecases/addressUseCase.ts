@@ -1,6 +1,7 @@
-import { Address } from "core/domain/entities/address";
-import { IAddressRepository } from "core/domain/repositories/addressRepository";
-import { IAddressUseCase } from "core/domain/usecases/IAddressUseCase";
+import {IAddressUseCase} from "../../domain/usecases/IAddressUseCase";
+import {IAddressRepository} from "../../domain/repositories/addressRepository";
+import {Address} from "../../domain/entities/address";
+
 
 export class AddressUseCase implements IAddressUseCase {
   

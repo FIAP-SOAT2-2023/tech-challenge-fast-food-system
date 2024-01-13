@@ -1,6 +1,7 @@
-import IOrderStatusRepository from "core/domain/repositories/statusRepository";
-import { OrderStatus } from "core/domain/entities/orderStatus";
+
 import OrderStatusModel from "../models/orderStatusModel";
+import IOrderStatusRepository from "../../../core/domain/repositories/statusRepository";
+import {OrderStatus} from "../../../core/domain/entities/orderStatus";
 export class OrderStatusRepository implements IOrderStatusRepository {
 
   async addOrderStatus(body: OrderStatus[]): Promise<OrderStatus[]> {

@@ -1,5 +1,5 @@
-import { PaymentUseCase } from "core/applications/usecases/paymentUseCase";
 import { Request, Response } from "express";
+import {PaymentUseCase} from "../../core/applications/usecases/paymentUseCase";
 
 
 export class PaymentController {

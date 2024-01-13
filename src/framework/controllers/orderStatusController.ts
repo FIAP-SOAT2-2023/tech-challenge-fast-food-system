@@ -1,5 +1,5 @@
-import { OrderStatusUseCase } from "core/applications/usecases/orderStatusUseCase";
 import { Request, Response } from "express";
+import {OrderStatusUseCase} from "../../core/applications/usecases/orderStatusUseCase";
 
 
 export class OrderStatusController {

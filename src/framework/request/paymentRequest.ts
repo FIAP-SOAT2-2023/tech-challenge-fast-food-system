@@ -1,5 +1,5 @@
-import { Payment } from "core/domain/entities/payment";
 import { Length, IsDate, IsNotEmpty } from 'class-validator';
+import {Payment} from "../../core/domain/entities/payment";
 
 export class PaymentRequest implements Payment {
     @Length(2, 100, {message: 'QrCode should be between 2 and 100 characters'})

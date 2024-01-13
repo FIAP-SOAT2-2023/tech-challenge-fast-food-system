@@ -2,11 +2,12 @@
   "name": "fastfood",
   "version": "1.0.0",
   "description": "Projeto da Pós Graduação da FIAP - Arquitetura de Software",
-  "main": "program.ts",
+  "main": "src/program.ts",
   "scripts": {
-    "start": "ts-node --project tsconfig.json program.ts",
-    "dev": "nodemon -r dotenv/config program.ts dotenv_config_path=.env",
-    "test": "NODE_ENV=test jest --passWithNoTests --runInBand"
+    "start": "ts-node --project tsconfig.json src/program.ts",
+    "dev": "nodemon -r dotenv/config src/program.ts dotenv_config_path=.env",
+    "test": "NODE_ENV=test jest --passWithNoTests --runInBand",
+    "build": "tsc"
   },
   "keywords": [],
   "author": "",
@@ -26,6 +27,7 @@
     "mysql8": "^2.17.3",
     "reflect-metadata": "^0.1.13",
     "sequelize": "^6.32.0",
+    "start": "^5.1.0",
     "swagger-jsdoc": "^6.2.8",
     "swagger-ui-express": "^4.6.3",
     "ts-jest": "^29.1.1",

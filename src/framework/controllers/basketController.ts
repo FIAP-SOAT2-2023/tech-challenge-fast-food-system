@@ -1,8 +1,8 @@
 import { Request, Response } from "express";
 import { BasketRequest } from "../request/basketRequest";
-import { ValidationUtil } from "framework/validation/validateRequest";
-import { BasketUseCase } from "core/applications/usecases/basketUseCase";
-import { Basket } from "core/domain/entities/basket";
+import {BasketUseCase} from "../../core/applications/usecases/basketUseCase";
+import {ValidationUtil} from "../validation/validateRequest";
+import {Basket} from "../../core/domain/entities/basket";
 
 export class BasketController {
   constructor(private readonly basketUseCase: BasketUseCase) {}

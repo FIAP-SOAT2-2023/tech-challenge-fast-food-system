@@ -1,10 +1,9 @@
 import express, { Request, Response } from "express";
-import { Address } from "core/domain/entities/address";
-import { ValidationUtil } from "framework/validation/validateRequest";
-import { CustomerUseCase } from "core/applications/usecases/customerUseCase";
-import { AddressUseCase } from "core/applications/usecases/addressUseCase";
-import { CustomerRequest } from "framework/request/customerRequest";
-
+import {CustomerUseCase} from "../../core/applications/usecases/customerUseCase";
+import {AddressUseCase} from "../../core/applications/usecases/addressUseCase";
+import {ValidationUtil} from "../validation/validateRequest";
+import {CustomerRequest} from "../request/customerRequest";
+import {Address} from "../../core/domain/entities/address";
 export class CustomerController {
   constructor(
     private readonly customerUseCase: CustomerUseCase,

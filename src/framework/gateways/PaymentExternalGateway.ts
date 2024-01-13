@@ -1,6 +1,6 @@
-import { Basket } from 'core/domain/entities/basket';
+
 import { IMercadoPagoProvider } from '../../infra/providers/mercadopago/MercadoPagoProvider';
-import { Order } from "core/domain/entities/order";
+import {Order} from "../../core/domain/entities/order";
 
 export interface IPaymentExternalGateway {
 
