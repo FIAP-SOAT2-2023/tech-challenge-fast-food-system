@@ -1,7 +1,7 @@
 import { injectable } from 'tsyringe';
-import { Address } from 'core/domain/entities/address';
-import AddressModel from 'infra/persistence/models/addressModel';
-import { IAddressRepository } from 'core/domain/repositories/addressRepository';
+import {IAddressRepository} from "../../../core/domain/repositories/addressRepository";
+import {Address} from "../../../core/domain/entities/address";
+import AddressModel from "../models/addressModel";
 
 @injectable()
 export class AddressRepository implements IAddressRepository {

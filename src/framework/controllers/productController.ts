@@ -1,7 +1,7 @@
-import { ProductUseCase } from "core/applications/usecases/productUseCase";
 import { Request, Response } from "express";
-import { ProductRequest } from "framework/request/productRequest";
-import { ValidationUtil } from "framework/validation/validateRequest";
+import {ValidationUtil} from "../validation/validateRequest";
+import {ProductRequest} from "../request/productRequest";
+import {ProductUseCase} from "../../core/applications/usecases/productUseCase";
 
 export class ProductController {
 

@@ -1,8 +1,9 @@
-import CustomerModel from "infra/persistence/models/customerModel";
+
 import { injectable } from "tsyringe";
-import { CustomerMap } from "framework/mapper/customerMap";
-import { ICustomerRepository } from "core/domain/repositories/customerRepository";
-import { Customer, isValidCPF } from "core/domain/entities/customer";
+import {ICustomerRepository} from "../../../core/domain/repositories/customerRepository";
+import {Customer, isValidCPF} from "../../../core/domain/entities/customer";
+import {CustomerMap} from "../../../framework/mapper/customerMap";
+import CustomerModel from "../models/customerModel";
 
 @injectable()
 export class CustomerRepository implements ICustomerRepository {

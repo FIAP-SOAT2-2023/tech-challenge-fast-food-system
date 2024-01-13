@@ -1,7 +1,6 @@
-
-import { Product } from 'core/domain/entities/product';
-import { IProductRepository } from 'core/domain/repositories/productRepository';
-import { IProductUseCase } from 'core/domain/usecases/IProductUseCase';
+import {IProductUseCase} from "../../domain/usecases/IProductUseCase";
+import {IProductRepository} from "../../domain/repositories/productRepository";
+import {Product} from "../../domain/entities/product";
 
 export class ProductUseCase implements IProductUseCase {
   constructor(private readonly productRepository: IProductRepository) {}

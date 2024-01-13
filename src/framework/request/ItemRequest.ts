@@ -4,7 +4,7 @@ import {
   Max, MaxLength,
   IsNotEmpty
 } from 'class-validator';
-import { Item } from 'core/domain/entities/item';
+import {Item} from "../../core/domain/entities/item";
 
 export class ItemRequest implements Item {
 

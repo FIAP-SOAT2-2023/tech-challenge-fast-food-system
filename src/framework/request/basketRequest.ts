@@ -7,8 +7,8 @@ import {
 import {ItemRequest} from "./ItemRequest";
 import {PaymentRequest} from "./paymentRequest";
 import {CustomerRequest} from "./customerRequest";
-import { Order } from 'core/domain/entities/order';
-import { Basket } from 'core/domain/entities/basket';
+import {Basket} from "../../core/domain/entities/basket";
+import {Order} from "../../core/domain/entities/order";
 
 export class BasketRequest implements Basket {
 

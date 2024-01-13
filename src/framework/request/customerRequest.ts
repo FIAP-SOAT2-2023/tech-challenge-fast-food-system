@@ -16,7 +16,7 @@ import {
   isValidationOptions,
   max,
 } from "class-validator";
-import { Customer } from "core/domain/entities/customer";
+import {Customer} from "../../core/domain/entities/customer";
 
 export class CustomerRequest implements Customer {
   @Length(2, 50, {

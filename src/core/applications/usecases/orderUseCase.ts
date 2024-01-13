@@ -1,7 +1,6 @@
-
-import { Order } from 'core/domain/entities/order';
-import { IOrderRepository } from 'core/domain/repositories/orderRepository';
-import { IOrderUseCase } from 'core/domain/usecases/IOrderUseCase';
+import {IOrderUseCase} from "../../domain/usecases/IOrderUseCase";
+import {IOrderRepository} from "../../domain/repositories/orderRepository";
+import {Order} from "../../domain/entities/order";
 
 export class OrderUseCase implements IOrderUseCase {
     constructor(private readonly orderRepository: IOrderRepository) {}

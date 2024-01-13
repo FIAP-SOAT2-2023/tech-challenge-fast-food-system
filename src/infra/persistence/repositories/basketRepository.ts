@@ -1,10 +1,10 @@
-import ItemModel from "infra/persistence/models/itemModel";
-import BasketModel from "infra/persistence/models/basketsModel";
-import ProductModel from "infra/persistence/models/productModel";
-import CustomerModel from "infra/persistence/models/customerModel";
+import ItemModel from "../models/itemModel";
+import BasketModel from "../models/basketsModel";
+import ProductModel from "../models/productModel";
+import CustomerModel from "../models/customerModel";
 import {v4 as uuidv4} from 'uuid';
-import { Basket } from "core/domain/entities/basket";
-import { IBasketRepository } from "core/domain/repositories/basketRepository";
+import {Basket} from "../../../core/domain/entities/basket";
+import {IBasketRepository} from "../../../core/domain/repositories/basketRepository";
 
 export class BasketRepository implements IBasketRepository {
 

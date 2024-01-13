@@ -1,14 +1,14 @@
 
 import { Op, Sequelize } from "sequelize";
-import OrderModel from "infra/persistence/models/orderModel";
-import BasketModel from "infra/persistence/models/basketsModel";
-import PaymentModel from "infra/persistence/models/paymentModel";
-import BasketsModel from "infra/persistence/models/basketsModel";
-import ItemModel from "infra/persistence/models/itemModel";
-import { Order } from "core/domain/entities/order";
-import { IOrderRepository } from "core/domain/repositories/orderRepository";
 import OrderStatusModel from "../models/orderStatusModel";
-import OrderStatusKey from "framework/enum/orderStatus";
+import OrderStatusKey from "../../../framework/enum/orderStatus";
+import {IOrderRepository} from "../../../core/domain/repositories/orderRepository";
+import BasketModel from "../models/basketsModel";
+import PaymentModel from "../models/paymentModel";
+import OrderModel from "../models/orderModel";
+import BasketsModel from "../models/basketsModel";
+import ItemModel from "../models/itemModel";
+import {Order} from "../../../core/domain/entities/order";
 
 export class OrderRepository implements IOrderRepository {
 
