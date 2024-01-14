@@ -3,9 +3,8 @@ import { ICustomerRepository } from "core/domain/repositories/customerRepository
 import { ICustomerUseCase } from "core/domain/usecases/ICustomerUseCase";
 
 export class CustomerUseCase implements ICustomerUseCase {
-
   constructor(private readonly customerRepository: ICustomerRepository) {}
-  
+
   getCustomerByDocument(document: string): Promise<Customer> {
     return this.customerRepository.getCustomerByDocument(document);
   }
@@ -14,7 +13,7 @@ export class CustomerUseCase implements ICustomerUseCase {
     return this.customerRepository.getCustomerByEmail(mail);
   }
 
-  addCustomer(body: Customer): Promise<Customer> {
+  async addCustomer(body: Customer): Promise<Customer> {
     return this.customerRepository.addCustomer(body);
   }
 }
